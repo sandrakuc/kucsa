@@ -1,13 +1,12 @@
 <aura:component description="KEC_divisionDetails" implements="flexipage:availableForAllPageTypes">
-    <aura:attribute name="account" type="Account"/>
+    <aura:attribute name="account" type="Account" access="public"/>
     <aura:attribute name="divisionId" type="Id" access="public"/>
-    <aura:attribute name="displayDetails" type="Aura.Action" access="public"/>
-    <aura:attribute name="editIsOpen" type="boolean" default="false"/>
-    <aura:attribute name="deleteIsOpen" type="boolean"/>
-    <aura:attribute name="operationSuccess" type="boolean" default="false"/>
-    <aura:attribute name="operationFailed" type="boolean" default="false"/>
+    <aura:attribute name="deleteIsOpen" type="boolean" access="public"/>
+    <aura:attribute name="editIsOpen" type="boolean" default="false" access="public"/>
+    <aura:attribute name="operationSuccess" type="boolean" default="false" access="public"/>
+    <aura:attribute name="operationFailed" type="boolean" default="false" access="public"/>
     <aura:attribute name="deleteRecord" type="Aura.Action" access="public"/>
-    <aura:attribute name="recordError" type="String" access="private"/>
+    <aura:attribute name="displayDetails" type="Aura.Action" access="public"/>
 
     <aura:registerEvent name="resultListChange" type="c:KEC_resultListChange"/>
 

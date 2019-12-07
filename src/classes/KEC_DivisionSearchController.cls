@@ -1,6 +1,4 @@
-/**
- * Created by BRITENET on 02.12.2019.
- */
+
 public with sharing class KEC_DivisionSearchController {
 
     private static String getQuery(String name, String city, String country){
