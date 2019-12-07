@@ -1,0 +1,19 @@
+/**
+ * Created by BRITENET on 04.12.2019.
+ */
+.THIS .buttons-div{
+    float: right;
+    margin-bottom: 20px;
+}
+
+.THIS .slds-box{
+    margin-top: 25px;
+}
+
+.THIS .slds-modal__close_my{
+        width: var(--lwc-squareIconMediumBoundary,2rem);
+        height: var(--lwc-squareIconMediumBoundary,2rem);
+        position: absolute;
+        top: 0rem;
+        right: -.5rem;
+}

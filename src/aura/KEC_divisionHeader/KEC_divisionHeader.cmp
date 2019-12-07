@@ -1,0 +1,104 @@
+<aura:component description="KEC_divisionHeader" controller="KEC_DivisionSearchController"
+                implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="newIsOpen" type="boolean" default="false"/>
+    <aura:attribute name="operationSuccess" type="boolean" default="false"/>
+
+    <aura:registerEvent name="resultListChange" type="c:KEC_resultListChange"/>
+
+    <div class="slds-scope">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate"
+                                              title="{!$Label.c.KEC_DivisionsHeader}">{!$Label.c.KEC_DivisionsHeader}</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                                <li>
+                                    <lightning:button label="{!$Label.c.KEC_New}" onclick="{!c.openNewModal}"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aura:if isTrue="{!v.newIsOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeNewModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2>{!$Label.c.KEC_NewDivision}</h2>
+                </header>
+                <lightning:recordEditForm objectApiName="Account" onsuccess="{!c.handleNewSuccess}">
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                        <lightning:messages/>
+                        <div class="slds-box">
+                            <lightning:inputField fieldName="Name"/>
+                            <lightning:inputField fieldName="ShippingStreet"/>
+                            <lightning:inputField fieldName="ShippingCity"/>
+                            <lightning:inputField fieldName="ShippingPostalCode"/>
+                            <lightning:inputField fieldName="ShippingState"/>
+                            <lightning:inputField fieldName="ShippingCountry"/>
+                        </div>
+
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="{!$Label.c.KEC_Save}" type="submit"/>
+                        <lightning:button label="{!$Label.c.KEC_Cancel}" onclick="{!c.closeNewModal}"/>
+                    </footer>
+                </lightning:recordEditForm>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.operationSuccess}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="demo-only" style="height:4rem">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                        <span class="slds-assistive-text">success</span>
+                        <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                              title="Description of icon when needed">
+                            <lightning:icon iconName="utility:success" variant="success"/>
+                    </span>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">{!$Label.c.KEC_OperationSuccess}</h2>
+                        </div>
+                        <div class="slds-notify__close">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                  onclick="{! c.closeToast }"
+                                                  alternativeText="{!$Label.c.KEC_Close}"
+                                                  variant="bare-inverse"
+                                                  class="slds-modal__close_my"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </aura:if>
+</aura:component>

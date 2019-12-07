@@ -1,0 +1,144 @@
+<aura:component description="KEC_divisionDetails" implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="account" type="Account"/>
+    <aura:attribute name="divisionId" type="Id" access="public"/>
+    <aura:attribute name="displayDetails" type="Aura.Action" access="public"/>
+    <aura:attribute name="editIsOpen" type="boolean" default="false"/>
+    <aura:attribute name="deleteIsOpen" type="boolean"/>
+    <aura:attribute name="operationSuccess" type="boolean" default="false"/>
+    <aura:attribute name="operationFailed" type="boolean" default="false"/>
+    <aura:attribute name="deleteRecord" type="Aura.Action" access="public"/>
+    <aura:attribute name="recordError" type="String" access="private"/>
+
+    <aura:registerEvent name="resultListChange" type="c:KEC_resultListChange"/>
+
+    <h2>{!$Label.c.KEC_Details}
+        <div class="buttons-div">
+            <lightning:button label="{!$Label.c.KEC_Edit}" onclick="{!c.openEditModal }"/>
+            <lightning:button label="{!$Label.c.KEC_Delete}" onclick="{!c.openDeleteModal}"/>
+        </div>
+    </h2>
+    <aura:if isTrue="{!v.account != null}">
+    <lightning:recordViewForm recordId="{!v.account.Id}" objectApiName="Account">
+        <div class="slds-box">
+            <lightning:outputField fieldName="Name"/>
+            <lightning:outputField fieldName="ShippingStreet"/>
+            <lightning:outputField fieldName="ShippingCity"/>
+            <lightning:outputField fieldName="ShippingPostalCode"/>
+        </div>
+    </lightning:recordViewForm>
+    </aura:if>
+
+    <aura:if isTrue="{!v.editIsOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeEditModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2>{!$Label.c.KEC_EditDivision}</h2>
+                </header>
+                <lightning:recordEditForm recordId="{!v.account.Id}" objectApiName="Account"
+                                          onsuccess="{!c.handleEditSuccess}">
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                        <lightning:messages/>
+                        <div class="slds-box">
+                            <lightning:inputField fieldName="Name"/>
+                            <lightning:inputField fieldName="ShippingStreet"/>
+                            <lightning:inputField fieldName="ShippingCity"/>
+                            <lightning:inputField fieldName="ShippingPostalCode"/>
+                            <lightning:inputField fieldName="ShippingState"/>
+                            <lightning:inputField fieldName="ShippingCountry"/>
+                        </div>
+
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="{!$Label.c.KEC_Save}" type="submit"/>
+                        <lightning:button label="{!$Label.c.KEC_Cancel}" onclick="{!c.closeEditModal}"/>
+                    </footer>
+                </lightning:recordEditForm>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.deleteIsOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeDeleteModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2>{!$Label.c.KEC_DeleteDivision}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <center><p>{!$Label.c.KEC_DeleteDivisionConfirm}</p></center>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="{!$Label.c.KEC_Yes}" onclick="{!v.deleteRecord}"/>
+                    <lightning:button label="{!$Label.c.KEC_No}" onclick="{!c.closeDeleteModal}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+    <aura:if isTrue="{!v.operationSuccess}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="demo-only" style="height:4rem">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                        <span class="slds-assistive-text">success</span>
+                        <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                                title="Description of icon when needed">
+                                <lightning:icon iconName="utility:success" variant="success"/>
+                        </span>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">{!$Label.c.KEC_OperationSuccess}</h2>
+                        </div>
+                        <div class="slds-notify__close">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                  onclick="{! c.closeToast }"
+                                                  alternativeText="{!$Label.c.KEC_Close}"
+                                                  variant="bare-inverse"
+                                                  class="slds-modal__close_my"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </aura:if>
+
+    <aura:if isTrue="{!v.operationFailed}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="demo-only" style="height:4rem">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                        <span class="slds-assistive-text">error</span>
+                        <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                            <lightning:icon iconName="utility:error" variant="error"/>
+                          </span>
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small ">{!$Label.c.KEC_OperationFailed}</h2>
+                        </div>
+                        <div class="slds-notify__close">
+                            <lightning:buttonIcon iconName="utility:close"
+                                                  onclick="{! c.closeErrorToast }"
+                                                  alternativeText="{!$Label.c.KEC_Close}"
+                                                  variant="bare-inverse"
+                                                  class="slds-modal__close_my"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </aura:if>
+</aura:component>

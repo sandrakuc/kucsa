@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="KEC_resultListChange">
+    <aura:attribute name="changeFlag" type="Boolean"/>
+</aura:event>
