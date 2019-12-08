@@ -9,9 +9,6 @@
     openDeleteModal: function(component, event, helper) {
          helper.openDelete(component);
     },
-    closeDeleteModal: function(component, event, helper) {
-         helper.closeDelete(component);
-    },
     handleEditSuccess: function(component, event, helper) {
         helper.closeEdit(component);
         component.set("v.operationSuccess", true);
