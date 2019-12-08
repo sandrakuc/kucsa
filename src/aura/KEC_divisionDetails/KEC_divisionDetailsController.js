@@ -18,8 +18,5 @@
         var compEvent = component.getEvent("resultListChange");
         compEvent.setParams({"changeFlag" : true });
         compEvent.fire();
-    },
-    closeErrorToast: function(component, event, helper){
-        component.set("v.operationFailed", false);
     }
 })
