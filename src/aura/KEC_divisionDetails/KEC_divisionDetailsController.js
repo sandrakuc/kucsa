@@ -19,9 +19,6 @@
         compEvent.setParams({"changeFlag" : true });
         compEvent.fire();
     },
-    closeToast: function(component, event, helper) {
-        component.set("v.operationSuccess", false);
-    },
     closeErrorToast: function(component, event, helper){
         component.set("v.operationFailed", false);
     }
