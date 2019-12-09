@@ -19,11 +19,4 @@ public with sharing class KEC_DivisionSearchController {
         return result.isSuccess();
     }
 
-    @AuraEnabled
-    public static Boolean upsertDivision(String id, String name, String shippingCountry, String shippingCity, String shippingStreet, String shippingPostalCode, String shippingState){
-        Account account = new Account(Id=id, Name = name, ShippingCountry = shippingCountry, ShippingCity = shippingCity, ShippingStreet = shippingStreet, ShippingPostalCode = shippingPostalCode, ShippingState = shippingState);
-        Database.UpsertResult result = Database.upsert(account);
-        return result.isSuccess();
-    }
-
 }

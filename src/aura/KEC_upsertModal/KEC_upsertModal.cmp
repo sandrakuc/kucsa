@@ -1,0 +1,45 @@
+<aura:component description="KEC_upsertModal">
+    <aura:attribute name="editIsOpen" type="boolean" default="false" access="public"/>
+    <aura:attribute name="operationSuccess" type="boolean" default="false" access="public"/>
+    <aura:attribute name="label" type="String" access="public" />
+    <aura:attribute name="account" type="Account" access="public"/>
+
+    <aura:registerEvent name="resultListChange" type="c:KEC_resultListChange"/>
+
+    <aura:if isTrue="{!v.editIsOpen}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeEditModal }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2>{!v.label}</h2>
+                </header>
+                <lightning:recordEditForm recordId="{!v.account.Id}" objectApiName="Account" onsuccess="{!c.handleEditSuccess}">
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                        <lightning:messages/>
+                        <div class="slds-box">
+                            <lightning:inputField fieldName="Name"/>
+                            <lightning:inputField fieldName="ShippingStreet"/>
+                            <lightning:inputField fieldName="ShippingCity"/>
+                            <lightning:inputField fieldName="ShippingPostalCode"/>
+                            <lightning:inputField fieldName="ShippingState"/>
+                            <lightning:inputField fieldName="ShippingCountry"/>
+                        </div>
+
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button label="{!$Label.c.KEC_Save}" type="submit"/>
+                        <lightning:button label="{!$Label.c.KEC_Cancel}" onclick="{!c.closeEditModal}"/>
+                    </footer>
+                </lightning:recordEditForm>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+</aura:component>
