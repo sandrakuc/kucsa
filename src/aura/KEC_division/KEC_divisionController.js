@@ -11,22 +11,14 @@
         component.set('v.searchItemCountry', '');
         component.set('v.searchItemCity', '');
     },
-    setSelectedRecord: function(component, event, handler){
-        let index = component.get("v.index"),
-            listResult = component.get("v.resultList");
-        component.set("v.selectedRecord", listResult[index]);
-        let detail = [];
-        detail.push(listResult[index]);
-        component.set("v.mapPointers", detail);
+    setSelectedRecord: function(component, event, helper){
+        helper.selectRecord(component, event, helper);
     },
     deleteRecord: function(component, event, helper){
         helper.onDelete(component, event, helper);
     },
     handleComponentEvent: function(component, event, helper){
-        let changeFlag = event.getParam("changeFlag");
-        if(changeFlag){
-            helper.search(component);
-        }
+        helper.handleEvent(component, event, helper);
     }
 
 })
