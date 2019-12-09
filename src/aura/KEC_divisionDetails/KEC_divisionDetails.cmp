@@ -6,7 +6,6 @@
     <aura:attribute name="operationSuccess" type="boolean" default="false" access="public"/>
     <aura:attribute name="operationFailed" type="boolean" default="false" access="public"/>
     <aura:attribute name="deleteRecord" type="Aura.Action" access="public"/>
-    <aura:attribute name="displayDetails" type="Aura.Action" access="public"/>
 
     <aura:registerEvent name="resultListChange" type="c:KEC_resultListChange"/>
 
