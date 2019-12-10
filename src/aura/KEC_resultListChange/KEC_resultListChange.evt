@@ -1,3 +1,11 @@
 <aura:event type="COMPONENT" description="KEC_resultListChange">
     <aura:attribute name="changeFlag" type="Boolean"/>
+    <aura:attribute name="isNew" type="Boolean"/>
+    <aura:attribute name="newAccountId" type="String"/>
+    <aura:attribute name="newAccountName" type="String"/>
+    <aura:attribute name="newAccountStreet" type="String"/>
+    <aura:attribute name="newAccountCity" type="String"/>
+    <aura:attribute name="newAccountCountry" type="String"/>
+    <aura:attribute name="newAccountPostalCode" type="String"/>
+    <aura:attribute name="newAccountState" type="String"/>
 </aura:event>

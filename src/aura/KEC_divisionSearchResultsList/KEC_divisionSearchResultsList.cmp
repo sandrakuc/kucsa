@@ -3,6 +3,9 @@
     <aura:attribute name="divisionId" type="Id" access="public"/>
     <aura:attribute name="displayDetails" type="Aura.Action" access="public"/>
     <aura:attribute name="index" type="Integer" access="public"/>
+    <aura:attribute name="selectedRecord" type="Account" access="public"/>
+
+    <aura:handler name="change" value="{!v.divisionId}" action="{!c.getState}" />
 
     <h2>{!$Label.c.KEC_Results}</h2>
     <div aura:id="main">

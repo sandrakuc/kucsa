@@ -2,7 +2,15 @@
     <aura:attribute name="editIsOpen" type="boolean" default="false" access="public"/>
     <aura:attribute name="operationSuccess" type="boolean" default="false" access="public"/>
     <aura:attribute name="label" type="String" access="public" />
+    <aura:attribute name="isNew" type="Boolean" access="public" />
     <aura:attribute name="account" type="Account" access="public"/>
+    <aura:attribute name="newAccountId" type="String"/>
+    <aura:attribute name="newAccountName" type="String"/>
+    <aura:attribute name="newAccountStreet" type="String"/>
+    <aura:attribute name="newAccountCity" type="String"/>
+    <aura:attribute name="newAccountCountry" type="String"/>
+    <aura:attribute name="newAccountPostalCode" type="String"/>
+    <aura:attribute name="newAccountState" type="String"/>
 
     <aura:registerEvent name="resultListChange" type="c:KEC_resultListChange"/>
 
@@ -18,7 +26,9 @@
                                           class="slds-modal__close"/>
                     <h2>{!v.label}</h2>
                 </header>
-                <lightning:recordEditForm recordId="{!v.account.Id}" objectApiName="Account" onsuccess="{!c.handleEditSuccess}">
+                <lightning:recordEditForm recordId="{!v.account.Id}" objectApiName="Account"
+                                          onsubmit="{!c.handleEditSubmit}"
+                                          onsuccess="{!c.handleEditSuccess}">
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
 
                         <lightning:messages/>

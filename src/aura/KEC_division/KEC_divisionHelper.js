@@ -51,7 +51,31 @@
         handleEvent: function(component, event, helper){
             let changeFlag = event.getParam("changeFlag");
             if(changeFlag){
-                 helper.search(component);
+                if(event.getParam("isNew")){
+                    component.set("v.selectedRecord", null);
+                    this.search(component);
+                }else{
+                    var resultList = component.get("v.resultList");
+                    for(let i = 0; i<resultList.length; i++){
+                        if(resultList[i].Id == event.getParam("newAccountId")){
+                            resultList[i].Id = event.getParam("newAccountId");
+                            resultList[i].Name = event.getParam("newAccountName");
+                            resultList[i].ShippingStreet = event.getParam("newAccountStreet");
+                            resultList[i].ShippingCity = event.getParam("newAccountCity");
+                            resultList[i].ShippingCountry = event.getParam("newAccountCountry");
+                            resultList[i].ShippingState = event.getParam("newAccountState");
+                            resultList[i].ShippingPostalCode = event.getParam("newAccountPostalCode");
+                            component.set("v.resultList", resultList);
+                        }
+                    }
+                }
+                 if(event.getParam("newAccountId") != null){
+                     component.set("v.divisionId", event.getParam("newAccountId"));
+                     let selected = component.get("v.selectedRecord");
+                     let detail = [];
+                     detail.push(selected);
+                     component.set("v.mapPointers", detail);
+                 }
             }
         },
         selectRecord: function(component, event, helper){

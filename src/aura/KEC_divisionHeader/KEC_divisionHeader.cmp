@@ -39,6 +39,6 @@
         </div>
     </div>
 
-    <c:KEC_upsertModal label="{!$Label.c.KEC_NewDivision}" editIsOpen="{!v.newIsOpen}" operationSuccess="{!v.operationSuccess}"/>
+    <c:KEC_upsertModal label="{!$Label.c.KEC_NewDivision}" editIsOpen="{!v.newIsOpen}" operationSuccess="{!v.operationSuccess}" isNew="true"/>
     <c:KEC_successToast operationSuccess="{!v.operationSuccess}" />
 </aura:component>

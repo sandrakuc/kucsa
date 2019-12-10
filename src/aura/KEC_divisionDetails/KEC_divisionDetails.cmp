@@ -26,7 +26,7 @@
     </lightning:recordViewForm>
     </aura:if>
 
-    <c:KEC_upsertModal label="{!$Label.c.KEC_EditDivision}" editIsOpen="{!v.editIsOpen}" operationSuccess="{!v.operationSuccess}" account="{!v.account}"/>
+    <c:KEC_upsertModal label="{!$Label.c.KEC_EditDivision}" editIsOpen="{!v.editIsOpen}" operationSuccess="{!v.operationSuccess}" account="{!v.account}" isNew="false"/>
     <c:KEC_deleteModal deleteRecord="{!v.deleteRecord}" deleteIsOpen="{!v.deleteIsOpen}" />
     <c:KEC_successToast operationSuccess="{!v.operationSuccess}" />
     <c:KEC_errorToast operationFailed="{!v.operationFailed}" />
