@@ -7,14 +7,14 @@
         component.set("v.operationSuccess", true);
         var compEvent = component.getEvent("resultListChange");
         compEvent.setParams({"changeFlag" : true ,
-        "newAccountId" : component.get("v.newAccountId"),
-        "newAccountName" : component.get("v.newAccountName"),
-        "newAccountStreet" : component.get("v.newAccountStreet"),
-        "newAccountCity" : component.get("v.newAccountCity"),
-        "newAccountPostalCode" : component.get("v.newAccountPostalCode"),
-        "newAccountState" : component.get("v.newAccountState"),
-        "newAccountCountry" : component.get("v.newAccountCountry"),
-        isNew : component.get("v.isNew")});
+            "newAccountId" : component.get("v.newAccountId"),
+            "newAccountName" : component.get("v.newAccountName"),
+            "newAccountStreet" : component.get("v.newAccountStreet"),
+            "newAccountCity" : component.get("v.newAccountCity"),
+            "newAccountPostalCode" : component.get("v.newAccountPostalCode"),
+            "newAccountState" : component.get("v.newAccountState"),
+            "newAccountCountry" : component.get("v.newAccountCountry"),
+            isNew : component.get("v.isNew")});
         compEvent.fire();
     },
     handleSubmit: function(component, event, helper){

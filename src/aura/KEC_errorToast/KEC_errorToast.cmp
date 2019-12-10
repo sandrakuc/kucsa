@@ -10,7 +10,7 @@
                         <span class="slds-assistive-text">error</span>
                         <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
                             <lightning:icon iconName="utility:error" variant="error"/>
-                          </span>
+                        </span>
                         <div class="slds-notify__content">
                             <h2 class="slds-text-heading_small ">{!$Label.c.KEC_OperationFailed}</h2>
                         </div>

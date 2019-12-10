@@ -16,14 +16,14 @@
         </div>
     </h2>
     <aura:if isTrue="{!v.account != null}">
-    <lightning:recordViewForm recordId="{!v.account.Id}" objectApiName="Account">
-        <div class="slds-box">
-            <lightning:outputField fieldName="Name"/>
-            <lightning:outputField fieldName="ShippingStreet"/>
-            <lightning:outputField fieldName="ShippingCity"/>
-            <lightning:outputField fieldName="ShippingPostalCode"/>
-        </div>
-    </lightning:recordViewForm>
+        <lightning:recordViewForm recordId="{!v.account.Id}" objectApiName="Account">
+            <div class="slds-box">
+                <lightning:outputField fieldName="Name"/>
+                <lightning:outputField fieldName="ShippingStreet"/>
+                <lightning:outputField fieldName="ShippingCity"/>
+                <lightning:outputField fieldName="ShippingPostalCode"/>
+            </div>
+        </lightning:recordViewForm>
     </aura:if>
 
     <c:KEC_upsertModal label="{!$Label.c.KEC_EditDivision}" editIsOpen="{!v.editIsOpen}" operationSuccess="{!v.operationSuccess}" account="{!v.account}" isNew="false"/>

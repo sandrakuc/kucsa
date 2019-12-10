@@ -1,8 +1,8 @@
 
 .THIS .slds-modal__close_my{
-        width: var(--lwc-squareIconMediumBoundary,2rem);
-        height: var(--lwc-squareIconMediumBoundary,2rem);
-        position: absolute;
-        top: 0rem;
-        right: -.5rem;
+     width: var(--lwc-squareIconMediumBoundary,2rem);
+     height: var(--lwc-squareIconMediumBoundary,2rem);
+     position: absolute;
+     top: 0rem;
+     right: -.5rem;
 }
