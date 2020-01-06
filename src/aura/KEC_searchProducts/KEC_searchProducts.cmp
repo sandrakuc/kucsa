@@ -1,0 +1,15 @@
+<aura:component description="KEC_searchProducts" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="productName" type="String" />
+    <aura:attribute name="searchProduct" type="Aura.Action" />
+
+    <div class="slds-card">
+    <div class="topnav">
+        <div class="search-container">
+            <form>
+                <input type="text" placeholder="Search..." name="search" value="{!v.productName}" />
+                <lightning:buttonIcon iconName="utility:search" onclick="{!v.searchProduct}" class="mybtn"/>
+            </form>
+        </div>
+    </div>
+    </div>
+</aura:component>
