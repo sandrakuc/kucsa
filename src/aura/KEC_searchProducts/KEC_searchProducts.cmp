@@ -1,4 +1,4 @@
-<aura:component description="KEC_searchProducts" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes" access="global">
+<aura:component description="KEC_searchProducts" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
     <aura:attribute name="productName" type="String" />
     <aura:attribute name="searchProduct" type="Aura.Action" />
 

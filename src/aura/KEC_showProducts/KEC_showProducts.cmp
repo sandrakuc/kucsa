@@ -3,7 +3,7 @@
  -->
 
 <aura:component description="KEC_showProducts"
-                implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes">
+                implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
     <aura:attribute name="resultList" type="List"/>
 
     <div class="slds-card">

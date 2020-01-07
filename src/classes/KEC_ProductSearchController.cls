@@ -2,7 +2,7 @@
  * Created by BRITENET on 06.01.2020.
  */
 
-public with sharing class KEC_ProductSearchController {
+public without sharing class KEC_ProductSearchController {
     @AuraEnabled
     public static List<PricebookEntry> searchProducts(String name){
         name = '%' + name + '%';
