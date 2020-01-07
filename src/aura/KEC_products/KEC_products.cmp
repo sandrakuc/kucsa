@@ -19,9 +19,7 @@
                     <c:KEC_searchProducts productName="{!v.productName}" searchProduct="{!c.onSearch}"/>
                 </div>
             </lightning:layoutItem>
-        </lightning:layout>
 
-        <lightning:layout horizontalAlign="space" multipleRows="true">
             <lightning:layoutItem size="12"
                                   mediumDeviceSize="12"
                                   padding="around-small">

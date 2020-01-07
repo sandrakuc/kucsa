@@ -17,9 +17,9 @@
                             <img src="{!result.Product2.ImgPath__c}" width="250" height="500"/>
                             <div class="description">
                                 <center>
-                    <span class="productName">
-                            {!result.Name}
-                    </span><br/>
+                                    <span class="productName">
+                                            {!result.Name}
+                                    </span><br/>
                                     <span class="productPrice">
                                             {!result.UnitPrice + $Label.c.KEC_PricePostfix}
                                     </span><br/>

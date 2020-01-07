@@ -5,8 +5,6 @@
     <aura:attribute name="selectedSizes" type="List" />
     <aura:attribute name="colorsOptions" type="List" />
     <aura:attribute name="sizesOptions" type="List" />
-    <aura:attribute name="colors" type="List" />
-    <aura:attribute name="sizes" type="List" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
 
