@@ -21,7 +21,7 @@
                             {!result.Name}
                     </span><br/>
                                     <span class="productPrice">
-                                            {!result.UnitPrice + ' ' + $Label.c.KEC_PricePostfix}
+                                            {!result.UnitPrice + $Label.c.KEC_PricePostfix}
                                     </span><br/>
                                 </center>
                             </div>

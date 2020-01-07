@@ -8,6 +8,8 @@
     <aura:attribute name="productName" type="String"/>
     <aura:attribute name="resultList" type="List"/>
 
+    <aura:handler event="c:KEC_filterApplied" action="{!c.onFilter}" />
+
     <div class="slds-card">
         <lightning:layout horizontalAlign="space" multipleRows="true">
             <lightning:layoutItem size="12"
