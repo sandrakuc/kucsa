@@ -2,18 +2,31 @@
  - Created by BRITENET on 04.01.2020.
  -->
 
-<aura:component description="KEC_products" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
-    <aura:attribute name="productName" type="String" />
+<aura:component description="KEC_products"
+                implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable"
+                controller="KEC_ProductSearchController">
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="resultList" type="List"/>
 
     <div class="slds-card">
-    <lightning:layout horizontalAlign="space" multipleRows="true">
-        <lightning:layoutItem size="12"
-                              mediumDeviceSize="12"
-                              padding="around-small">
-            <div>
-                <c:KEC_searchProducts productName="{!v.productName}"/>
-            </div>
-        </lightning:layoutItem>
-    </lightning:layout>
+        <lightning:layout horizontalAlign="space" multipleRows="true">
+            <lightning:layoutItem size="12"
+                                  mediumDeviceSize="12"
+                                  padding="around-small">
+                <div>
+                    <c:KEC_searchProducts productName="{!v.productName}" searchProduct="{!c.onSearch}"/>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+
+        <lightning:layout horizontalAlign="space" multipleRows="true">
+            <lightning:layoutItem size="12"
+                                  mediumDeviceSize="12"
+                                  padding="around-small">
+                <div>
+                    <c:KEC_showProducts resultList="{!v.resultList}"/>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
     </div>
 </aura:component>

@@ -10,18 +10,30 @@
     height: 50px;
 }
 
-.THIS .topnav input{
+.THIS .myinpt{
+      margin-top: 2px;
       padding: 6px;
-      margin-top: 8px;
       font-size: 17px;
       border: none;
-      width: 700px;
+      width: 710px;
       margin-left: 10px;
 }
 
 .THIS .mybtn{
-    margin-top: -4px;
     background-color: lightgrey;
+    border-radius: 0px;
+    margin-left: -25px;
+    margin-top: 1px;
+}
+
+.THIS .slds-form-element__control .slds-grow {
+    border: none;
+    width: 700px;
     border-radius: 0px;
 }
 
+.THIS .slds-input {
+    border: none;
+    width: 680px;
+    border-radius: 0px;
+}

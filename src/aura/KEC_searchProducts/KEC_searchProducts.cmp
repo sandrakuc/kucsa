@@ -5,8 +5,8 @@
     <div class="slds-card">
     <div class="topnav">
         <div class="search-container">
-            <form>
-                <input type="text" placeholder="Search..." name="search" value="{!v.productName}" />
+            <form class="slds-form--inline">
+                <lightning:input class="myinpt" type="text" placeholder="{!$Label.c.KEC_SearchInput}" name="search" value="{!v.productName}" />
                 <lightning:buttonIcon iconName="utility:search" onclick="{!v.searchProduct}" class="mybtn"/>
             </form>
         </div>
