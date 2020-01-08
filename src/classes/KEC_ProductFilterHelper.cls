@@ -4,44 +4,40 @@
 
 public with sharing class KEC_ProductFilterHelper {
 
-    private static Boolean checkColorIn(List<String> productColors, List<String> selectedColors){
-        for(String color : productColors){
-            if(selectedColors.contains(color)){
-                return true;
+    public static String generateFilterQuery(String name, Double maxPrice, List<String> colors, List<String> sizes){
+        String query = 'SELECT PriceBook2.Name, Product2.Id, Product2.ImgPath__c, Product2.AvailableColors__c, Product2.AvailableSizes__c, Product2.Name, UnitPrice, Name FROM PricebookEntry WHERE  PriceBook2.Name = \'Kucsa Price Book\' AND Product2.Name LIKE \'' + name + '\'';
+        if(maxPrice != null){
+            query += ' AND UnitPrice <= ' + maxPrice;
+        }
+        if(!colors.isEmpty()){
+            query += ' AND ';
+            for(Integer i = 0; i < colors.size(); i++){
+                if(i != 0){
+                    query += ' OR ';
+                } else {
+                    query += '(';
+                }
+                query += 'Product2.AvailableColors__c LIKE \'%' + colors[i] + '%\'';
+                if( i == colors.size()-1){
+                    query += ')';
+                }
             }
         }
-        return false;
-    }
-
-    private static Boolean checkSizeIn(List<String> productSizes, List<String> selectedSizes){
-        for(String size : productSizes){
-            if(selectedSizes.contains(size)){
-                return true;
+        if(!sizes.isEmpty()){
+            query += ' AND ';
+            for(Integer i = 0; i < sizes.size(); i++){
+                if(i != 0){
+                    query += ' OR ';
+                } else {
+                    query += '(';
+                }
+                query += 'Product2.AvailableSizes__c LIKE \'%' + sizes[i] + '%\'';
+                if( i == sizes.size()-1){
+                    query += ')';
+                }
             }
         }
-        return false;
-    }
-
-    public static List<PricebookEntry> filterByColors(List<PricebookEntry> entries, List<String> selectedColors){
-        List<PricebookEntry> newEntries = new List<PricebookEntry>();
-        for(PricebookEntry entry : entries){
-            List<String> productColors = entry.Product2.AvailableColors__c.split(',');
-            if(checkColorIn(productColors, selectedColors)){
-                newEntries.add(entry);
-            }
-        }
-        return newEntries;
-    }
-
-    public static List<PricebookEntry> filterBySizes(List<PricebookEntry> entries, List<String> selectedSizes){
-        List<PricebookEntry> newEntries = new List<PricebookEntry>();
-        for(PricebookEntry entry : entries){
-            List<String> productSizes = entry.Product2.AvailableSizes__c.split(',');
-            if(checkSizeIn(productSizes, selectedSizes)){
-                newEntries.add(entry);
-            }
-        }
-        return newEntries;
+        return query;
     }
 
 }

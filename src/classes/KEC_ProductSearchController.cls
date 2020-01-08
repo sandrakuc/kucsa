@@ -13,13 +13,7 @@ public without sharing class KEC_ProductSearchController {
     @AuraEnabled
     public static List<PricebookEntry> filterProducts(String name, Double maxPrice, List<String> colors, List<String> sizes){
         name = '%' + name + '%';
-        List<PricebookEntry> entries = [SELECT PriceBook2.Name, Product2.Id, Product2.ImgPath__c, Product2.AvailableColors__c, Product2.AvailableSizes__c, Product2.Name, UnitPrice, Name FROM PricebookEntry WHERE  PriceBook2.Name = 'Kucsa Price Book' AND Product2.Name LIKE :name AND UnitPrice <= :maxPrice];
-        if(!colors.isEmpty()){
-            entries = KEC_ProductFilterHelper.filterByColors(entries, colors);
-        }
-        if(!sizes.isEmpty()){
-            entries = KEC_ProductFilterHelper.filterBySizes(entries, sizes);
-        }
+        List<PricebookEntry> entries = Database.query(KEC_ProductFilterHelper.generateFilterQuery(name, maxPrice, colors, sizes));
         return entries;
     }
 
