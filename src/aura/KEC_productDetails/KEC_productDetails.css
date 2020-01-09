@@ -92,3 +92,13 @@
     height: 16px;
     background-color: #eee;
 }
+
+.THIS .photoGallery{
+    margin-left: 100px;
+}
+
+.THIS .galleryicon{
+    border: solid 2px deepskyblue;
+    padding: 5px;
+    margin: 5px;
+}

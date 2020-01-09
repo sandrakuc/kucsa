@@ -10,5 +10,8 @@
     },
     handleSizeChange: function(component, event, helper){
         helper.handleSize(component, event, helper);
+    },
+    selectPhoto: function(component, event, helper){
+        helper.getPhoto(component, event, helper);
     }
 })

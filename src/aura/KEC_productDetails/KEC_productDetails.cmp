@@ -7,13 +7,21 @@
     <aura:attribute name="availableColors" type="List"/>
     <aura:attribute name="selectedSize" type="String"/>
     <aura:attribute name="selectedColor" type="String"/>
+    <aura:attribute name="photos" type="List"/>
+    <aura:attribute name="photoPath" type="String"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 
     <lightning:card>
         <div class="slds-grid slds-gutters">
             <div class="slds-col">
-                <img src="{!v.product.Product2.ImgPath__c}" width="400" height="800" class="productimg"/>
+                <img src="{!v.photoPath}" width="400" height="800" class="productimg"/>
+                <div class="photoGallery">
+                    <aura:iteration var="photo" items="{!v.photos}" indexVar="index">
+                        <img src="{!photo.ImgUrl__c}" width="50" height="100" class="galleryicon" aura:id="resultItem"
+                             data-id="{!index}" onclick="{!c.selectPhoto}"/>
+                    </aura:iteration>
+                </div>
             </div>
             <div class="slds-col">
                 <span class="productName">
@@ -29,7 +37,8 @@
                         <div class="formfragment">
                             <aura:iteration items="{!v.availableSizes}" var="size">
                                 <lightning:input name="sizes" type="radio" aura:id="boxPackSize" value="{!size.label}"
-                                                 label="{!size.label}" class="checkboxline" onchange="{!c.handleSizeChange}"/>
+                                                 label="{!size.label}" class="checkboxline"
+                                                 onchange="{!c.handleSizeChange}"/>
                             </aura:iteration>
                         </div>
                     </div>
@@ -37,15 +46,18 @@
                         <span class="mylabel">{!$Label.c.KEC_ColorLabel}</span>
                         <div class="formfragment">
                             <aura:iteration items="{!v.availableColors}" var="color">
-                                <lightning:input name="colors" type="radio" aura:id="boxPackColor" value="{!color.label}"
-                                                 label="{!color.label}" class="checkboxline" onchange="{!c.handleColorChange}"/>
+                                <lightning:input name="colors" type="radio" aura:id="boxPackColor"
+                                                 value="{!color.label}"
+                                                 label="{!color.label}" class="checkboxline"
+                                                 onchange="{!c.handleColorChange}"/>
                             </aura:iteration>
                         </div>
                     </div>
                 </div>
 
 
-                <lightning:button iconName="utility:cart" label="{!$Label.c.KEC_AddToBasket}" class="basketbtn"/><br />
+                <lightning:button iconName="utility:cart" label="{!$Label.c.KEC_AddToBasket}" class="basketbtn"/>
+                <br/>
                 <lightning:button iconName="utility:favorite" label="{!$Label.c.KEC_Favorites}" class="typicalbtn"/>
 
                 <p class="productDescription">

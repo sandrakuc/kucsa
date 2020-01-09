@@ -26,6 +26,10 @@
              }
              component.set("v.availableSizes", availableSizes);
              component.set("v.availableColors", availableColors);
+             let photoPath = component.get("v.product").Product2.ImgPath__c;
+             component.set("v.photoPath", photoPath);
+             let productId = component.get("v.product").Product2.Id;
+             this.getPhotos(component, event, helper, productId);
         }
         else if (state === "ERROR") {
              var errors = response.getError();
@@ -56,6 +60,45 @@
     });
     $A.enqueueAction(action);
     },
+    getPhotos: function(component, event, helper, productId){
+        let action = component.get("c.productPhotos");
+        action.setParams({
+             id : productId
+        });
+        action.setCallback(this, function(response) {
+        var state = response.getState();
+        if (state === "SUCCESS"){
+              component.set("v.photos", response.getReturnValue());
+        }
+        else if (state === "ERROR") {
+             var errors = response.getError();
+             var message,
+                  title = $A.get("$Label.c.KEC_Error");
+             if (errors) {
+                  if (errors[0] && errors[0].message) {
+                        message = errors[0].message;
+                        var toastEvent = $A.get("e.force:showToast");
+                        toastEvent.setParams({
+                              "title": title,
+                              "type": "error",
+                              "message": message
+                        });
+                        toastEvent.fire();
+                  }
+             } else {
+                   message = $A.get("$Label.c.KEC_UnknownError");
+                   var toastEvent = $A.get("e.force:showToast");
+                   toastEvent.setParams({
+                         "title": title,
+                         "type": "error",
+                         "message": message
+                   });
+                   toastEvent.fire();
+             }
+        }
+        });
+        $A.enqueueAction(action);
+    },
     handleColor: function(component, event, helper){
         let selectedColors = event.getSource().get("v.value");
         component.set("v.selectedColor", selectedColors);
@@ -63,5 +106,11 @@
     handleSize: function(component, event, helper){
         let selectedSize = event.getSource().get("v.value");
         component.set("v.selectedSize", selectedSize);
+    },
+    getPhoto: function(component, event, helper){
+        let photoIndex = event.currentTarget.dataset.id;
+        let photos = component.get("v.photos");
+        let selectedPhoto = photos[photoIndex];
+        component.set("v.photoPath", selectedPhoto.ImgUrl__c);
     }
 })
