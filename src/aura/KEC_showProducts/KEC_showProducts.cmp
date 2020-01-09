@@ -13,6 +13,7 @@
                     <lightning:layoutItem size="12"
                                           mediumDeviceSize="4"
                                           padding="around-small">
+                        <a href="{!'https://kucsa-exclusive-developer-edition.eu29.force.com/s/productview?recordId='+result.Id}">
                         <div class="product" data-id="{!index}" aura:id="resultItem">
                             <img src="{!result.Product2.ImgPath__c}" width="250" height="500"/>
                             <div class="description">
@@ -26,6 +27,7 @@
                                 </center>
                             </div>
                         </div>
+                        </a>
                     </lightning:layoutItem>
                 </aura:iteration>
             </aura:if>
