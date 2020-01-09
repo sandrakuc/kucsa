@@ -5,8 +5,8 @@
     <aura:attribute name="recordId" type="String"/>
     <aura:attribute name="availableSizes" type="List"/>
     <aura:attribute name="availableColors" type="List"/>
-    <aura:attribute name="selectedSizes" type="List"/>
-    <aura:attribute name="selectedColors" type="List"/>
+    <aura:attribute name="selectedSize" type="String"/>
+    <aura:attribute name="selectedColor" type="String"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 
@@ -28,8 +28,8 @@
                         <span class="mylabel">{!$Label.c.KEC_SizeLabel}</span>
                         <div class="formfragment">
                             <aura:iteration items="{!v.availableSizes}" var="size">
-                                <lightning:input type="radio" aura:id="boxPackSize" value="{!size.label}"
-                                                 label="{!size.label}" class="checkboxline"/>
+                                <lightning:input name="sizes" type="radio" aura:id="boxPackSize" value="{!size.label}"
+                                                 label="{!size.label}" class="checkboxline" onchange="{!c.handleSizeChange}"/>
                             </aura:iteration>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                         <span class="mylabel">{!$Label.c.KEC_ColorLabel}</span>
                         <div class="formfragment">
                             <aura:iteration items="{!v.availableColors}" var="color">
-                                <lightning:input type="radio" aura:id="boxPackColor" value="{!color.label}"
-                                                 label="{!color.label}" class="checkboxline"/>
+                                <lightning:input name="colors" type="radio" aura:id="boxPackColor" value="{!color.label}"
+                                                 label="{!color.label}" class="checkboxline" onchange="{!c.handleColorChange}"/>
                             </aura:iteration>
                         </div>
                     </div>

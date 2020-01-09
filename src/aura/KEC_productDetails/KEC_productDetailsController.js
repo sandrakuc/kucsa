@@ -4,5 +4,11 @@
 ({
     onInit: function(component, event, helper){
         helper.prepareProductView(component, event, helper);
+    },
+    handleColorChange: function(component, event, helper){
+        helper.handleColor(component, event, helper);
+    },
+    handleSizeChange: function(component, event, helper){
+        helper.handleSize(component, event, helper);
     }
 })
