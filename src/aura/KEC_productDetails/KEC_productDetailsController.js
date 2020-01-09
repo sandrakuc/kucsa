@@ -13,5 +13,8 @@
     },
     selectPhoto: function(component, event, helper){
         helper.getPhoto(component, event, helper);
+    },
+    addToFavorites: function(component, event, helper){
+        helper.favorites(component, event, helper);
     }
 })
