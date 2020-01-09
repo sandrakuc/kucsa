@@ -1,0 +1,68 @@
+<aura:component description="KEC_productDetails"
+                implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable, lightning:isUrlAddressable, force:hasRecordId"
+                controller="KEC_ProductViewController">
+    <aura:attribute name="product" type="PricebookEntry"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="availableSizes" type="List"/>
+    <aura:attribute name="availableColors" type="List"/>
+    <aura:attribute name="selectedSizes" type="List"/>
+    <aura:attribute name="selectedColors" type="List"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <lightning:card>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <img src="{!v.product.Product2.ImgPath__c}" width="400" height="800" class="productimg"/>
+            </div>
+            <div class="slds-col">
+                <span class="productName">
+                        {!v.product.Name}
+                </span><br/>
+                <span class="productPrice">
+                        {!v.product.UnitPrice + $Label.c.KEC_PricePostfix}
+                </span><br/>
+
+                <div class="slds-grid slds-gutters productvariantform">
+                    <div class="slds-col">
+                        <span class="mylabel">{!$Label.c.KEC_SizeLabel}</span>
+                        <div class="formfragment">
+                            <aura:iteration items="{!v.availableSizes}" var="size">
+                                <lightning:input type="radio" aura:id="boxPackSize" value="{!size.label}"
+                                                 label="{!size.label}" class="checkboxline"/>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <span class="mylabel">{!$Label.c.KEC_ColorLabel}</span>
+                        <div class="formfragment">
+                            <aura:iteration items="{!v.availableColors}" var="color">
+                                <lightning:input type="radio" aura:id="boxPackColor" value="{!color.label}"
+                                                 label="{!color.label}" class="checkboxline"/>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </div>
+
+
+                <lightning:button iconName="utility:cart" label="{!$Label.c.KEC_AddToBasket}" class="basketbtn"/><br />
+                <lightning:button iconName="utility:favorite" label="{!$Label.c.KEC_Favorites}" class="typicalbtn"/>
+
+                <p class="productDescription">
+                        {!v.product.Product2.Description}
+                </p>
+
+            </div>
+        </div>
+        <div>
+            <h3 class="slds-section-title--divider">{!$Label.c.KEC_Opinions}</h3>
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col mycol">
+                </div>
+                <div class="slds-col">
+                    <lightning:button label="{!$Label.c.KEC_AddOpinion}" class="opinionbtn"/>
+                </div>
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>
