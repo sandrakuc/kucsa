@@ -11,8 +11,8 @@ public with sharing class KEC_ProductViewController {
     }
 
     @AuraEnabled
-    public static List<Product_Photo__c> productPhotos(String id) {
-        List<Product_Photo__c> photos = [SELECT Id, Product__c, ImgUrl__c FROM Product_Photo__c WHERE Product__c = :id];
+    public static List<KEC_Product_Photo__c> productPhotos(String id) {
+        List<KEC_Product_Photo__c> photos = [SELECT Id, Product__c, ImgUrl__c FROM KEC_Product_Photo__c WHERE Product__c = :id];
         return photos;
     }
 
