@@ -30,6 +30,7 @@
              component.set("v.photoPath", photoPath);
              let productId = component.get("v.product").Product2.Id;
              this.getPhotos(component, event, helper, productId);
+             this.getFavorites(component, event, helper, productId);
         }
         else if (state === "ERROR") {
              var errors = response.getError();
@@ -102,10 +103,20 @@
     handleColor: function(component, event, helper){
         let selectedColors = event.getSource().get("v.value");
         component.set("v.selectedColor", selectedColors);
+        let favorites = component.get("v.favorites"),
+            selectedSize = component.get("v.selectedSize") == null ? component.get("v.availableSizes")[0].label : component.get("v.selectedSize");
+        if(favorites != null){
+            this.checkIsInFavourites(component, event, helper, favorites, selectedColors, selectedSize);
+        }
     },
     handleSize: function(component, event, helper){
         let selectedSize = event.getSource().get("v.value");
         component.set("v.selectedSize", selectedSize);
+        let favorites = component.get("v.favorites"),
+            selectedColor = component.get("v.selectedColor") == null ? component.get("v.availableColors")[0].label : component.get("v.selectedColor");
+        if(favorites != null){
+            this.checkIsInFavourites(component, event, helper, favorites, selectedColor, selectedSize);
+        }
     },
     getPhoto: function(component, event, helper){
         let photoIndex = event.currentTarget.dataset.id;
@@ -140,6 +151,7 @@
                      "message": message
                  });
                  toastEvent.fire();
+                 this.getFavorites(component, event, helper, productId);
             }
             else if (state === "ERROR") {
                 var errors = response.getError();
@@ -169,5 +181,60 @@
             }
         });
         $A.enqueueAction(action);
+    },
+    getFavorites: function(component, event, helper, productId){
+        let action = component.get("c.checkFavouriteProduct");
+        action.setParams({
+             id : productId
+        });
+        action.setCallback(this, function(response) {
+        var state = response.getState();
+        if (state === "SUCCESS"){
+            let favorites = response.getReturnValue();
+            component.set("v.favorites", favorites);
+            let productSize = component.get("v.selectedSize") != null ? component.get("v.selectedSize") : component.get("v.availableSizes")[0].label,
+                productColor = component.get("v.selectedColor") != null ? component.get("v.selectedColor") : component.get("v.availableColors")[0].label;
+            if(favorites != null){
+                this.checkIsInFavourites(component, event, helper, favorites, productColor, productSize);
+            }
+        }
+        else if (state === "ERROR") {
+              var errors = response.getError();
+              var message,
+                   title = $A.get("$Label.c.KEC_Error");
+              if (errors) {
+                    if (errors[0] && errors[0].message) {
+                          message = errors[0].message;
+                          var toastEvent = $A.get("e.force:showToast");
+                          toastEvent.setParams({
+                                "title": title,
+                                "type": "error",
+                                "message": message
+                          });
+                          toastEvent.fire();
+                    }
+              } else {
+                     message = $A.get("$Label.c.KEC_UnknownError");
+                     var toastEvent = $A.get("e.force:showToast");
+                     toastEvent.setParams({
+                            "title": title,
+                            "type": "error",
+                            "message": message
+                     });
+                     toastEvent.fire();
+              }
+        }
+        });
+        $A.enqueueAction(action);
+    },
+    checkIsInFavourites: function(component, event, helper, favorites, selectedColor, selectedSize){
+        for(let i = 0; i < favorites.length; i++){
+            if(favorites[i].Size__c === selectedSize && favorites[i].Color__c === selectedColor){
+                component.set("v.isFavorite", true);
+                break;
+            } else {
+                component.set("v.isFavorite", false);
+            }
+        }
     }
 })
