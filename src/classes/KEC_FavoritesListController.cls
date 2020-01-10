@@ -10,4 +10,12 @@ public with sharing class KEC_FavoritesListController {
         return favorites;
     }
 
+    @AuraEnabled
+    public static KEC_OperationResult removeFromFavourites(String id){
+        Database.DeleteResult result = Database.delete(id);
+        String message = result.isSuccess() ? System.Label.KEC_OperationSuccess : result.getErrors()[0].getMessage();
+        KEC_OperationResult operationResult = new KEC_OperationResult(result.isSuccess(), message);
+        return operationResult;
+    }
+
 }

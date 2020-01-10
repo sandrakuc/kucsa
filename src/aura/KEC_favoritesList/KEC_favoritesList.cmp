@@ -9,7 +9,7 @@
 
     <div id="siteheader" style="font-size: 28px; margin-top: 20px; margin-bottom: 20px; color: deepskyblue; background-color: rgba(0, 191, 255, 0.1); text-transform: uppercase; padding-left: 20px;">{!$Label.c.KEC_FavoritesList}</div>
     <aura:if isTrue="{!v.favorites.length != 0}">
-        <aura:iteration items="{!v.favorites}" var="fav">
+        <aura:iteration items="{!v.favorites}" var="fav" indexVar="index">
             <div class="favoriteItem" style="width: 600px; border: solid 5px deepskyblue; margin-left: auto; margin-right: auto; padding: 10px; margin-top: 10px">
                 <div class="slds-grid slds-gutters">
                     <div class="slds-col" style="width:220px">
@@ -23,7 +23,9 @@
                         <div class="buttonsSection">
                             <a href="{!'https://kucsa-exclusive-developer-edition.eu29.force.com/s/productview?recordId='+fav.Entry__c}"><lightning:button iconName="utility:preview" class="optionButton"/></a>
                             <lightning:button iconName="utility:cart" class="optionButton"/>
-                            <lightning:button iconName="utility:close" class="optionButton"/>
+                            <button class="slds-button slds-button_neutral optionButton" onclick="{!c.onDismiss}" id="{!index}">
+                                <lightning:icon iconName="utility:close" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
+                            </button>
                         </div>
                     </div>
                 </div>
