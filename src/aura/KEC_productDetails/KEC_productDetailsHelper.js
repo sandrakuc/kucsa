@@ -130,12 +130,14 @@
         let productPrice = product.UnitPrice;
         let productSize = component.get("v.selectedSize") != null ? component.get("v.selectedSize") : component.get("v.availableSizes")[0].label;
         let productColor = component.get("v.selectedColor") != null ? component.get("v.selectedColor") : component.get("v.availableColors")[0].label;
+        let entry = product.Id;
         let action = component.get("c.addToFavouritesList");
         action.setParams({
             id : productId,
             price : productPrice,
             size : productSize,
-            color : productColor
+            color : productColor,
+            entry : entry
         });
         action.setCallback(this, function(response) {
             var state = response.getState();
