@@ -31,6 +31,7 @@
              let productId = component.get("v.product").Product2.Id;
              this.getPhotos(component, event, helper, productId);
              this.getFavorites(component, event, helper, productId);
+             this.getOpinions(component, event, helper, productId);
         }
         else if (state === "ERROR") {
              var errors = response.getError();
@@ -272,6 +273,7 @@
                         "message": message
                    });
                    toastEvent.fire();
+                   this.getOpinions(component, event, helper, productId);
              }
              else if (state === "ERROR") {
                    var errors = response.getError();
@@ -301,5 +303,44 @@
              }
         });
         $A.enqueueAction(action);
-    }
+    },
+    getOpinions: function(component, event, helper, productId){
+            let action = component.get("c.productOpinions");
+            action.setParams({
+                 id : productId
+            });
+            action.setCallback(this, function(response) {
+            var state = response.getState();
+            if (state === "SUCCESS"){
+                  component.set("v.productOpinions", response.getReturnValue());
+            }
+            else if (state === "ERROR") {
+                 var errors = response.getError();
+                 var message,
+                      title = $A.get("$Label.c.KEC_Error");
+                 if (errors) {
+                      if (errors[0] && errors[0].message) {
+                            message = errors[0].message;
+                            var toastEvent = $A.get("e.force:showToast");
+                            toastEvent.setParams({
+                                  "title": title,
+                                  "type": "error",
+                                  "message": message
+                            });
+                            toastEvent.fire();
+                      }
+                 } else {
+                       message = $A.get("$Label.c.KEC_UnknownError");
+                       var toastEvent = $A.get("e.force:showToast");
+                       toastEvent.setParams({
+                             "title": title,
+                             "type": "error",
+                             "message": message
+                       });
+                       toastEvent.fire();
+                 }
+            }
+            });
+            $A.enqueueAction(action);
+        }
 })

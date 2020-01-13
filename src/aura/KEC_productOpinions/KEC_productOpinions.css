@@ -1,0 +1,48 @@
+
+.THIS .opinion{
+    border: solid 1px rgba(0, 191, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.THIS .opiniondate{
+    float: right;
+    color: dimgray;
+}
+
+.THIS .rating{
+    font-size: 16px;
+    color: white;
+    background-color: deepskyblue;
+    border-radius: 5px;
+    padding: 3px;
+    margin-left: 3px;
+}
+
+.THIS .username{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.THIS .opinionlabel {
+    font-size: 16px;
+    color: dimgray;
+}
+
+.THIS .mydesc{
+    font-size: 16px;
+}
+
+.THIS .content{
+    font-size: 18px;
+    text-style: italic;
+}
+
+.THIS .noopinion{
+    font-size: 16px;
+}
+
+.THIS .opinioninfo{
+    margin-bottom: 20px;
+}

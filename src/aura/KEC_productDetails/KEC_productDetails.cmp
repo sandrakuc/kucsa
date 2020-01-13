@@ -12,6 +12,7 @@
     <aura:attribute name="isFavorite" type="Boolean" default="false"/>
     <aura:attribute name="favorites" type="Boolean" default="true"/>
     <aura:attribute name="openModal" type="Boolean" default="false" />
+    <aura:attribute name="productOpinions" type="List" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:handler name="saveOpinion" event="c:KEC_saveOpinion" action="{!c.handleSaveOpinion}" />
@@ -74,6 +75,7 @@
             <h3 class="slds-section-title--divider">{!$Label.c.KEC_Opinions}</h3>
             <div class="slds-grid slds-gutters">
                 <div class="slds-col mycol">
+                    <c:KEC_productOpinions productOpinions="{!v.productOpinions}"/>
                 </div>
                 <div class="slds-col">
                     <lightning:button label="{!$Label.c.KEC_AddOpinion}" class="opinionbtn" onclick="{!c.openModal}"/>

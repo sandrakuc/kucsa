@@ -40,4 +40,10 @@ public with sharing class KEC_ProductViewController {
         return operationResult;
     }
 
+    @AuraEnabled
+    public static List<KEC_Product_Opinion__c> productOpinions(String id){
+        List<KEC_Product_Opinion__c> productOpinions = [SELECT Id, User__r.Name, Rating__c, Size_Rating__c, Date__c, Size__c, Color__c, Content__c FROM KEC_Product_Opinion__c WHERE Product__c = :id];
+        return productOpinions;
+    }
+
 }
