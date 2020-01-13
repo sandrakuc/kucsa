@@ -1,0 +1,11 @@
+<!--
+ - Created by BRITENET on 13.01.2020.
+ -->
+
+<aura:event type="COMPONENT" description="KEC_saveOpinion">
+    <aura:attribute name="color" type="String" />
+    <aura:attribute name="size" type="String" />
+    <aura:attribute name="content" type="String" />
+    <aura:attribute name="answer" type="String" />
+    <aura:attribute name="rate" type="Integer" />
+</aura:event>

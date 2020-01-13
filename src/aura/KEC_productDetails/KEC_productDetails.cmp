@@ -11,8 +11,10 @@
     <aura:attribute name="photoPath" type="String"/>
     <aura:attribute name="isFavorite" type="Boolean" default="false"/>
     <aura:attribute name="favorites" type="Boolean" default="true"/>
+    <aura:attribute name="openModal" type="Boolean" default="false" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="saveOpinion" event="c:KEC_saveOpinion" action="{!c.handleSaveOpinion}" />
 
     <lightning:card>
         <div class="slds-grid slds-gutters">
@@ -74,9 +76,10 @@
                 <div class="slds-col mycol">
                 </div>
                 <div class="slds-col">
-                    <lightning:button label="{!$Label.c.KEC_AddOpinion}" class="opinionbtn"/>
+                    <lightning:button label="{!$Label.c.KEC_AddOpinion}" class="opinionbtn" onclick="{!c.openModal}"/>
                 </div>
             </div>
         </div>
+        <c:KEC_productOpinionModal openModal="{!v.openModal}" product="{!v.product}" availableSizes="{!v.availableSizes}" availableColors="{!v.availableColors}"/>
     </lightning:card>
 </aura:component>
