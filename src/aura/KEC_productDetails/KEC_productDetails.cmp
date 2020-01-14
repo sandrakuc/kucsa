@@ -61,7 +61,7 @@
                 </div>
 
 
-                <lightning:button iconName="utility:cart" label="{!$Label.c.KEC_AddToBasket}" class="basketbtn"/>
+                <lightning:button iconName="utility:cart" label="{!$Label.c.KEC_AddToBasket}" class="basketbtn" onclick="{!c.toCart}"/>
                 <br/>
                 <lightning:button iconName="utility:favorite" label="{!$Label.c.KEC_Favorites}" class="typicalbtn" onclick="{!c.addToFavorites}" disabled="{!v.isFavorite}"/>
 

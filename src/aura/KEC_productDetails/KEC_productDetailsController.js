@@ -22,5 +22,8 @@
     },
     handleSaveOpinion: function(component, event, helper){
         helper.saveUserOpinion(component, event, helper);
+    },
+    toCart: function(component, event, helper){
+        helper.addToCart(component, event, helper);
     }
 })

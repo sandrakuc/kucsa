@@ -46,4 +46,11 @@ public with sharing class KEC_ProductViewController {
         return productOpinions;
     }
 
+    @AuraEnabled
+    public static KEC_OperationResult addProductToCart(PricebookEntry product, String color, String size){
+        KEC_CartService.addToCart(product, color, size);
+        KEC_OperationResult operationResult = new KEC_OperationResult(true, System.Label.KEC_OperationSuccess);
+        return operationResult;
+    }
+
 }

@@ -7,5 +7,8 @@
     },
     onDismiss: function(component, event, helper){
         helper.removeFromFavorites(component, event, helper);
+    },
+    toCart: function(component, event, helper){
+        helper.addToCart(component, event, helper);
     }
 })
