@@ -124,13 +124,7 @@
                     title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                     type = operationResult.isSuccess ? "success" : "error",
                     message = operationResult.message;
-                 let toastEvent = $A.get("e.force:showToast");
-                 toastEvent.setParams({
-                     "title": title,
-                     "type": type,
-                     "message": message
-                 });
-                 toastEvent.fire();
+                 component.find("toastCmp").toast(title, type, message);
                  this.getFavorites(component, productId);
             }
             else if (state === "ERROR"){
@@ -140,24 +134,12 @@
                 if (errors) {
                      if (errors[0] && errors[0].message){
                            message = errors[0].message;
-                           let toastEvent = $A.get("e.force:showToast");
-                           toastEvent.setParams({
-                                "title": title,
-                                "type": "error",
-                                "message": message
-                           });
-                           toastEvent.fire();
+                           component.find("toastCmp").toast(title, "error", message);
                      }
                 }
                 else {
                      message = $A.get("$Label.c.KEC_UnknownError");
-                     let toastEvent = $A.get("e.force:showToast");
-                     toastEvent.setParams({
-                          "title": title,
-                          "type": "error",
-                          "message": message
-                     });
-                     toastEvent.fire();
+                     component.find("toastCmp").toast(title, "error", message);
                 }
             }
         });
@@ -186,24 +168,12 @@
               if (errors){
                     if (errors[0] && errors[0].message){
                           message = errors[0].message;
-                          let toastEvent = $A.get("e.force:showToast");
-                          toastEvent.setParams({
-                                "title": title,
-                                "type": "error",
-                                "message": message
-                          });
-                          toastEvent.fire();
+                          component.find("toastCmp").toast(title, "error", message);
                     }
               }
               else{
                      message = $A.get("$Label.c.KEC_UnknownError");
-                     let toastEvent = $A.get("e.force:showToast");
-                     toastEvent.setParams({
-                            "title": title,
-                            "type": "error",
-                            "message": message
-                     });
-                     toastEvent.fire();
+                     component.find("toastCmp").toast(title, "error", message);
               }
         }
         });
