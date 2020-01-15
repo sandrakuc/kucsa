@@ -1,0 +1,96 @@
+<aura:component description="KEC_cartView" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable" controller="KEC_CartController">
+    <aura:attribute name="cartItems" type="List"/>
+    <aura:attribute name="totalPrice" type="Double"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <div id="siteheader" style="font-size: 28px; margin-top: 20px; margin-bottom: 20px; color: deepskyblue; background-color: rgba(0, 191, 255, 0.1); text-transform: uppercase; padding-left: 20px;">{!$Label.c.KEC_Basket}</div>
+    <aura:if isTrue="{!v.cartItems.length != 0}">
+        <div>
+        <div class="cartitem">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col" style="width: 190px;">
+                    <span>{!$Label.c.KEC_ProductInfoLabel}</span>
+                </div>
+                <div class="slds-col" style="width:300px;">
+                </div>
+                <div class="slds-col">
+                    <span>{!$Label.c.KEC_PriceLabel}</span>
+                </div>
+                <div class="slds-col">
+                    <span class="quantity">{!$Label.c.KEC_QuantityLabel}</span>
+                </div>
+                <div class="slds-col">
+                    <span class="totalprice">{!$Label.c.KEC_TotalPriceLabel}</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        <aura:iteration items="{!v.cartItems}" var="item" indexVar="index">
+            <div>
+                <div class="cartitem">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <center>
+                            <img src="{!item.product.Product2.ImgPath__c}" width="200" height="400" class="img" />
+                            </center>
+                        </div>
+                        <div class="slds-col info" style="width:300px;">
+                            <span class="productName">{!item.product.Product2.Name}</span><br />
+                            <span class="mylabel">{!$Label.c.KEC_SizeLabel + ' '}</span><span class="myDesc">{!item.size}</span><br />
+                            <span class="mylabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="myDesc">{!item.color}</span><br />
+                            <div class="buttonsSection">
+                                <a href="{!'https://kucsa-exclusive-developer-edition.eu29.force.com/s/productview?recordId='+ item.product.Id}">
+                                    <button class="slds-button slds-button_neutral optionButton">
+                                        <lightning:icon iconName="utility:preview" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
+                                    </button>
+                                </a>
+                                <button class="slds-button slds-button_neutral optionButton" id="{!index}" onclick="{!c.removeProduct}">
+                                    <lightning:icon iconName="utility:close" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <span class="productPrice">{!item.product.UnitPrice + $Label.c.KEC_PricePostfix}</span><br />
+                        </div>
+                        <div class="slds-col">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <button class="slds-button slds-button_icon slds-button_icon-small slds-input__button_decrement addbtn minus" id="{!index}" onclick="{!c.onDecrement}">
+                                        <lightning:icon iconName="utility:dash" class="slds-button__icon slds-button__icon_left" style="margin-top: -16px;margin-left: -7px;"/>
+                                    </button>
+                                    <input type="number" id="default1" value="{!item.quantity}"
+                                           class="slds-input slds-input_counter"/>
+                                    <button class="slds-button slds-button_icon slds-button_icon-small slds-input__button_increment addbtn plus" id="{!index}" onclick="{!c.onIncrement}">
+                                        <lightning:icon iconName="utility:add" class="slds-button__icon slds-button__icon_left" style="margin-top: -16px;margin-left: -7px;"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <span class="productPrice">{!item.quantity * item.product.UnitPrice}{!$Label.c.KEC_PricePostfix}</span><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:iteration>
+
+        <div>
+            <div class="cartSummary">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col" style="width: 700px;">
+                    </div>
+                    <div class="slds-col" style="width: 300px;">
+                        <span class="totalsummary">{!$Label.c.KEC_TotalPriceLabel + ' ' + v.totalPrice + $Label.c.KEC_PricePostfix}</span><br/><br/>
+                        <lightning:button label="{!$Label.c.KEC_Order}" class="cartbtn order"/>
+                        <br/><br/>
+                        <lightning:button label="{!$Label.c.KEC_Clear}" class="cartbtn clear" onclick="{!c.onClear}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.cartItems.length == 0}">
+        <span>{!$Label.c.KEC_EmptyCart}</span>
+    </aura:if>
+</aura:component>

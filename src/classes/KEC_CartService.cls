@@ -4,43 +4,59 @@
 
 public with sharing class KEC_CartService {
 
-    public static Map<KEC_PriceBookEntryWrapper, Integer> getCartItems(){
-        Map<KEC_PriceBookEntryWrapper, Integer> cartItems = Cache.Org.contains('cartItems') ? (Map<KEC_PriceBookEntryWrapper, Integer>) Cache.Org.get('cartItems') : new Map<KEC_PriceBookEntryWrapper, Integer>();
+    public static List<KEC_PriceBookEntryWrapper> getCartItems(){
+    List<KEC_PriceBookEntryWrapper> cartItems = Cache.Org.contains('cartItems') ? (List<KEC_PriceBookEntryWrapper>) Cache.Org.get('cartItems') : new List<KEC_PriceBookEntryWrapper>();
         return cartItems;
     }
 
     public static void addToCart(PricebookEntry product, String color, String size){
         KEC_PriceBookEntryWrapper priceBookEntryWrapper = new KEC_PriceBookEntryWrapper(product, color,size);
-        Map<KEC_PriceBookEntryWrapper, Integer> cartItems = getCartItems();
-        if(cartItems.containsKey(priceBookEntryWrapper)){
-            Integer quantity = cartItems.get(priceBookEntryWrapper) + 1;
-            cartItems.put(priceBookEntryWrapper, quantity);
-        } else {
-            cartItems.put(priceBookEntryWrapper, 1);
+        List<KEC_PriceBookEntryWrapper> cartItems = getCartItems();
+        Boolean containsFlag = false;
+        for(KEC_PriceBookEntryWrapper item : cartItems){
+            if(item.product.Id.equals(priceBookEntryWrapper.product.Id) && item.color.equals(priceBookEntryWrapper.color) && item.size.equals(priceBookEntryWrapper.size)){
+                item.quantity += 1;
+                containsFlag = true;
+            }
+        }
+        if(!containsFlag){
+            priceBookEntryWrapper.quantity = 1;
+            cartItems.add(priceBookEntryWrapper);
         }
         Cache.Org.put('cartItems', cartItems);
     }
 
     public static void removeFromCart(KEC_PriceBookEntryWrapper priceBookEntryWrapper){
-        Map<KEC_PriceBookEntryWrapper, Integer> cartItems = getCartItems();
-        if(cartItems.containsKey(priceBookEntryWrapper)){
-            cartItems.remove(priceBookEntryWrapper);
+        List<KEC_PriceBookEntryWrapper> cartItems = getCartItems();
+        for(KEC_PriceBookEntryWrapper item : cartItems) {
+            if (item.product.Id.equals(priceBookEntryWrapper.product.Id) && item.color.equals(priceBookEntryWrapper.color) && item.size.equals(priceBookEntryWrapper.size)) {
+                priceBookEntryWrapper = item;
+            }
         }
+        cartItems.remove(cartItems.indexOf(priceBookEntryWrapper));
+        Cache.Org.remove('cartItems');
         Cache.Org.put('cartItems', cartItems);
     }
 
     public static void decrementProductQuantity(KEC_PriceBookEntryWrapper priceBookEntryWrapper){
-        Map<KEC_PriceBookEntryWrapper, Integer> cartItems = getCartItems();
-        if(cartItems.get(priceBookEntryWrapper) == 1){
-            removeFromCart(priceBookEntryWrapper);
+        List<KEC_PriceBookEntryWrapper> cartItems = getCartItems();
+        for(KEC_PriceBookEntryWrapper item : cartItems) {
+            if (item.product.Id.equals(priceBookEntryWrapper.product.Id) && item.color.equals(priceBookEntryWrapper.color) && item.size.equals(priceBookEntryWrapper.size)) {
+                priceBookEntryWrapper = item;
+            }
+        }
+        if(cartItems.get(cartItems.indexOf(priceBookEntryWrapper)).quantity == 1){
+            cartItems.remove(cartItems.indexOf(priceBookEntryWrapper));
+            Cache.Org.remove('cartItems');
+            Cache.Org.put('cartItems', cartItems);
         } else {
-            Integer quantity = cartItems.get(priceBookEntryWrapper) - 1;
-            cartItems.put(priceBookEntryWrapper, quantity);
+            cartItems.get(cartItems.indexOf(priceBookEntryWrapper)).quantity -= 1;
+            Cache.Org.remove('cartItems');
             Cache.Org.put('cartItems', cartItems);
         }
     }
 
-    public static Map<KEC_PriceBookEntryWrapper, Integer> clearCart(){
+    public static List<KEC_PriceBookEntryWrapper> clearCart(){
         if(Cache.Org.contains('cartItems')) {
             Cache.Org.remove('cartItems');
         }

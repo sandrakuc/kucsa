@@ -1,0 +1,103 @@
+/**
+ * Created by BRITENET on 14.01.2020.
+ */
+
+ .THIS {
+     font-size: 16px;
+ }
+
+ .THIS .productName{
+     font-size: 20px;
+     font-weight: bold;
+ }
+
+ .THIS .cartitem{
+     padding: 20px;
+     width: 80%;
+     margin-right: auto;
+     margin-left: auto;
+     border: solid 1px deepskyblue;
+     border-radius: 10px;
+     margin-bottom: 10px;
+ }
+
+.THIS .optionButton{
+    width: 50px;
+    height: 50px;
+    background-color: deepskyblue;
+    padding-bottom: 7px;
+    padding-left: 7px;
+    margin-right: 3px;
+}
+
+.THIS svg{
+    fill: white;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+}
+
+.THIS .slds-form-element__control{
+    width: 150px;
+}
+
+.THIS .slds-input{
+    height: 50px;
+    width: 150px;
+    font-size: 16px;
+}
+
+.THIS .addbtn{
+    background-color: deepskyblue;
+    width: 50px;
+    height: 50px;
+}
+
+.THIS .minus{
+    margin-left: -11px;
+}
+
+.THIS .plus{
+    margin-right: -12px;
+}
+
+.THIS .img {
+    border: solid 3px deepskyblue;
+    padding: 3px;
+}
+
+.THIS .productPrice{
+    font-size: 16px;
+}
+
+.THIS .totalprice{
+    float: right;
+    margin-right: 40px;
+}
+
+.THIS .quantity{
+    margin-left: 20px;
+}
+
+.THIS .cartSummary{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.THIS .totalsummary{
+    font-size: 28px;
+    color: midnightblue;
+    margin-bottom: 10px;
+}
+
+.THIS .cartbtn{
+    width: 300px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.THIS .order{
+    background-color: deepskyblue;
+    color: white;
+}

@@ -13,6 +13,13 @@ public with sharing class KEC_PriceBookEntryWrapper {
     @AuraEnabled
     public String size { get; set; }
 
+    @AuraEnabled
+    public Integer quantity { get; set; }
+
+    public KEC_PriceBookEntryWrapper(){
+
+    }
+
     public KEC_PriceBookEntryWrapper(PricebookEntry product, String color, String size){
         this.product = product;
         this.color = color;
@@ -26,5 +33,9 @@ public with sharing class KEC_PriceBookEntryWrapper {
         else{
             return false;
         }
+    }
+
+    public Integer hashCode() {
+        return product.Name.hashCode() * color.hashCode() * size.hashCode();
     }
 }
