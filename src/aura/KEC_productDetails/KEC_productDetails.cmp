@@ -79,4 +79,5 @@
             </div>
         </div>
     </lightning:card>
+    <c:KEC_toastHandler aura:id="toastCmp" />
 </aura:component>
