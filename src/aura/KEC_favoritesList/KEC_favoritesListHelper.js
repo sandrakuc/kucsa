@@ -65,7 +65,6 @@
     },
     redirectToViewPage: function(component, event){
          let index = event.currentTarget.id;
-         console.log(index);
          let products = component.get("v.favorites");
          let productId = products[index].Entry__c;
          let urlEvent = $A.get("e.force:navigateToURL");
