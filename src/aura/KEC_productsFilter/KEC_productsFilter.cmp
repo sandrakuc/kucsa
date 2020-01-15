@@ -1,0 +1,37 @@
+<aura:component description="KEC_productsFilter" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable"
+                controller="KEC_ProductSearchController">
+    <aura:attribute name="maxPrice" type="Double" />
+    <aura:attribute name="selectedColors" type="List" />
+    <aura:attribute name="selectedSizes" type="List" />
+    <aura:attribute name="colorsOptions" type="List" />
+    <aura:attribute name="sizesOptions" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <aura:registerEvent name="filterApplied" type="c:KEC_filterApplied"/>
+
+    <div class="slds-card">
+        <span class="mylabel">{!$Label.c.KEC_PriceLabel}</span>
+        <div class="myformfragment">
+        <lightning:slider value="{!v.maxPrice}" min="0" max="200"/>
+        </div>
+
+        <span class="mylabel">{!$Label.c.KEC_SizeLabel}</span>
+        <div class="myformfragment">
+        <aura:iteration items="{!v.sizesOptions}" var="size">
+            <lightning:input type="checkbox" aura:id="boxPackSize" value="{!size.label}"
+                             onchange="{!c.handleSizeChange}" label="{!size.label}" class="checkboxline"/>
+        </aura:iteration>
+        </div>
+
+        <span class="mylabel">{!$Label.c.KEC_ColorLabel}</span>
+        <div class="myformfragment">
+        <aura:iteration items="{!v.colorsOptions}" var="color">
+            <lightning:input type="checkbox" aura:id="boxPackColor" value="{!color.label}"
+                             onchange="{!c.handleColorChange}" label="{!color.label}" class="checkboxline"/>
+        </aura:iteration>
+        </div>
+
+        <lightning:button label="{!$Label.c.KEC_ApplyFilters}" onclick="{!c.onFilters}" />
+    </div>
+</aura:component>
