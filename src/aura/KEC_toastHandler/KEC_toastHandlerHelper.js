@@ -6,7 +6,7 @@
         let toastEvent = $A.get("e.force:showToast");
         toastEvent.setParams({
              "title": title,
-             "type": "error",
+             "type": type,
              "message": message
         });
         toastEvent.fire();
