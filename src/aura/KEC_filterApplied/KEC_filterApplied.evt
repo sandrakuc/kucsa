@@ -1,0 +1,5 @@
+<aura:event type="APPLICATION" description="KEC_filterApplied">
+    <aura:attribute name="maxPrice" type="Double" />
+    <aura:attribute name="colors" type="List" />
+    <aura:attribute name="sizes" type="List" />
+</aura:event>

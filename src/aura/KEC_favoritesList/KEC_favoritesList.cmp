@@ -21,11 +21,9 @@
                         <span class="mylabel">{!$Label.c.KEC_SizeLabel + ' '}</span><span class="myDesc">{!fav.Size__c}</span><br />
                         <span class="mylabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="myDesc">{!fav.Color__c}</span><br />
                         <div class="buttonsSection">
-                            <a href="{!'https://kucsa-exclusive-developer-edition.eu29.force.com/s/productview?recordId='+fav.Entry__c}">
-                                <button class="slds-button slds-button_neutral optionButton">
-                                    <lightning:icon iconName="utility:preview" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
-                                </button>
-                            </a>
+                            <button class="slds-button slds-button_neutral optionButton" onclick="{!c.redirectToView}" id="{!index}">
+                                <lightning:icon iconName="utility:preview" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
+                            </button>
                             <button class="slds-button slds-button_neutral optionButton" onclick="{!c.toCart}" id="{!index}">
                                 <lightning:icon iconName="utility:cart" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
                             </button>
@@ -41,4 +39,5 @@
     <aura:if isTrue="{!v.favorites.length == 0}">
         <span>{!$Label.c.KEC_NoFavoritesItems}</span>
     </aura:if>
+    <c:KEC_toastHandler aura:id="toastCmp" />
 </aura:component>

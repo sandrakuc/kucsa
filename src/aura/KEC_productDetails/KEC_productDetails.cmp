@@ -84,4 +84,5 @@
         </div>
         <c:KEC_productOpinionModal openModal="{!v.openModal}" product="{!v.product}" availableSizes="{!v.availableSizes}" availableColors="{!v.availableColors}"/>
     </lightning:card>
+    <c:KEC_toastHandler aura:id="toastCmp" />
 </aura:component>

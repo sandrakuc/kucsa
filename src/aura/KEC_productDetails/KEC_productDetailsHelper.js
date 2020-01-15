@@ -2,14 +2,14 @@
  * Created by BRITENET on 08.01.2020.
  */
 ({
-    prepareProductView: function(component, event, helper){
+    prepareProductView: function(component){
         let productId = component.get("v.recordId");
         let action = component.get("c.getProductInfo");
         action.setParams({
             id : productId
         });
-        action.setCallback(this, function(response) {
-        var state = response.getState();
+        action.setCallback(this, function(response){
+        let state = response.getState();
         if (state === "SUCCESS"){
              component.set("v.product", response.getReturnValue());
              let colors = component.get("v.product").Product2.AvailableColors__c.split(',');
@@ -29,103 +29,81 @@
              let photoPath = component.get("v.product").Product2.ImgPath__c;
              component.set("v.photoPath", photoPath);
              let productId = component.get("v.product").Product2.Id;
-             this.getPhotos(component, event, helper, productId);
-             this.getFavorites(component, event, helper, productId);
-             this.getOpinions(component, event, helper, productId);
+             this.getPhotos(component, productId);
+             this.getFavorites(component, productId);
+             this.getOpinions(component, productId);
         }
-        else if (state === "ERROR") {
-             var errors = response.getError();
-             var message,
+        else if (state === "ERROR"){
+             let errors = response.getError();
+             let message,
                  title = $A.get("$Label.c.KEC_Error");
-             if (errors) {
-                   if (errors[0] && errors[0].message) {
+             if (errors){
+                   if (errors[0] && errors[0].message){
                         message = errors[0].message;
-                        var toastEvent = $A.get("e.force:showToast");
-                        toastEvent.setParams({
-                             "title": title,
-                             "type": "error",
-                             "message": message
-                        });
-                        toastEvent.fire();
+                        component.find("toastCmp").toast(title, "error", message);
                    }
-             } else {
+             }
+             else{
                    message = $A.get("$Label.c.KEC_UnknownError");
-                   var toastEvent = $A.get("e.force:showToast");
-                   toastEvent.setParams({
-                        "title": title,
-                        "type": "error",
-                        "message": message
-                    });
-                    toastEvent.fire();
+                   component.find("toastCmp").toast(title, "error", message);
              }
         }
     });
     $A.enqueueAction(action);
     },
-    getPhotos: function(component, event, helper, productId){
+    getPhotos: function(component, productId){
         let action = component.get("c.productPhotos");
         action.setParams({
              id : productId
         });
-        action.setCallback(this, function(response) {
-        var state = response.getState();
+        action.setCallback(this, function(response){
+        let state = response.getState();
         if (state === "SUCCESS"){
               component.set("v.photos", response.getReturnValue());
         }
-        else if (state === "ERROR") {
-             var errors = response.getError();
-             var message,
+        else if (state === "ERROR"){
+             let errors = response.getError();
+             let message,
                   title = $A.get("$Label.c.KEC_Error");
-             if (errors) {
-                  if (errors[0] && errors[0].message) {
+             if (errors){
+                  if (errors[0] && errors[0].message){
                         message = errors[0].message;
-                        var toastEvent = $A.get("e.force:showToast");
-                        toastEvent.setParams({
-                              "title": title,
-                              "type": "error",
-                              "message": message
-                        });
-                        toastEvent.fire();
+                        component.find("toastCmp").toast(title, "error", message);
                   }
-             } else {
+             }
+             else{
                    message = $A.get("$Label.c.KEC_UnknownError");
-                   var toastEvent = $A.get("e.force:showToast");
-                   toastEvent.setParams({
-                         "title": title,
-                         "type": "error",
-                         "message": message
-                   });
-                   toastEvent.fire();
+                   component.find("toastCmp").toast(title, "error", message);
              }
         }
         });
         $A.enqueueAction(action);
     },
-    handleColor: function(component, event, helper){
+    handleColor: function(component, event){
         let selectedColors = event.getSource().get("v.value");
         component.set("v.selectedColor", selectedColors);
         let favorites = component.get("v.favorites"),
             selectedSize = component.get("v.selectedSize") == null ? component.get("v.availableSizes")[0].label : component.get("v.selectedSize");
         if(favorites != null){
-            this.checkIsInFavourites(component, event, helper, favorites, selectedColors, selectedSize);
+            this.checkIsInFavourites(component, favorites, selectedColors, selectedSize);
         }
     },
-    handleSize: function(component, event, helper){
+    handleSize: function(component, event){
         let selectedSize = event.getSource().get("v.value");
         component.set("v.selectedSize", selectedSize);
         let favorites = component.get("v.favorites"),
             selectedColor = component.get("v.selectedColor") == null ? component.get("v.availableColors")[0].label : component.get("v.selectedColor");
         if(favorites != null){
-            this.checkIsInFavourites(component, event, helper, favorites, selectedColor, selectedSize);
+            this.checkIsInFavourites(component, favorites, selectedColor, selectedSize);
         }
     },
-    getPhoto: function(component, event, helper){
+    getPhoto: function(component, event){
         let photoIndex = event.currentTarget.dataset.id;
         let photos = component.get("v.photos");
         let selectedPhoto = photos[photoIndex];
         component.set("v.photoPath", selectedPhoto.ImgUrl__c);
     },
-    favorites: function(component, event, helper){
+    favorites: function(component){
         let product = component.get("v.product");
         let productId = product.Product2.Id;
         let productPrice = product.UnitPrice;
@@ -140,110 +118,83 @@
             color : productColor,
             entry : entry
         });
-        action.setCallback(this, function(response) {
-            var state = response.getState();
+        action.setCallback(this, function(response){
+            let state = response.getState();
             if (state === "SUCCESS"){
-                 var operationResult = response.getReturnValue(),
+                 let operationResult = response.getReturnValue(),
                     title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                     type = operationResult.isSuccess ? "success" : "error",
                     message = operationResult.message;
-                 var toastEvent = $A.get("e.force:showToast");
-                 toastEvent.setParams({
-                     "title": title,
-                     "type": type,
-                     "message": message
-                 });
-                 toastEvent.fire();
-                 this.getFavorites(component, event, helper, productId);
+                 component.find("toastCmp").toast(title, type, message);
+                 this.getFavorites(component, productId);
             }
-            else if (state === "ERROR") {
-                var errors = response.getError();
-                var message,
+            else if (state === "ERROR"){
+                let errors = response.getError();
+                let message,
                      title = $A.get("$Label.c.KEC_Error");
                 if (errors) {
-                     if (errors[0] && errors[0].message) {
+                     if (errors[0] && errors[0].message){
                            message = errors[0].message;
-                           var toastEvent = $A.get("e.force:showToast");
-                           toastEvent.setParams({
-                                "title": title,
-                                "type": "error",
-                                "message": message
-                           });
-                           toastEvent.fire();
+                           component.find("toastCmp").toast(title, "error", message);
                      }
-                } else {
+                }
+                else {
                      message = $A.get("$Label.c.KEC_UnknownError");
-                     var toastEvent = $A.get("e.force:showToast");
-                     toastEvent.setParams({
-                          "title": title,
-                          "type": "error",
-                          "message": message
-                     });
-                     toastEvent.fire();
+                     component.find("toastCmp").toast(title, "error", message);
                 }
             }
         });
         $A.enqueueAction(action);
     },
-    getFavorites: function(component, event, helper, productId){
+    getFavorites: function(component, productId){
         let action = component.get("c.checkFavouriteProduct");
         action.setParams({
              id : productId
         });
-        action.setCallback(this, function(response) {
-        var state = response.getState();
+        action.setCallback(this, function(response){
+        let state = response.getState();
         if (state === "SUCCESS"){
             let favorites = response.getReturnValue();
             component.set("v.favorites", favorites);
             let productSize = component.get("v.selectedSize") != null ? component.get("v.selectedSize") : component.get("v.availableSizes")[0].label,
                 productColor = component.get("v.selectedColor") != null ? component.get("v.selectedColor") : component.get("v.availableColors")[0].label;
             if(favorites != null){
-                this.checkIsInFavourites(component, event, helper, favorites, productColor, productSize);
+                this.checkIsInFavourites(component, favorites, productColor, productSize);
             }
         }
-        else if (state === "ERROR") {
-              var errors = response.getError();
-              var message,
+        else if (state === "ERROR"){
+              let errors = response.getError();
+              let message,
                    title = $A.get("$Label.c.KEC_Error");
-              if (errors) {
-                    if (errors[0] && errors[0].message) {
+              if (errors){
+                    if (errors[0] && errors[0].message){
                           message = errors[0].message;
-                          var toastEvent = $A.get("e.force:showToast");
-                          toastEvent.setParams({
-                                "title": title,
-                                "type": "error",
-                                "message": message
-                          });
-                          toastEvent.fire();
+                          component.find("toastCmp").toast(title, "error", message);
                     }
-              } else {
+              }
+              else{
                      message = $A.get("$Label.c.KEC_UnknownError");
-                     var toastEvent = $A.get("e.force:showToast");
-                     toastEvent.setParams({
-                            "title": title,
-                            "type": "error",
-                            "message": message
-                     });
-                     toastEvent.fire();
+                     component.find("toastCmp").toast(title, "error", message);
               }
         }
         });
         $A.enqueueAction(action);
     },
-    checkIsInFavourites: function(component, event, helper, favorites, selectedColor, selectedSize){
+    checkIsInFavourites: function(component, favorites, selectedColor, selectedSize){
         for(let i = 0; i < favorites.length; i++){
             if(favorites[i].Size__c === selectedSize && favorites[i].Color__c === selectedColor){
                 component.set("v.isFavorite", true);
                 break;
-            } else {
+            }
+            else{
                 component.set("v.isFavorite", false);
             }
         }
     },
-    open: function(component, event, helper){
+    open: function(component){
         component.set("v.openModal", true);
     },
-    saveUserOpinion: function(component, event, helper){
+    saveUserOpinion: function(component, event){
         let color = event.getParam("color"),
             size = event.getParam("size"),
             content = event.getParam("content"),
@@ -259,85 +210,57 @@
             rating : rate,
             sizeRating : answer
         });
-        action.setCallback(this, function(response) {
-             var state = response.getState();
+        action.setCallback(this, function(response){
+             let state = response.getState();
              if (state === "SUCCESS"){
-                   var operationResult = response.getReturnValue(),
+                   let operationResult = response.getReturnValue(),
                    title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                    type = operationResult.isSuccess ? "success" : "error",
                    message = operationResult.message;
-                   var toastEvent = $A.get("e.force:showToast");
-                   toastEvent.setParams({
-                        "title": title,
-                        "type": type,
-                        "message": message
-                   });
-                   toastEvent.fire();
-                   this.getOpinions(component, event, helper, productId);
+                   component.find("toastCmp").toast(title, type, message);
+                   this.getOpinions(component, productId);
              }
              else if (state === "ERROR") {
-                   var errors = response.getError();
-                   var message,
+                   let errors = response.getError();
+                   let message,
                         title = $A.get("$Label.c.KEC_Error");
-                   if (errors) {
-                        if (errors[0] && errors[0].message) {
+                   if (errors){
+                        if (errors[0] && errors[0].message){
                               message = errors[0].message;
-                              var toastEvent = $A.get("e.force:showToast");
-                              toastEvent.setParams({
-                                   "title": title,
-                                   "type": "error",
-                                   "message": message
-                              });
-                              toastEvent.fire();
+                              component.find("toastCmp").toast(title, "error", message);
                         }
-                   } else {
+                   }
+                   else{
                         message = $A.get("$Label.c.KEC_UnknownError");
-                        var toastEvent = $A.get("e.force:showToast");
-                        toastEvent.setParams({
-                             "title": title,
-                             "type": "error",
-                             "message": message
-                        });
-                        toastEvent.fire();
+                        component.find("toastCmp").toast(title, "error", message);
                    }
              }
         });
         $A.enqueueAction(action);
     },
-    getOpinions: function(component, event, helper, productId){
+    getOpinions: function(component, productId){
             let action = component.get("c.productOpinions");
             action.setParams({
                  id : productId
             });
-            action.setCallback(this, function(response) {
-            var state = response.getState();
+            action.setCallback(this, function(response){
+            let state = response.getState();
             if (state === "SUCCESS"){
                   component.set("v.productOpinions", response.getReturnValue());
             }
-            else if (state === "ERROR") {
-                 var errors = response.getError();
-                 var message,
+            else if (state === "ERROR"){
+                 let errors = response.getError();
+                 let message,
                       title = $A.get("$Label.c.KEC_Error");
-                 if (errors) {
-                      if (errors[0] && errors[0].message) {
+                 if (errors){
+                      if (errors[0] && errors[0].message){
                             message = errors[0].message;
-                            var toastEvent = $A.get("e.force:showToast");
-                            toastEvent.setParams({
-                                  "title": title,
-                                  "type": "error",
-                                  "message": message
-                            });
-                            toastEvent.fire();
+                            component.find("toastCmp").toast(title, "error", message);
                       }
-                 } else {
+                 }
+                 else{
                        message = $A.get("$Label.c.KEC_UnknownError");
-                       var toastEvent = $A.get("e.force:showToast");
-                       toastEvent.setParams({
-                             "title": title,
-                             "type": "error",
-                             "message": message
-                       });
-                       toastEvent.fire();
+                       component.find("toastCmp").toast(title, "error", message);
                  }
             }
             });
