@@ -2,14 +2,14 @@
  * Created by BRITENET on 08.01.2020.
  */
 ({
-    prepareProductView: function(component, event, helper){
+    prepareProductView: function(component){
         let productId = component.get("v.recordId");
         let action = component.get("c.getProductInfo");
         action.setParams({
             id : productId
         });
-        action.setCallback(this, function(response) {
-        var state = response.getState();
+        action.setCallback(this, function(response){
+        let state = response.getState();
         if (state === "SUCCESS"){
              component.set("v.product", response.getReturnValue());
              let colors = component.get("v.product").Product2.AvailableColors__c.split(',');
@@ -29,16 +29,16 @@
              let photoPath = component.get("v.product").Product2.ImgPath__c;
              component.set("v.photoPath", photoPath);
              let productId = component.get("v.product").Product2.Id;
-             this.getPhotos(component, event, helper, productId);
+             this.getPhotos(component, productId);
         }
-        else if (state === "ERROR") {
-             var errors = response.getError();
-             var message,
+        else if (state === "ERROR"){
+             let errors = response.getError();
+             let message,
                  title = $A.get("$Label.c.KEC_Error");
              if (errors) {
                    if (errors[0] && errors[0].message) {
                         message = errors[0].message;
-                        var toastEvent = $A.get("e.force:showToast");
+                        let toastEvent = $A.get("e.force:showToast");
                         toastEvent.setParams({
                              "title": title,
                              "type": "error",
@@ -46,9 +46,10 @@
                         });
                         toastEvent.fire();
                    }
-             } else {
+             }
+             else{
                    message = $A.get("$Label.c.KEC_UnknownError");
-                   var toastEvent = $A.get("e.force:showToast");
+                   let toastEvent = $A.get("e.force:showToast");
                    toastEvent.setParams({
                         "title": title,
                         "type": "error",
@@ -60,24 +61,24 @@
     });
     $A.enqueueAction(action);
     },
-    getPhotos: function(component, event, helper, productId){
+    getPhotos: function(component, productId){
         let action = component.get("c.productPhotos");
         action.setParams({
              id : productId
         });
-        action.setCallback(this, function(response) {
-        var state = response.getState();
+        action.setCallback(this, function(response){
+        let state = response.getState();
         if (state === "SUCCESS"){
               component.set("v.photos", response.getReturnValue());
         }
-        else if (state === "ERROR") {
-             var errors = response.getError();
-             var message,
+        else if (state === "ERROR"){
+             let errors = response.getError();
+             let message,
                   title = $A.get("$Label.c.KEC_Error");
-             if (errors) {
-                  if (errors[0] && errors[0].message) {
+             if (errors){
+                  if (errors[0] && errors[0].message){
                         message = errors[0].message;
-                        var toastEvent = $A.get("e.force:showToast");
+                        let toastEvent = $A.get("e.force:showToast");
                         toastEvent.setParams({
                               "title": title,
                               "type": "error",
@@ -85,9 +86,10 @@
                         });
                         toastEvent.fire();
                   }
-             } else {
+             }
+             else{
                    message = $A.get("$Label.c.KEC_UnknownError");
-                   var toastEvent = $A.get("e.force:showToast");
+                   let toastEvent = $A.get("e.force:showToast");
                    toastEvent.setParams({
                          "title": title,
                          "type": "error",
@@ -99,15 +101,15 @@
         });
         $A.enqueueAction(action);
     },
-    handleColor: function(component, event, helper){
+    handleColor: function(component, event){
         let selectedColors = event.getSource().get("v.value");
         component.set("v.selectedColor", selectedColors);
     },
-    handleSize: function(component, event, helper){
+    handleSize: function(component, event){
         let selectedSize = event.getSource().get("v.value");
         component.set("v.selectedSize", selectedSize);
     },
-    getPhoto: function(component, event, helper){
+    getPhoto: function(component, event){
         let photoIndex = event.currentTarget.dataset.id;
         let photos = component.get("v.photos");
         let selectedPhoto = photos[photoIndex];
