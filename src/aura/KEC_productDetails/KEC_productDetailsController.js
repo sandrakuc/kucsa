@@ -3,19 +3,19 @@
  */
 ({
     onInit: function(component, event, helper){
-        helper.prepareProductView(component, event, helper);
+        helper.prepareProductView(component);
     },
     handleColorChange: function(component, event, helper){
-        helper.handleColor(component, event, helper);
+        helper.handleColor(component, event);
     },
     handleSizeChange: function(component, event, helper){
-        helper.handleSize(component, event, helper);
+        helper.handleSize(component, event);
     },
     selectPhoto: function(component, event, helper){
-        helper.getPhoto(component, event, helper);
+        helper.getPhoto(component, event);
     },
     addToFavorites: function(component, event, helper){
-        helper.favorites(component, event, helper);
+        helper.favorites(component);
     },
     openModal: function(component, event, helper){
         helper.open(component, event, helper);
