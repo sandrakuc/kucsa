@@ -28,5 +28,7 @@
                 </div>
             </lightning:layoutItem>
         </lightning:layout>
+
+        <c:KEC_toastHandler aura:id="toastCmp"/>
     </div>
 </aura:component>
