@@ -3,9 +3,9 @@
  */
 ({
     onSearch: function(component, event,helper){
-        helper.search(component, event, helper);
+        helper.search(component);
     },
     onFilter: function(component, event, helper){
-        helper.filter(component, event, helper);
+        helper.filter(component, event);
     }
 })

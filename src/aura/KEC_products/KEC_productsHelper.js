@@ -2,24 +2,24 @@
  * Created by BRITENET on 06.01.2020.
  */
 ({
-    search: function(component, event, helper){
+    search: function(component){
         let action = component.get("c.searchProducts");
         action.setParams({
              name : component.get("v.productName")
         });
-        action.setCallback(this, function(response) {
-             var state = response.getState();
+        action.setCallback(this, function(response){
+             let state = response.getState();
              if (state === "SUCCESS"){
                   component.set("v.resultList", response.getReturnValue());
              }
               else if (state === "ERROR") {
-                  var message,
+                  let message,
                     title = $A.get("$Label.c.KEC_Error");
-                  var errors = response.getError();
+                  let errors = response.getError();
                   if (errors) {
-                        if (errors[0] && errors[0].message) {
+                        if (errors[0] && errors[0].message){
                             message = errors[0].message;
-                            var toastEvent = $A.get("e.force:showToast");
+                            let toastEvent = $A.get("e.force:showToast");
                             toastEvent.setParams({
                                  "title": title,
                                  "type": "error",
@@ -27,9 +27,10 @@
                             });
                             toastEvent.fire();
                         }
-                  } else {
+                  }
+                  else {
                       message = $A.get("$Label.c.KEC_UnknownError");
-                      var toastEvent = $A.get("e.force:showToast");
+                      let toastEvent = $A.get("e.force:showToast");
                       toastEvent.setParams({
                             "title": title,
                             "type": "error",
@@ -41,7 +42,7 @@
         });
         $A.enqueueAction(action);
     },
-    filter: function(component, event, helper){
+    filter: function(component, event){
         if(component.get("v.productName") != null){
             let action = component.get("c.filterProducts");
             action.setParams({
@@ -50,19 +51,19 @@
                  colors : event.getParam("colors"),
                  sizes : event.getParam("sizes")
             });
-            action.setCallback(this, function(response) {
-            var state = response.getState();
+            action.setCallback(this, function(response){
+            let state = response.getState();
                  if (state === "SUCCESS"){
                       component.set("v.resultList", response.getReturnValue());
                  }
                  else if (state === "ERROR") {
-                      var message,
+                      let message,
                           title = $A.get("$Label.c.KEC_Error");
-                      var errors = response.getError();
+                      let errors = response.getError();
                       if (errors) {
-                            if (errors[0] && errors[0].message) {
+                            if (errors[0] && errors[0].message){
                                 message = errors[0].message;
-                                var toastEvent = $A.get("e.force:showToast");
+                                let toastEvent = $A.get("e.force:showToast");
                                 toastEvent.setParams({
                                       "title": title,
                                       "type": "error",
@@ -70,9 +71,10 @@
                                 });
                                 toastEvent.fire();
                             }
-                      } else {
+                      }
+                      else {
                             message = $A.get("$Label.c.KEC_UnknownError");
-                            var toastEvent = $A.get("e.force:showToast");
+                            let toastEvent = $A.get("e.force:showToast");
                             toastEvent.setParams({
                                  "title": title,
                                  "type": "error",

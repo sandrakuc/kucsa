@@ -2,7 +2,7 @@
  * Created by BRITENET on 07.01.2020.
  */
 ({
-    prepareValues : function(component, event, helper){
+    prepareValues : function(component){
         let colorOptionsNames = $A.get("$Label.c.KEC_colors").split(",");
         let sizeOptionsNames = $A.get("$Label.c.KEC_sizes").split(",");
         let colorOptions = [];
@@ -18,7 +18,7 @@
         component.set("v.colorsOptions", colorOptions);
         component.set("v.sizesOptions", sizeOptions);
     },
-    handleColor: function(component, event, helper){
+    handleColor: function(component, event){
         let selectedColors = component.get("v.selectedColors");
         let colors = event.getSource().get("v.value");
         if(event.getSource().get("v.checked")){
@@ -28,7 +28,7 @@
         }
         component.set("v.selectedColors", selectedColors);
     },
-    handleSize: function(component, event, helper){
+    handleSize: function(component, event){
         let selectedSizes = component.get("v.selectedSizes");
         let sizes = event.getSource().get("v.value");
         if(event.getSource().get("v.checked")){
@@ -38,7 +38,7 @@
         }
         component.set("v.selectedSizes", selectedSizes);
     },
-    applyFilters: function(component, event, helper){
+    applyFilters: function(component){
         var appEvent = $A.get("e.c:KEC_filterApplied");
         appEvent.setParams({
             "maxPrice" : component.get("v.maxPrice"),
