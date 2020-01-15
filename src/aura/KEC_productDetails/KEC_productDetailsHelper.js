@@ -35,8 +35,8 @@
              let errors = response.getError();
              let message,
                  title = $A.get("$Label.c.KEC_Error");
-             if (errors) {
-                   if (errors[0] && errors[0].message) {
+             if (errors){
+                   if (errors[0] && errors[0].message){
                         message = errors[0].message;
                         let toastEvent = $A.get("e.force:showToast");
                         toastEvent.setParams({
