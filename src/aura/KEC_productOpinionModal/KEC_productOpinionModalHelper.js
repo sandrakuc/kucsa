@@ -1,9 +1,9 @@
 
 ({
-    close: function(component, event, helper){
+    close: function(component){
         component.set("v.openModal", false);
     },
-    prepareAnswers: function(component, event, helper){
+    prepareAnswers: function(component){
         let rateQuestionAnswers = $A.get('$Label.c.KEC_RateSizeAnswers').split(",");
         let availableAnswers = [];
         for(let i = 0; i < rateQuestionAnswers.length; i++){
@@ -12,16 +12,16 @@
         }
         component.set("v.availableAnswers", availableAnswers);
     },
-    handleAnswer: function(component, event, helper){
+    handleAnswer: function(component, event){
         let selectedAnswer = event.getSource().get("v.value");
         component.set("v.selectedAnswer", selectedAnswer);
     },
-    handleRate: function(component, event, helper){
+    handleRate: function(component, event){
         let rating = event.getParam("rating");
         component.set("v.rate", rating);
     },
-    saveOpinionEventFire: function(component, event, helper){
-        var compEvent = component.getEvent("saveOpinion");
+    saveOpinionEventFire: function(component){
+        let compEvent = component.getEvent("saveOpinion");
         compEvent.setParams({
             "color" : component.get("v.selectedColor"),
             "size" : component.get("v.selectedSize"),
@@ -30,6 +30,6 @@
             "rate" : component.get("v.rate")
         })
         compEvent.fire();
-        this.close(component, event, helper);
+        this.close(component);
     }
 })

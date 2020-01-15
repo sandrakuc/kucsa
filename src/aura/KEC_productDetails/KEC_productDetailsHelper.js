@@ -31,7 +31,7 @@
              let productId = component.get("v.product").Product2.Id;
              this.getPhotos(component, productId);
              this.getFavorites(component, productId);
-             this.getOpinions(component, event, helper, productId);
+             this.getOpinions(component, productId);
         }
         else if (state === "ERROR"){
              let errors = response.getError();
@@ -245,10 +245,10 @@
             }
         }
     },
-    open: function(component, event, helper){
+    open: function(component){
         component.set("v.openModal", true);
     },
-    saveUserOpinion: function(component, event, helper){
+    saveUserOpinion: function(component, event){
         let color = event.getParam("color"),
             size = event.getParam("size"),
             content = event.getParam("content"),
@@ -264,30 +264,30 @@
             rating : rate,
             sizeRating : answer
         });
-        action.setCallback(this, function(response) {
-             var state = response.getState();
+        action.setCallback(this, function(response){
+             let state = response.getState();
              if (state === "SUCCESS"){
-                   var operationResult = response.getReturnValue(),
+                   let operationResult = response.getReturnValue(),
                    title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                    type = operationResult.isSuccess ? "success" : "error",
                    message = operationResult.message;
-                   var toastEvent = $A.get("e.force:showToast");
+                   let toastEvent = $A.get("e.force:showToast");
                    toastEvent.setParams({
                         "title": title,
                         "type": type,
                         "message": message
                    });
                    toastEvent.fire();
-                   this.getOpinions(component, event, helper, productId);
+                   this.getOpinions(component, productId);
              }
              else if (state === "ERROR") {
-                   var errors = response.getError();
-                   var message,
+                   let errors = response.getError();
+                   let message,
                         title = $A.get("$Label.c.KEC_Error");
-                   if (errors) {
-                        if (errors[0] && errors[0].message) {
+                   if (errors){
+                        if (errors[0] && errors[0].message){
                               message = errors[0].message;
-                              var toastEvent = $A.get("e.force:showToast");
+                              let toastEvent = $A.get("e.force:showToast");
                               toastEvent.setParams({
                                    "title": title,
                                    "type": "error",
@@ -295,9 +295,10 @@
                               });
                               toastEvent.fire();
                         }
-                   } else {
+                   }
+                   else{
                         message = $A.get("$Label.c.KEC_UnknownError");
-                        var toastEvent = $A.get("e.force:showToast");
+                        let toastEvent = $A.get("e.force:showToast");
                         toastEvent.setParams({
                              "title": title,
                              "type": "error",
@@ -309,24 +310,24 @@
         });
         $A.enqueueAction(action);
     },
-    getOpinions: function(component, event, helper, productId){
+    getOpinions: function(component, productId){
             let action = component.get("c.productOpinions");
             action.setParams({
                  id : productId
             });
-            action.setCallback(this, function(response) {
-            var state = response.getState();
+            action.setCallback(this, function(response){
+            let state = response.getState();
             if (state === "SUCCESS"){
                   component.set("v.productOpinions", response.getReturnValue());
             }
-            else if (state === "ERROR") {
-                 var errors = response.getError();
-                 var message,
+            else if (state === "ERROR"){
+                 let errors = response.getError();
+                 let message,
                       title = $A.get("$Label.c.KEC_Error");
-                 if (errors) {
-                      if (errors[0] && errors[0].message) {
+                 if (errors){
+                      if (errors[0] && errors[0].message){
                             message = errors[0].message;
-                            var toastEvent = $A.get("e.force:showToast");
+                            let toastEvent = $A.get("e.force:showToast");
                             toastEvent.setParams({
                                   "title": title,
                                   "type": "error",
@@ -334,9 +335,10 @@
                             });
                             toastEvent.fire();
                       }
-                 } else {
+                 }
+                 else{
                        message = $A.get("$Label.c.KEC_UnknownError");
-                       var toastEvent = $A.get("e.force:showToast");
+                       let toastEvent = $A.get("e.force:showToast");
                        toastEvent.setParams({
                              "title": title,
                              "type": "error",
