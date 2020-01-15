@@ -37,4 +37,5 @@
     <aura:if isTrue="{!v.favorites.length == 0}">
         <span>{!$Label.c.KEC_NoFavoritesItems}</span>
     </aura:if>
+    <c:KEC_toastHandler aura:id="toastCmp" />
 </aura:component>
