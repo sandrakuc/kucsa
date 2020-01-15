@@ -15,6 +15,6 @@
         helper.getPhoto(component, event);
     },
     addToFavorites: function(component, event, helper){
-        helper.favorites(component, event, helper);
+        helper.favorites(component);
     }
 })
