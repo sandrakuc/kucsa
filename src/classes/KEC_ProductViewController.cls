@@ -31,4 +31,19 @@ public with sharing class KEC_ProductViewController {
         return operationResult;
     }
 
+    @AuraEnabled
+    public static KEC_OperationResult createProductOpinion(String id, String color, String size, String content, Integer rating, String sizeRating){
+        KEC_Product_Opinion__c productOpinion = new KEC_Product_Opinion__c(User__c = UserInfo.getUserId(), Product__c = id, Color__c = color, Size__c = size, Content__c = content, Rating__c = rating, Size_Rating__c = sizeRating, Date__c = Date.today());
+        Database.SaveResult saveResult = Database.insert(productOpinion);
+        String message = saveResult.isSuccess() ? System.Label.KEC_OperationSuccess : saveResult.getErrors()[0].getMessage();
+        KEC_OperationResult operationResult = new KEC_OperationResult(saveResult.isSuccess(), message);
+        return operationResult;
+    }
+
+    @AuraEnabled
+    public static List<KEC_Product_Opinion__c> productOpinions(String id){
+        List<KEC_Product_Opinion__c> productOpinions = [SELECT Id, User__r.Name, Rating__c, Size_Rating__c, Date__c, Size__c, Color__c, Content__c FROM KEC_Product_Opinion__c WHERE Product__c = :id];
+        return productOpinions;
+    }
+
 }

@@ -31,6 +31,7 @@
              let productId = component.get("v.product").Product2.Id;
              this.getPhotos(component, productId);
              this.getFavorites(component, productId);
+             this.getOpinions(component, productId);
         }
         else if (state === "ERROR"){
              let errors = response.getError();
@@ -189,5 +190,80 @@
                 component.set("v.isFavorite", false);
             }
         }
-    }
+    },
+    open: function(component){
+        component.set("v.openModal", true);
+    },
+    saveUserOpinion: function(component, event){
+        let color = event.getParam("color"),
+            size = event.getParam("size"),
+            content = event.getParam("content"),
+            answer = event.getParam("answer"),
+            rate = event.getParam("rate"),
+            productId = component.get("v.product").Product2.Id;
+        let action = component.get("c.createProductOpinion");
+        action.setParams({
+            id : productId,
+            color : color,
+            size : size,
+            content : content,
+            rating : rate,
+            sizeRating : answer
+        });
+        action.setCallback(this, function(response){
+             let state = response.getState();
+             if (state === "SUCCESS"){
+                   let operationResult = response.getReturnValue(),
+                   title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
+                   type = operationResult.isSuccess ? "success" : "error",
+                   message = operationResult.message;
+                   component.find("toastCmp").toast(title, type, message);
+                   this.getOpinions(component, productId);
+             }
+             else if (state === "ERROR") {
+                   let errors = response.getError();
+                   let message,
+                        title = $A.get("$Label.c.KEC_Error");
+                   if (errors){
+                        if (errors[0] && errors[0].message){
+                              message = errors[0].message;
+                              component.find("toastCmp").toast(title, "error", message);
+                        }
+                   }
+                   else{
+                        message = $A.get("$Label.c.KEC_UnknownError");
+                        component.find("toastCmp").toast(title, "error", message);
+                   }
+             }
+        });
+        $A.enqueueAction(action);
+    },
+    getOpinions: function(component, productId){
+            let action = component.get("c.productOpinions");
+            action.setParams({
+                 id : productId
+            });
+            action.setCallback(this, function(response){
+            let state = response.getState();
+            if (state === "SUCCESS"){
+                  component.set("v.productOpinions", response.getReturnValue());
+            }
+            else if (state === "ERROR"){
+                 let errors = response.getError();
+                 let message,
+                      title = $A.get("$Label.c.KEC_Error");
+                 if (errors){
+                      if (errors[0] && errors[0].message){
+                            message = errors[0].message;
+                            component.find("toastCmp").toast(title, "error", message);
+                      }
+                 }
+                 else{
+                       message = $A.get("$Label.c.KEC_UnknownError");
+                       component.find("toastCmp").toast(title, "error", message);
+                 }
+            }
+            });
+            $A.enqueueAction(action);
+        }
 })

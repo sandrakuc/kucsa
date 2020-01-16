@@ -16,5 +16,11 @@
     },
     addToFavorites: function(component, event, helper){
         helper.favorites(component);
+    },
+    openModal: function(component, event, helper){
+        helper.open(component);
+    },
+    handleSaveOpinion: function(component, event, helper){
+        helper.saveUserOpinion(component, event);
     }
 })

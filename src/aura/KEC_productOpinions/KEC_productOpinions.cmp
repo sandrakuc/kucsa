@@ -1,0 +1,29 @@
+<!--
+ - Created by BRITENET on 13.01.2020.
+ -->
+
+<aura:component description="KEC_productOpinions" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
+    <aura:attribute name="productOpinions" type="List" />
+
+    <aura:if isTrue="{!v.productOpinions.length != 0}">
+        <aura:iteration items="{!v.productOpinions}" var="opinion" >
+            <div>
+            <div class="opinion">
+                <div class="opinioninfo">
+                <span class="username">{!opinion.User__r.Name + ' '}</span><span class="rating">{!' ★ ' + opinion.Rating__c}</span>
+                <span class="opiniondate">{!opinion.Date__c}</span><br/>
+                <span class="opinionlabel">{!$Label.c.KEC_SizeLabel +' '}</span><span class="mydesc">{!opinion.Size__c}</span><br />
+                <span class="opinionlabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="mydesc">{!opinion.Color__c}</span><br />
+                <span class="opinionlabel">{!$Label.c.KEC_SizeRatingLabel + ' '}</span><span class="mydesc">{!opinion.Size_Rating__c}</span><br />
+                </div>
+                <span class="content"><i>{!opinion.Content__c}</i></span>
+            </div>
+            </div>
+        </aura:iteration>
+    </aura:if>
+    <aura:if isTrue="{!v.productOpinions.length == 0}">
+        <div>
+        <span class="noopinion">{!$Label.c.KEC_NoUserOpinion}</span>
+        </div>
+    </aura:if>
+</aura:component>

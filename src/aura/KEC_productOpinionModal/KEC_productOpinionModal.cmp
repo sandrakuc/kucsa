@@ -1,0 +1,78 @@
+<!--
+ - Created by BRITENET on 10.01.2020.
+ -->
+
+<aura:component description="KEC_productOpinionModal" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable, lightning:isUrlAddressable">
+    <aura:attribute name="openModal" type="Boolean" default="false" />
+    <aura:attribute name="product" type="PricebookEntry" />
+    <aura:attribute name="availableSizes" type="List"/>
+    <aura:attribute name="availableColors" type="List"/>
+    <aura:attribute name="availableAnswers" type="List"/>
+    <aura:attribute name="selectedSize" type="String"/>
+    <aura:attribute name="selectedColor" type="String"/>
+    <aura:attribute name="selectedAnswer" type="String"/>
+    <aura:attribute name="opinionContent" type="String"/>
+    <aura:attribute name="rate" type="Integer"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <aura:registerEvent name="saveOpinion" type="c:KEC_saveOpinion"/>
+
+    <aura:if isTrue="{!v.openModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          onclick="{!c.closeModal}"
+                                          class="slds-modal__close"/>
+                    <h2>{!$Label.c.KEC_OpinionModalHeader + ' ' + v.product.Product2.Name}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <lightning:select name="color" label="{!$Label.c.KEC_ColorLabel}" value="{!v.selectedColor}"
+                                              class="modalselect">
+                                <aura:iteration items="{!v.availableColors}" var="color">
+                                    <option value="{!color.label}">{!color.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                        <div class="slds-col">
+                            <lightning:select name="size" label="{!$Label.c.KEC_SizeLabel}" value="{!v.selectedSize}"
+                                              class="modalselect">
+                                <aura:iteration items="{!v.availableSizes}" var="size">
+                                    <option value="{!size.label}">{!size.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                    </div>
+                    <lightning:textarea name="content" label="{!$Label.c.KEC_OpinionLabel}" value="{!v.opinionContent}"/>
+                    <span class="mylabel">{!$Label.c.KEC_RateSizeOpinion}</span>
+                    <div class="formfragment">
+                        <aura:iteration items="{!v.availableAnswers}" var="answer">
+                            <lightning:input name="answers" type="radio" aura:id="boxPackSize" value="{!answer.label}"
+                                             label="{!answer.label}" class="checkboxline"
+                                             onchange="{!c.handleAnswerChange}"/>
+                        </aura:iteration>
+                    </div>
+                    <span class="mylabel">{!$Label.c.KEC_ProductRatingLabel}</span>
+                    <lightning:layoutItem size="12"
+                                          mediumDeviceSize="4"
+                                          padding="none">
+                        <div>
+                            <c:Rating colorOn="#00BFFF" colorOff="#EEEEEE" change="{!c.handleRateChange}"/>
+                        </div>
+                    </lightning:layoutItem>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="{!$Label.c.KEC_Save}" onclick="{!c.saveOpinion}"/>
+                    <lightning:button label="{!$Label.c.KEC_Cancel}" onclick="{!c.closeModal}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>
