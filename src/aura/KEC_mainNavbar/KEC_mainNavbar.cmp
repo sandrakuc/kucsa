@@ -1,5 +1,11 @@
 <aura:component description="KEC_mainNavbar"
-                implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
+                implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable" controller="KEC_CartController">
+
+    <aura:attribute name="cartItemsValue" type="Integer" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler event="c:KEC_refreshCartBadge" action="{!c.onInit}" />
+
     <div class="slds-context-bar">
         <div class="slds-context-bar__primary">
             <div class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click slds-no-hover">
@@ -31,6 +37,7 @@
                     <a class="slds-context-bar__label-action">
                         <span class="slds-truncate" onclick="{!c.toBasket}">
                             <lightning:icon iconName="utility:cart"/>
+                            <lightning:badge label="{!v.cartItemsValue}" />
                         </span>
                     </a>
                 </li>
@@ -44,5 +51,6 @@
             </ul>
         </nav>
     </div>
+    <c:KEC_toastHandler aura:id="toastCmp" />
     <c:KEC_redirectionHandler aura:id="redirectCmp" />
 </aura:component>

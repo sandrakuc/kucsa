@@ -539,7 +539,6 @@
                             <option name="name" value="KEC_productsFilter" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
-
                           <MetadataEntry>
                             <option name="name" value="KEC_productDetails" />
                             <option name="selected" value="true" />
@@ -548,7 +547,6 @@
                             <option name="name" value="KEC_favoritesList" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
-
                           <MetadataEntry>
                             <option name="name" value="KEC_toastHandler" />
                             <option name="selected" value="true" />
@@ -575,6 +573,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="KEC_redirectionHandler" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_refreshCartBadge" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

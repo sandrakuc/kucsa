@@ -1,0 +1,6 @@
+<!--
+ - Created by BRITENET on 16.01.2020.
+ -->
+
+<aura:event type="APPLICATION" description="KEC_refreshCartBadge">
+</aura:event>

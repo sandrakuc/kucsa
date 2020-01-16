@@ -7,6 +7,8 @@
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 
+    <aura:registerEvent name="refreshCartBadge" type="c:KEC_refreshCartBadge"/>
+
     <div id="siteheader" style="font-size: 28px; margin-top: 20px; margin-bottom: 20px; color: deepskyblue; background-color: rgba(0, 191, 255, 0.1); text-transform: uppercase; padding-left: 20px;">{!$Label.c.KEC_FavoritesList}</div>
     <aura:if isTrue="{!v.favorites.length != 0}">
         <aura:iteration items="{!v.favorites}" var="fav" indexVar="index">

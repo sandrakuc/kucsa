@@ -16,5 +16,8 @@
     },
     toBasket: function(component, event, helper){
         helper.redirectToSite(component, "/basket");
+    },
+    onInit: function(component, event, helper){
+        helper.getCartItems(component);
     }
 })

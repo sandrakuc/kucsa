@@ -90,6 +90,7 @@
                        type = operationResult.isSuccess ? "success" : "error",
                        message = operationResult.message;
                   component.find("toastCmp").toast(title, type, message);
+                  this.refreshCart(component);
              }
              else if (state === "ERROR"){
                   let errors = response.getError();
@@ -108,5 +109,9 @@
              }
         });
         $A.enqueueAction(action);
+    },
+    refreshCart: function(component){
+         let appEvent = $A.get("e.c:KEC_refreshCartBadge");
+         appEvent.fire();
     }
 })

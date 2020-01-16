@@ -17,6 +17,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:handler name="saveOpinion" event="c:KEC_saveOpinion" action="{!c.handleSaveOpinion}" />
 
+    <aura:registerEvent name="refreshCartBadge" type="c:KEC_refreshCartBadge"/>
+
     <lightning:card>
         <div class="slds-grid slds-gutters">
             <div class="slds-col">

@@ -284,7 +284,7 @@
                           type = operationResult.isSuccess ? "success" : "error",
                           message = operationResult.message;
                      component.find("toastCmp").toast(title, type, message);
-                     this.getOpinions(component, productId);
+                     this.refreshCart(component);
                 }
                 else if (state === "ERROR"){
                      let errors = response.getError();
@@ -294,6 +294,7 @@
                            if (errors[0] && errors[0].message){
                                  message = errors[0].message;
                                  component.find("toastCmp").toast(title, "error", message);
+                                 this.refreshCart(component);
                            }
                      }
                      else{
@@ -303,5 +304,9 @@
                 }
             });
             $A.enqueueAction(action);
+        },
+        refreshCart: function(component){
+            let appEvent = $A.get("e.c:KEC_refreshCartBadge");
+            appEvent.fire();
         }
 })

@@ -54,6 +54,7 @@
                        message = operationResult.message;
                   component.set("v.cartItems", cartItems);
                   this.sumTotalPrice(component, cartItems);
+                  this.refreshCart(component);
                   component.find("toastCmp").toast(title, type, message);
             }
             else if (state === "ERROR"){
@@ -87,6 +88,7 @@
                           message = operationResult.message;
                      component.set("v.cartItems", cartItems);
                      this.sumTotalPrice(component, cartItems);
+                     this.refreshCart(component);
                      component.find("toastCmp").toast(title, type, message);
             }
             else if (state === "ERROR"){
@@ -127,6 +129,7 @@
                             message = operationResult.message;
                        component.set("v.cartItems", cartItems);
                        this.sumTotalPrice(component, cartItems);
+                       this.refreshCart(component);
                        component.find("toastCmp").toast(title, type, message);
                   }
                   else if (state === "ERROR"){
@@ -165,6 +168,7 @@
                                message = operationResult.message;
                           component.set("v.cartItems", cartItems);
                           this.sumTotalPrice(component, cartItems);
+                          this.refreshCart(component);
                           component.find("toastCmp").toast(title, type, message);
                     }
                     else if (state === "ERROR"){
@@ -191,5 +195,9 @@
             let productId = products[index].product.Id;
             let urlAddress = '/productview?recordId='+productId;
             component.find("redirectCmp").redirectToSite(urlAddress);
+        },
+        refreshCart: function(component){
+            let appEvent = $A.get("e.c:KEC_refreshCartBadge");
+            appEvent.fire();
         }
 })
