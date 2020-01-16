@@ -9,6 +9,8 @@
     <aura:attribute name="selectedColor" type="String"/>
     <aura:attribute name="photos" type="List"/>
     <aura:attribute name="photoPath" type="String"/>
+    <aura:attribute name="isFavorite" type="Boolean" default="false"/>
+    <aura:attribute name="favorites" type="Boolean" default="true"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 
@@ -58,7 +60,7 @@
 
                 <lightning:button iconName="utility:cart" label="{!$Label.c.KEC_AddToBasket}" class="basketbtn"/>
                 <br/>
-                <lightning:button iconName="utility:favorite" label="{!$Label.c.KEC_Favorites}" class="typicalbtn"/>
+                <lightning:button iconName="utility:favorite" label="{!$Label.c.KEC_Favorites}" class="typicalbtn" onclick="{!c.addToFavorites}" disabled="{!v.isFavorite}"/>
 
                 <p class="productDescription">
                         {!v.product.Product2.Description}

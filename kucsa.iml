@@ -250,6 +250,14 @@
                             <option name="name" value="KEC_ProductViewController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_OperationResult" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_FavoritesListController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -518,6 +526,10 @@
 
                           <MetadataEntry>
                             <option name="name" value="KEC_productDetails" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_favoritesList" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
 

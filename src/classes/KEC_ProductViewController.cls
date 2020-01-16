@@ -16,4 +16,19 @@ public with sharing class KEC_ProductViewController {
         return photos;
     }
 
+    @AuraEnabled
+    public static List<KEC_Favourite_Product__c> checkFavouriteProduct(String id) {
+        List<KEC_Favourite_Product__c> favourites = [SELECT Id, Product__c, Size__c, Color__c FROM KEC_Favourite_Product__c WHERE Product__c = :id AND User__c = :UserInfo.getUserId()];
+        return favourites;
+    }
+
+    @AuraEnabled
+    public static KEC_OperationResult addToFavouritesList(String id, Double price, String size, String color, String entry){
+        KEC_Favourite_Product__c favouriteProduct = new KEC_Favourite_Product__c(Product__c = id, Price__c = price, Size__c = size, Color__c = color, User__c = UserInfo.getUserId(), Entry__c = entry);
+        Database.SaveResult saveResult = Database.insert(favouriteProduct);
+        String message = saveResult.isSuccess() ? System.Label.KEC_AddToFavouriteSuccess : saveResult.getErrors()[0].getMessage();
+        KEC_OperationResult operationResult = new KEC_OperationResult(saveResult.isSuccess(), message);
+        return operationResult;
+    }
+
 }
