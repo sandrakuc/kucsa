@@ -24,7 +24,7 @@
         if(event.getSource().get("v.checked")){
             selectedColors.push(colors);
         }
-        else {
+        else{
             selectedColors.splice(colors, 1);
         }
         component.set("v.selectedColors", selectedColors);
@@ -35,7 +35,7 @@
         if(event.getSource().get("v.checked")){
             selectedSizes.push(sizes);
         }
-        else {
+        else{
             selectedSizes.splice(sizes, 1);
         }
         component.set("v.selectedSizes", selectedSizes);
