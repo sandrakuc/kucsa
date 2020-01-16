@@ -1,0 +1,7 @@
+<!--
+ - Created by BRITENET on 08.01.2020.
+ -->
+
+<design:component label="Record View">
+    <design:attribute name="recordId" label="Record ID"/>
+</design:component>

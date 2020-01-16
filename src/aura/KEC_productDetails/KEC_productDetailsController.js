@@ -1,0 +1,17 @@
+/**
+ * Created by BRITENET on 08.01.2020.
+ */
+({
+    onInit: function(component, event, helper){
+        helper.prepareProductView(component);
+    },
+    handleColorChange: function(component, event, helper){
+        helper.handleColor(component, event);
+    },
+    handleSizeChange: function(component, event, helper){
+        helper.handleSize(component, event);
+    },
+    selectPhoto: function(component, event, helper){
+        helper.getPhoto(component, event);
+    }
+})

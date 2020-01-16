@@ -246,6 +246,10 @@
                             <option name="name" value="KEC_ProductFilterHelper" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_ProductViewController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -511,6 +515,12 @@
                             <option name="name" value="KEC_productsFilter" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+
+                          <MetadataEntry>
+                            <option name="name" value="KEC_productDetails" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+
                           <MetadataEntry>
                             <option name="name" value="KEC_toastHandler" />
                             <option name="selected" value="true" />
