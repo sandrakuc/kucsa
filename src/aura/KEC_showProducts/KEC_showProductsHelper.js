@@ -6,10 +6,7 @@
         let index = event.currentTarget.dataset.id;
         let products = component.get("v.resultList");
         let productId = products[index].Id;
-        let urlEvent = $A.get("e.force:navigateToURL");
-        urlEvent.setParams({
-             "url": '/productview?recordId='+productId
-        });
-        urlEvent.fire();
+        let urlAddress = '/productview?recordId='+productId;
+        component.find("redirectCmp").redirectToSite(urlAddress);
     }
 })

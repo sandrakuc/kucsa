@@ -31,4 +31,5 @@
             </aura:if>
         </lightning:layout>
     </div>
+    <c:KEC_redirectionHandler aura:id="redirectCmp" />
 </aura:component>
