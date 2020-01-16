@@ -19,5 +19,11 @@
     },
     onInit: function(component, event, helper){
         helper.getCartItems(component);
+    },
+    openPop: function(component, event, helper){
+        helper.open(component);
+    },
+    closePop: function(component, event, helper){
+        helper.close(component);
     }
 })

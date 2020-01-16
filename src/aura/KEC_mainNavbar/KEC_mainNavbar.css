@@ -13,3 +13,8 @@
 .THIS .lasttextitem{
     margin-right: 750px;
 }
+
+.THIS .slds-popover {
+ position: absolute;
+ left: -150px;
+}

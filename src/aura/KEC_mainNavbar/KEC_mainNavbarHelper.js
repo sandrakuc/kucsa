@@ -11,6 +11,7 @@
          let state = response.getState();
          if (state === "SUCCESS"){
               let cartItems = response.getReturnValue();
+              component.set("v.cartItems", cartItems);
               this.sumItems(component, cartItems);
          }
          else if (state === "ERROR"){
@@ -37,6 +38,17 @@
                sum += cartItems[i].quantity;
          }
          component.set("v.cartItemsValue", sum);
+    },
+    open: function(component){
+        let cmpTarget = component.find('pop');
+        $A.util.addClass(cmpTarget, 'slds-show');
+        $A.util.removeClass(cmpTarget, 'slds-hide');
+    },
+    close: function(component){
+        let cmpTarget = component.find('pop');
+        $A.util.addClass(cmpTarget, 'slds-hide');
+        $A.util.removeClass(cmpTarget, 'slds-show');
+
     }
 
 })

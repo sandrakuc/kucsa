@@ -2,6 +2,7 @@
                 implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable" controller="KEC_CartController">
 
     <aura:attribute name="cartItemsValue" type="Integer" />
+    <aura:attribute name="cartItems" type="List" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:handler event="c:KEC_refreshCartBadge" action="{!c.onInit}" />
@@ -35,9 +36,19 @@
                 </li>
                 <li class="slds-context-bar__item">
                     <a class="slds-context-bar__label-action">
-                        <span class="slds-truncate" onclick="{!c.toBasket}">
+                        <span class="slds-truncate" onclick="{!c.toBasket}" onmouseover="{!c.openPop}" onmouseout="{!c.closePop}">
                             <lightning:icon iconName="utility:cart"/>
                             <lightning:badge label="{!v.cartItemsValue}" />
+                            <section aura:id="pop" class="slds-popover slds-nubbin_top slds-hide" role="dialog" aria-labelledby="dialog-heading-id-1" aria-describedby="dialog-body-id-6">
+                            <header class="slds-popover__header slds-p-vertical_medium">
+                                <h2 id="dialog-heading-id-1" class="slds-text-heading_medium">{!$Label.c.KEC_Basket}</h2>
+                            </header>
+                            <div class="slds-popover__body" id="dialog-body-id-6">
+                                <p>Your card body</p>
+                            </div>
+                            <footer class="slds-popover__footer">
+                            </footer>
+                        </section>
                         </span>
                     </a>
                 </li>
