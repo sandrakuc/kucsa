@@ -64,6 +64,7 @@
                        type = operationResult.isSuccess ? "success" : "error",
                        message = operationResult.message;
                   component.set("v.cartItems", cartItems);
+                  this.sumTotalPrice(component, event, helper, cartItems);
                   var toastEvent = $A.get("e.force:showToast");
                   toastEvent.setParams({
                        "title": title,
@@ -113,6 +114,7 @@
                       type = operationResult.isSuccess ? "success" : "error",
                       message = operationResult.message;
                  component.set("v.cartItems", cartItems);
+                 this.sumTotalPrice(component, event, helper, cartItems);
                  var toastEvent = $A.get("e.force:showToast");
                  toastEvent.setParams({
                        "title": title,
@@ -170,6 +172,7 @@
                             type = operationResult.isSuccess ? "success" : "error",
                             message = operationResult.message;
                        component.set("v.cartItems", cartItems);
+                       this.sumTotalPrice(component, event, helper, cartItems);
                        var toastEvent = $A.get("e.force:showToast");
                        toastEvent.setParams({
                             "title": title,
@@ -225,7 +228,7 @@
                                type = operationResult.isSuccess ? "success" : "error",
                                message = operationResult.message;
                           component.set("v.cartItems", cartItems);
-                          console.log(JSON.stringify(cartItems));
+                          this.sumTotalPrice(component, event, helper, cartItems);
                           var toastEvent = $A.get("e.force:showToast");
                           toastEvent.setParams({
                                "title": title,
