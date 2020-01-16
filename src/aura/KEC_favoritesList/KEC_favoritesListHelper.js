@@ -67,11 +67,8 @@
          let index = event.currentTarget.id;
          let products = component.get("v.favorites");
          let productId = products[index].Entry__c;
-         let urlEvent = $A.get("e.force:navigateToURL");
-         urlEvent.setParams({
-              "url": '/productview?recordId='+productId
-         });
-         urlEvent.fire();
+         let urlAddress = '/productview?recordId='+productId;
+         component.find("redirectCmp").redirectToSite(urlAddress);
     },
     addToCart: function(component, event, helper){
         var index = event.currentTarget.id;
