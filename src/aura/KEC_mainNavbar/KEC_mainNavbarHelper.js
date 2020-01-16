@@ -13,6 +13,7 @@
               let cartItems = response.getReturnValue();
               component.set("v.cartItems", cartItems);
               this.sumItems(component, cartItems);
+              this.setTotalPrice(component, cartItems);
          }
          else if (state === "ERROR"){
               let errors = response.getError();
@@ -39,6 +40,13 @@
          }
          component.set("v.cartItemsValue", sum);
     },
+    setTotalPrice: function(component, cartItems){
+        let sum = 0;
+        for(let i = 0; i < cartItems.length; i++){
+            sum += cartItems[i].quantity * cartItems[i].product.UnitPrice;
+        }
+        component.set("v.totalPrice", sum);
+    },
     open: function(component){
         let cmpTarget = component.find('pop');
         $A.util.addClass(cmpTarget, 'slds-show');
@@ -48,7 +56,6 @@
         let cmpTarget = component.find('pop');
         $A.util.addClass(cmpTarget, 'slds-hide');
         $A.util.removeClass(cmpTarget, 'slds-show');
-
     }
 
 })
