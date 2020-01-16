@@ -40,13 +40,17 @@
                             <span class="mylabel">{!$Label.c.KEC_SizeLabel + ' '}</span><span class="myDesc">{!item.size}</span><br />
                             <span class="mylabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="myDesc">{!item.color}</span><br />
                             <div class="buttonsSection">
-                                <a href="{!'https://kucsa-exclusive-developer-edition.eu29.force.com/s/productview?recordId='+ item.product.Id}">
-                                    <button class="slds-button slds-button_neutral optionButton">
-                                        <lightning:icon iconName="utility:preview" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
-                                    </button>
-                                </a>
-                                <button class="slds-button slds-button_neutral optionButton" id="{!index}" onclick="{!c.removeProduct}">
-                                    <lightning:icon iconName="utility:close" class="slds-button__icon slds-button__icon_left" style="margin-top: -5px;"/>
+                                <button class="slds-button slds-button_neutral optionButton" id="{!index}"
+                                onclick="{!c.redirectToView}">
+                                    <lightning:icon iconName="utility:preview"
+                                                    class="slds-button__icon slds-button__icon_left"
+                                                    style="margin-top: -5px;"/>
+                                </button>
+                                <button class="slds-button slds-button_neutral optionButton" id="{!index}"
+                                        onclick="{!c.removeProduct}">
+                                    <lightning:icon iconName="utility:close"
+                                                    class="slds-button__icon slds-button__icon_left"
+                                                    style="margin-top: -5px;"/>
                                 </button>
                             </div>
                         </div>
@@ -93,4 +97,6 @@
     <aura:if isTrue="{!v.cartItems.length == 0}">
         <span>{!$Label.c.KEC_EmptyCart}</span>
     </aura:if>
+    <c:KEC_toastHandler aura:id="toastCmp" />
+    <c:KEC_redirectionHandler aura:id="redirectCmp" />
 </aura:component>

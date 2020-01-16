@@ -13,30 +13,30 @@
         <nav class="slds-context-bar__secondary" role="navigation">
             <ul class="slds-grid">
                 <li class="slds-context-bar__item slds-is-active">
-                    <a href="https://kucsa-exclusive-developer-edition.eu29.force.com/s/" class="slds-context-bar__label-action">
-                        <span class="slds-truncate mynavitem" title="Home">{!$Label.c.KEC_Home}</span>
+                    <a class="slds-context-bar__label-action">
+                        <span class="slds-truncate mynavitem" onclick="{!c.toHome}">{!$Label.c.KEC_Home}</span>
                     </a>
                 </li>
                 <li class="slds-context-bar__item">
-                    <a href="https://kucsa-exclusive-developer-edition.eu29.force.com/s/searchproducts" class="slds-context-bar__label-action">
-                        <span class="slds-truncate mynavitem">{!$Label.c.KEC_Products}</span>
+                    <a class="slds-context-bar__label-action">
+                        <span class="slds-truncate mynavitem" onclick="{!c.toSearch}">{!$Label.c.KEC_Products}</span>
                     </a>
                 </li>
                 <li class="slds-context-bar__item lasttextitem">
-                    <a href="/" class="slds-context-bar__label-action">
-                        <span class="slds-truncate mynavitem">{!$Label.c.KEC_YourOrders}</span>
+                    <a class="slds-context-bar__label-action">
+                        <span class="slds-truncate mynavitem" onclick="{!c.toOrders}">{!$Label.c.KEC_YourOrders}</span>
                     </a>
                 </li>
                 <li class="slds-context-bar__item">
-                    <a href="https://kucsa-exclusive-developer-edition.eu29.force.com/s/basket" class="slds-context-bar__label-action">
-                        <span class="slds-truncate">
+                    <a class="slds-context-bar__label-action">
+                        <span class="slds-truncate" onclick="{!c.toBasket}">
                             <lightning:icon iconName="utility:cart"/>
                         </span>
                     </a>
                 </li>
                 <li class="slds-context-bar__item">
-                    <a href="https://kucsa-exclusive-developer-edition.eu29.force.com/s/favoriteslist" class="slds-context-bar__label-action">
-                        <span class="slds-truncate">
+                    <a class="slds-context-bar__label-action">
+                        <span class="slds-truncate" onclick="{!c.toFavorites}">
                             <lightning:icon iconName="utility:favorite"/>
                         </span>
                     </a>
@@ -44,4 +44,5 @@
             </ul>
         </nav>
     </div>
+    <c:KEC_redirectionHandler aura:id="redirectCmp" />
 </aura:component>

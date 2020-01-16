@@ -12,6 +12,6 @@
         helper.redirectToViewPage(component, event);
     },
     toCart: function(component, event, helper){
-        helper.addToCart(component, event, helper);
+        helper.addToCart(component, event);
     }
 })

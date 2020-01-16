@@ -2,159 +2,113 @@
  * Created by BRITENET on 14.01.2020.
  */
 ({
-    getCartItems: function(component, event, helper){
+    getCartItems: function(component){
         let action = component.get("c.getCartItemsList");
-        action.setCallback(this, function(response) {
-            var state = response.getState();
+        action.setCallback(this, function(response){
+            let state = response.getState();
             if (state === "SUCCESS"){
                 let cartItems = response.getReturnValue();
                 component.set("v.cartItems", cartItems);
-                this.sumTotalPrice(component, event, helper, cartItems);
+                this.sumTotalPrice(component, cartItems);
             }
-            else if (state === "ERROR") {
-                  var errors = response.getError();
-                  var message,
+            else if (state === "ERROR"){
+                  let errors = response.getError();
+                  let message,
                         title = $A.get("$Label.c.KEC_Error");
-                  if (errors) {
-                        if (errors[0] && errors[0].message) {
+                  if (errors){
+                        if (errors[0] && errors[0].message){
                                message = errors[0].message;
-                               var toastEvent = $A.get("e.force:showToast");
-                               toastEvent.setParams({
-                                     "title": title,
-                                     "type": "error",
-                                     "message": message
-                               });
-                               toastEvent.fire();
+                               component.find("toastCmp").toast(title, "error", message);
                         }
-                  } else {
+                  }
+                  else{
                          message = $A.get("$Label.c.KEC_UnknownError");
-                         var toastEvent = $A.get("e.force:showToast");
-                         toastEvent.setParams({
-                               "title": title,
-                               "type": "error",
-                               "message": message
-                         });
-                         toastEvent.fire();
+                         component.find("toastCmp").toast(title, "error", message);
                   }
             }
             });
             $A.enqueueAction(action);
         },
-        sumTotalPrice: function(component, event, helper, cartItems){
+        sumTotalPrice: function(component, cartItems){
             let sum = 0;
             for(let i = 0; i < cartItems.length; i++){
                 sum += cartItems[i].product.UnitPrice * cartItems[i].quantity;
             }
             component.set("v.totalPrice", sum);
         },
-        remove: function(component, event, helper){
-            var index = event.currentTarget.id;
+        remove: function(component, event){
+            let index = event.currentTarget.id;
             let cartItems = component.get("v.cartItems");
             let product = cartItems[index];
             let action = component.get("c.removeFromCart");
             action.setParams({
                 product : product
             });
-            action.setCallback(this, function(response) {
-            var state = response.getState();
+            action.setCallback(this, function(response){
+            let state = response.getState();
             if (state === "SUCCESS"){
-                  var operationResult = response.getReturnValue().operationResult,
+                  let operationResult = response.getReturnValue().operationResult,
                        cartItems = response.getReturnValue().cartItems,
                        title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                        type = operationResult.isSuccess ? "success" : "error",
                        message = operationResult.message;
                   component.set("v.cartItems", cartItems);
-                  this.sumTotalPrice(component, event, helper, cartItems);
-                  var toastEvent = $A.get("e.force:showToast");
-                  toastEvent.setParams({
-                       "title": title,
-                       "type": type,
-                       "message": message
-                  });
-                  toastEvent.fire();
-                  this.getFavorites(component, event, helper);
+                  this.sumTotalPrice(component, cartItems);
+                  component.find("toastCmp").toast(title, type, message);
             }
-            else if (state === "ERROR") {
-                  var errors = response.getError();
-                  var message,
+            else if (state === "ERROR"){
+                  let errors = response.getError();
+                  let message,
                        title = $A.get("$Label.c.KEC_Error");
-                  if (errors) {
-                       if (errors[0] && errors[0].message) {
+                  if (errors){
+                       if (errors[0] && errors[0].message){
                              message = errors[0].message;
                              var toastEvent = $A.get("e.force:showToast");
-                             toastEvent.setParams({
-                                  "title": title,
-                                  "type": "error",
-                                  "message": message
-                             });
-                             toastEvent.fire();
+                             component.find("toastCmp").toast(title, "error", message);
                        }
-                  } else {
+                  }
+                  else{
                        message = $A.get("$Label.c.KEC_UnknownError");
-                       var toastEvent = $A.get("e.force:showToast");
-                       toastEvent.setParams({
-                             "title": title,
-                             "type": "error",
-                             "message": message
-                       });
-                       toastEvent.fire();
+                       component.find("toastCmp").toast(title, "error", message);
                   }
             }
             });
             $A.enqueueAction(action);
         },
-        clear: function(component, event, helper){
+        clear: function(component){
             let action = component.get("c.clearCart");
-            action.setCallback(this, function(response) {
-            var state = response.getState();
-            if (state === "SUCCESS"){
-                 var operationResult = response.getReturnValue().operationResult,
-                      cartItems = response.getReturnValue().cartItems,
-                      title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
-                      type = operationResult.isSuccess ? "success" : "error",
-                      message = operationResult.message;
-                 component.set("v.cartItems", cartItems);
-                 this.sumTotalPrice(component, event, helper, cartItems);
-                 var toastEvent = $A.get("e.force:showToast");
-                 toastEvent.setParams({
-                       "title": title,
-                       "type": type,
-                       "message": message
-                 });
-                 toastEvent.fire();
-                 this.getFavorites(component, event, helper);
+            action.setCallback(this, function(response){
+                let state = response.getState();
+                if (state === "SUCCESS"){
+                     let operationResult = response.getReturnValue().operationResult,
+                          cartItems = response.getReturnValue().cartItems,
+                          title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
+                          type = operationResult.isSuccess ? "success" : "error",
+                          message = operationResult.message;
+                     component.set("v.cartItems", cartItems);
+                     this.sumTotalPrice(component, cartItems);
+                     component.find("toastCmp").toast(title, type, message);
             }
-            else if (state === "ERROR") {
-                  var errors = response.getError();
-                  var message,
+            else if (state === "ERROR"){
+                  let errors = response.getError();
+                  let message,
                         title = $A.get("$Label.c.KEC_Error");
-                  if (errors) {
-                        if (errors[0] && errors[0].message) {
+                  if (errors){
+                        if (errors[0] && errors[0].message){
                               message = errors[0].message;
-                              var toastEvent = $A.get("e.force:showToast");
-                              toastEvent.setParams({
-                                    "title": title,
-                                    "type": "error",
-                                    "message": message
-                              });
-                              toastEvent.fire();
+                              component.find("toastCmp").toast(title, "error", message);
                         }
-                  } else {
+                  }
+                  else{
                         message = $A.get("$Label.c.KEC_UnknownError");
-                        var toastEvent = $A.get("e.force:showToast");
-                        toastEvent.setParams({
-                              "title": title,
-                              "type": "error",
-                              "message": message
-                        });
-                        toastEvent.fire();
+                        component.find("toastCmp").toast(title, "error", message);
                   }
             }
             });
             $A.enqueueAction(action);
         },
-        incrementQuantity: function(component, event, helper){
-             var index = event.currentTarget.id;
+        incrementQuantity: function(component, event){
+             let index = event.currentTarget.id;
              let cartItems = component.get("v.cartItems");
              let product = cartItems[index];
              let action = component.get("c.incrementProductInCart");
@@ -163,108 +117,79 @@
                    color : product.color,
                    size : product.size
              });
-             action.setCallback(this, function(response) {
-                  var state = response.getState();
+             action.setCallback(this, function(response){
+                  let state = response.getState();
                   if (state === "SUCCESS"){
-                       var operationResult = response.getReturnValue().operationResult,
+                       let operationResult = response.getReturnValue().operationResult,
                             cartItems = response.getReturnValue().cartItems,
                             title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                             type = operationResult.isSuccess ? "success" : "error",
                             message = operationResult.message;
                        component.set("v.cartItems", cartItems);
-                       this.sumTotalPrice(component, event, helper, cartItems);
-                       var toastEvent = $A.get("e.force:showToast");
-                       toastEvent.setParams({
-                            "title": title,
-                            "type": type,
-                            "message": message
-                       });
-                       toastEvent.fire();
-                       this.getFavorites(component, event, helper);
+                       this.sumTotalPrice(component, cartItems);
+                       component.find("toastCmp").toast(title, type, message);
                   }
-                  else if (state === "ERROR") {
-                       var errors = response.getError();
-                       var message,
+                  else if (state === "ERROR"){
+                       let errors = response.getError();
+                       let message,
                             title = $A.get("$Label.c.KEC_Error");
-                       if (errors) {
-                           if (errors[0] && errors[0].message) {
+                       if (errors){
+                           if (errors[0] && errors[0].message){
                                  message = errors[0].message;
-                                 var toastEvent = $A.get("e.force:showToast");
-                                 toastEvent.setParams({
-                                      "title": title,
-                                      "type": "error",
-                                       "message": message
-                                 });
-                                 toastEvent.fire();
+                                 component.find("toastCmp").toast(title, "error", message);
                            }
-                       } else {
+                       }
+                       else{
                            message = $A.get("$Label.c.KEC_UnknownError");
-                           var toastEvent = $A.get("e.force:showToast");
-                           toastEvent.setParams({
-                                "title": title,
-                                "type": "error",
-                                "message": message
-                           });
-                           toastEvent.fire();
+                           component.find("toastCmp").toast(title, "error", message);
                        }
                   }
              });
              $A.enqueueAction(action);
         },
-        decrementQuantity: function(component, event, helper){
-              var index = event.currentTarget.id;
+        decrementQuantity: function(component, event){
+              let index = event.currentTarget.id;
               let cartItems = component.get("v.cartItems");
               let product = cartItems[index];
               let action = component.get("c.decrementProductInCart");
               action.setParams({
                     product : product
               });
-              action.setCallback(this, function(response) {
-                    var state = response.getState();
+              action.setCallback(this, function(response){
+                    let state = response.getState();
                     if (state === "SUCCESS"){
-                          var operationResult = response.getReturnValue().operationResult,
+                          let operationResult = response.getReturnValue().operationResult,
                                cartItems = response.getReturnValue().cartItems,
                                title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                                type = operationResult.isSuccess ? "success" : "error",
                                message = operationResult.message;
                           component.set("v.cartItems", cartItems);
-                          this.sumTotalPrice(component, event, helper, cartItems);
-                          var toastEvent = $A.get("e.force:showToast");
-                          toastEvent.setParams({
-                               "title": title,
-                               "type": type,
-                               "message": message
-                          });
-                          toastEvent.fire();
-                          this.getFavorites(component, event, helper);
+                          this.sumTotalPrice(component, cartItems);
+                          component.find("toastCmp").toast(title, type, message);
                     }
-                    else if (state === "ERROR") {
-                          var errors = response.getError();
-                          var message,
+                    else if (state === "ERROR"){
+                          let errors = response.getError();
+                          let message,
                                title = $A.get("$Label.c.KEC_Error");
-                          if (errors) {
-                               if (errors[0] && errors[0].message) {
+                          if (errors){
+                               if (errors[0] && errors[0].message){
                                      message = errors[0].message;
-                                     var toastEvent = $A.get("e.force:showToast");
-                                     toastEvent.setParams({
-                                          "title": title,
-                                          "type": "error",
-                                          "message": message
-                                     });
-                                     toastEvent.fire();
+                                     component.find("toastCmp").toast(title, "error", message);
                                }
-                          } else {
+                          }
+                          else{
                                message = $A.get("$Label.c.KEC_UnknownError");
-                               var toastEvent = $A.get("e.force:showToast");
-                               toastEvent.setParams({
-                                    "title": title,
-                                    "type": "error",
-                                    "message": message
-                               });
-                               toastEvent.fire();
+                               component.find("toastCmp").toast(title, "error", message);
                           }
                     }
               });
               $A.enqueueAction(action);
+        },
+        redirectToViewPage: function(component, event){
+            let index = event.currentTarget.id;
+            let products = component.get("v.cartItems");
+            let productId = products[index].product.Id;
+            let urlAddress = '/productview?recordId='+productId;
+            component.find("redirectCmp").redirectToSite(urlAddress);
         }
 })
