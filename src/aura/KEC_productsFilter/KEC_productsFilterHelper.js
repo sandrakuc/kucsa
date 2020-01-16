@@ -39,7 +39,7 @@
         component.set("v.selectedSizes", selectedSizes);
     },
     applyFilters: function(component){
-        var appEvent = $A.get("e.c:KEC_filterApplied");
+        let appEvent = $A.get("e.c:KEC_filterApplied");
         appEvent.setParams({
             "maxPrice" : component.get("v.maxPrice"),
             "colors" : component.get("v.selectedColors"),
