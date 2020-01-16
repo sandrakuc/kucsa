@@ -23,7 +23,8 @@
         let colors = event.getSource().get("v.value");
         if(event.getSource().get("v.checked")){
             selectedColors.push(colors);
-        } else {
+        }
+        else {
             selectedColors.splice(colors, 1);
         }
         component.set("v.selectedColors", selectedColors);
@@ -33,13 +34,14 @@
         let sizes = event.getSource().get("v.value");
         if(event.getSource().get("v.checked")){
             selectedSizes.push(sizes);
-        } else {
+        }
+        else {
             selectedSizes.splice(sizes, 1);
         }
         component.set("v.selectedSizes", selectedSizes);
     },
     applyFilters: function(component){
-        var appEvent = $A.get("e.c:KEC_filterApplied");
+        let appEvent = $A.get("e.c:KEC_filterApplied");
         appEvent.setParams({
             "maxPrice" : component.get("v.maxPrice"),
             "colors" : component.get("v.selectedColors"),
