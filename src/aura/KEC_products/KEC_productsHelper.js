@@ -12,17 +12,17 @@
              if (state === "SUCCESS"){
                   component.set("v.resultList", response.getReturnValue());
              }
-              else if (state === "ERROR") {
+              else if (state === "ERROR"){
                   let message,
                     title = $A.get("$Label.c.KEC_Error");
                   let errors = response.getError();
-                  if (errors) {
+                  if (errors){
                         if (errors[0] && errors[0].message){
                             message = errors[0].message;
                             component.find("toastCmp").toast(title, "error", message);
                         }
                   }
-                  else {
+                  else{
                       message = $A.get("$Label.c.KEC_UnknownError");
                       component.find("toastCmp").toast(title, "error", message);
                   }
@@ -44,17 +44,17 @@
                  if (state === "SUCCESS"){
                       component.set("v.resultList", response.getReturnValue());
                  }
-                 else if (state === "ERROR") {
+                 else if (state === "ERROR"){
                       let message,
                           title = $A.get("$Label.c.KEC_Error");
                       let errors = response.getError();
-                      if (errors) {
+                      if (errors){
                             if (errors[0] && errors[0].message){
                                 message = errors[0].message;
                                 component.find("toastCmp").toast(title, "error", message);
                             }
                       }
-                      else {
+                      else{
                             message = $A.get("$Label.c.KEC_UnknownError");
                             component.find("toastCmp").toast(title, "error", message);
                       }
