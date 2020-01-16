@@ -14,17 +14,17 @@
             <ul class="slds-grid">
                 <li class="slds-context-bar__item slds-is-active">
                     <a href="https://kucsa-exclusive-developer-edition.eu29.force.com/s/" class="slds-context-bar__label-action">
-                        <span class="slds-truncate" title="Home">{!$Label.c.KEC_Home}</span>
+                        <span class="slds-truncate mynavitem" title="Home">{!$Label.c.KEC_Home}</span>
                     </a>
                 </li>
                 <li class="slds-context-bar__item">
                     <a href="https://kucsa-exclusive-developer-edition.eu29.force.com/s/searchproducts" class="slds-context-bar__label-action">
-                        <span class="slds-truncate">{!$Label.c.KEC_Products}</span>
+                        <span class="slds-truncate mynavitem">{!$Label.c.KEC_Products}</span>
                     </a>
                 </li>
-                <li class="slds-context-bar__item">
+                <li class="slds-context-bar__item lasttextitem">
                     <a href="/" class="slds-context-bar__label-action">
-                        <span class="slds-truncate">{!$Label.c.KEC_Complaints}</span>
+                        <span class="slds-truncate mynavitem">{!$Label.c.KEC_YourOrders}</span>
                     </a>
                 </li>
                 <li class="slds-context-bar__item">
