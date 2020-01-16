@@ -27,15 +27,7 @@ public with sharing class KEC_PriceBookEntryWrapper {
     }
 
     public Boolean equals(KEC_PriceBookEntryWrapper priceBookEntryWrapper){
-        if(this.product.Id.equals(priceBookEntryWrapper.product.Id) && this.color.equals(priceBookEntryWrapper.color) && this.size.equals(priceBookEntryWrapper.size)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return this.product.Id.equals(priceBookEntryWrapper.product.Id) && this.color.equals(priceBookEntryWrapper.color) && this.size.equals(priceBookEntryWrapper.size);
     }
 
-    public Integer hashCode() {
-        return product.Name.hashCode() * color.hashCode() * size.hashCode();
-    }
 }
