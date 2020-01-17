@@ -44,4 +44,13 @@ public with sharing class KEC_CartController {
         KEC_CartWrapper cartWrapper = new KEC_CartWrapper(cartItems, operationResult);
         return cartWrapper;
     }
+
+    @AuraEnabled
+    public static KEC_CartWrapper order(){
+        List<KEC_PriceBookEntryWrapper> cartItems = KEC_CartService.getCartItems();
+        KEC_OperationResult operationResult = KEC_OrderBuilder.buildOrder(cartItems);
+        cartItems = KEC_CartService.clearCart();
+        KEC_CartWrapper cartWrapper = new KEC_CartWrapper(cartItems, operationResult);
+        return cartWrapper;
+    }
 }

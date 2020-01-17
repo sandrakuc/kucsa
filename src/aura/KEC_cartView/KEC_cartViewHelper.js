@@ -199,5 +199,38 @@
         refreshCart: function(component){
             let appEvent = $A.get("e.c:KEC_refreshCartBadge");
             appEvent.fire();
+        },
+        orderProducts: function(component){
+            let action = component.get("c.order");
+            action.setCallback(this, function(response){
+            let state = response.getState();
+            if (state === "SUCCESS"){
+                 let operationResult = response.getReturnValue().operationResult,
+                      cartItems = response.getReturnValue().cartItems,
+                      title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
+                      type = operationResult.isSuccess ? "success" : "error",
+                      message = operationResult.message;
+                 component.set("v.cartItems", cartItems);
+                 this.sumTotalPrice(component, cartItems);
+                 this.refreshCart(component);
+                 component.find("toastCmp").toast(title, type, message);
+            }
+            else if (state === "ERROR"){
+                 let errors = response.getError();
+                 let message,
+                     title = $A.get("$Label.c.KEC_Error");
+                 if (errors){
+                     if (errors[0] && errors[0].message){
+                          message = errors[0].message;
+                          component.find("toastCmp").toast(title, "error", message);
+                     }
+                 }
+                 else{
+                      message = $A.get("$Label.c.KEC_UnknownError");
+                      component.find("toastCmp").toast(title, "error", message);
+                 }
+            }
+            });
+            $A.enqueueAction(action);
         }
 })

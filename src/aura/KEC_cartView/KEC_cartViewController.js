@@ -19,5 +19,8 @@
     },
     redirectToView: function(component, event, helper){
         helper.redirectToViewPage(component, event);
+    },
+    onOrder: function(component, event, helper){
+        helper.orderProducts(component);
     }
 })
