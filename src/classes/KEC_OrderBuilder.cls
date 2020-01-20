@@ -46,6 +46,22 @@ public with sharing class KEC_OrderBuilder {
         return operationResult;
     }
 
+    private static void sendEmail(Order order){
+        EmailTemplate emailTemplate = [SELECT Id, Subject, HtmlValue FROM EmailTemplate WHERE DeveloperName ='Order_Confirmation'];
+        List<string> toAddress = new List<string>();
+        toAddress.add(UserInfo.getUserEmail());
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        mail.setTemplateId(emailTemplate.Id);
+        mail.setToAddresses(toAddress);
+        mail.setTargetObjectId(UserInfo.getUserId());
+        mail.setWhatId(order.Id);
+        mail.setSaveAsActivity(false);
+        mail.setUseSignature(false);
+        List<Messaging.SingleEmailMessage> messages = new List<Messaging.SingleEmailMessage>();
+        messages.add(mail);
+        Messaging.sendEmail(messages, false);
+    }
+
     public static KEC_OperationResult buildOrder(List<KEC_PriceBookEntryWrapper> cartItems){
         User user = getCurrentUser();
         Account account = getAccountForUser(user);
@@ -53,6 +69,9 @@ public with sharing class KEC_OrderBuilder {
         Order order = new Order(AccountId = account.Id, ContractId = contract.Id, Status = 'Draft', EffectiveDate = Date.today(), Pricebook2Id = cartItems[0].product.Pricebook2.Id);
         Database.SaveResult result = Database.insert(order);
         KEC_OperationResult operationResult = result.isSuccess() ? saveOrderItems(cartItems, order.Id) : new KEC_OperationResult(false, result.getErrors()[0].getMessage());
+        if(operationResult.isSuccess){
+            sendEmail(order);
+        }
         return operationResult;
     }
 
