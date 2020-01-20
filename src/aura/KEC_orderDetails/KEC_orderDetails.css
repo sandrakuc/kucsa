@@ -1,0 +1,38 @@
+/**
+ * Created by BRITENET on 20.01.2020.
+ */
+.THIS {
+    font-size: 16px;
+}
+
+ .THIS .orderitem{
+     padding: 20px;
+     width: 80%;
+     margin-right: auto;
+     margin-left: auto;
+     border: solid 1px deepskyblue;
+     border-radius: 10px;
+     margin-bottom: 10px;
+ }
+
+ .THIS .img {
+     border: solid 3px deepskyblue;
+     padding: 3px;
+ }
+
+  .THIS .productName{
+      font-size: 20px;
+      font-weight: bold;
+  }
+
+  .THIS .totalsummary{
+      font-size: 28px;
+      color: midnightblue;
+      margin-bottom: 10px;
+  }
+
+  .THIS .cartSummary{
+      width: 80%;
+      margin-right: auto;
+      margin-left: auto;
+  }

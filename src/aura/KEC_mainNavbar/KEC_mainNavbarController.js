@@ -9,7 +9,7 @@
         helper.redirectToSite(component, "/searchproducts");
     },
     toOrders: function(component, event, helper){
-
+        helper.redirectToSite(component, "/customerorders");
     },
     toFavorites: function(component, event, helper){
         helper.redirectToSite(component, "/favoriteslist");

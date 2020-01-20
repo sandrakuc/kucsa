@@ -1,0 +1,73 @@
+<!--
+ - Created by BRITENET on 17.01.2020.
+ -->
+
+<aura:component description="KEC_orderDetails" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
+    <aura:attribute name="order" type="Order" />
+    <aura:attribute name="orderItems" type="List" />
+
+
+    <div id="orderDetails" />
+    <aura:if isTrue="{!v.order != null}" >
+        <a href="#orderList">{!$Label.c.KEC_ReturnToOrderList}</a>
+        <div id="siteheader" style="font-size: 28px; margin-top: 20px; margin-bottom: 20px; color: deepskyblue; background-color: rgba(0, 191, 255, 0.1); text-transform: uppercase; padding-left: 20px;">{!$Label.c.KEC_OrderDetails}</div>
+        <div>
+            <div class="orderitem">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col" style="width: 190px;">
+                        <span>{!$Label.c.KEC_ProductInfoLabel}</span>
+                    </div>
+                    <div class="slds-col" style="width:300px;">
+                    </div>
+                    <div class="slds-col" style="width: 190px;">
+                        <span class="quantity" style="margin-left: 5px;">{!$Label.c.KEC_QuantityLabel}</span>
+                    </div>
+                    <div class="slds-col">
+                        <span class="totalprice" style="margin-left: 40px;">{!$Label.c.KEC_AmountLabel}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <aura:iteration items="{!v.orderItems}" var="item" indexVar="index">
+            <div>
+                <div class="orderitem">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <center>
+                                <img src="{!item.Product2.ImgPath__c}" width="200" height="400" class="img" />
+                            </center>
+                        </div>
+                        <div class="slds-col info" style="width:300px;">
+                            <span class="productName">{!item.Product2.Name}</span><br />
+                            <span class="mylabel">{!$Label.c.KEC_SizeLabel + ' '}</span><span class="myDesc">{!item.Size__c}</span><br />
+                            <span class="mylabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="myDesc">{!item.Color__c}</span><br />
+                        </div>
+                        <div class="slds-col" style="width: 190px;">
+                            <span class="productPrice" >{!item.Quantity}</span><br />
+                        </div>
+                        <div class="slds-col">
+                            <span class="productPrice" >{!item.TotalPrice + $Label.c.KEC_PricePostfix}</span><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aura:iteration>
+
+        <div>
+            <div class="cartSummary">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col" style="width: 700px;">
+                    </div>
+                    <div class="slds-col" style="width: 400px;">
+                        <span class="totalsummary">{!$Label.c.KEC_TotalAmountLabel + ' ' + v.order.TotalAmount + $Label.c.KEC_PricePostfix}</span><br/><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="complaintsinfo">
+                {!$Label.c.KEC_ComplaintsInfoPart1 + ' '}<a>{!$Label.c.KEC_ComplaintsInfoPart2}</a>{!' ' + $Label.c.KEC_ComplaintsInfoPart3}
+            </span>
+        </div>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,35 @@
+<!--
+ - Created by BRITENET on 17.01.2020.
+ -->
+
+<aura:component description="KEC_customerOrders" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable" controller="KEC_OrderListController">
+    <aura:attribute name="orders" type="List" />
+    <aura:attribute name="index" type="Integer" />
+    <aura:attribute name="order" type="Order" />
+    <aura:attribute name="orderItems" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="change" value="{!v.index}" action="{!c.onIndexChange}"/>
+
+    <div class="slds-card">
+        <lightning:layout horizontalAlign="space" multipleRows="true">
+            <lightning:layoutItem size="12"
+                                  mediumDeviceSize="12"
+                                  padding="around-small">
+                <div>
+                    <c:KEC_customerOrderList orders="{!v.orders}" index="{!v.index}"/>
+                </div>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="12"
+                                  mediumDeviceSize="12"
+                                  padding="around-small">
+                <div>
+                    <c:KEC_orderDetails order="{!v.order}" orderItems="{!v.orderItems}"/>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+
+        <c:KEC_toastHandler aura:id="toastCmp"/>
+    </div>
+</aura:component>

@@ -1,0 +1,12 @@
+/**
+ * Created by BRITENET on 20.01.2020.
+ */
+
+ .THIS{
+     font-size: 16px;
+ }
+
+.THIS .optionButton{
+    background-color: deepskyblue;
+    color: white;
+ }
