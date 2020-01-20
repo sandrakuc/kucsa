@@ -6,6 +6,10 @@
      font-size: 16px;
  }
 
+ .THIS a{
+     text-decoration: none;
+ }
+
 .THIS .optionButton{
     background-color: deepskyblue;
     color: white;

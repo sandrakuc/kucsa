@@ -290,6 +290,10 @@
                             <option name="name" value="KEC_OrderListController" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_CaseBuilder" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -605,6 +609,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="KEC_customerOrders" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_complainModal" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

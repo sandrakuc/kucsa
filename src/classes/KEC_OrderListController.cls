@@ -15,4 +15,10 @@ public with sharing class KEC_OrderListController {
         List<OrderItem> orderItems = [SELECT Product2.Name, Size__c, Color__c, Product2.ImgPath__c, Quantity, TotalPrice FROM OrderItem WHERE OrderId =:orderId];
         return orderItems;
     }
+
+    @AuraEnabled
+    public static KEC_OperationResult createCase(String orderId, String subject, String problemDescription) {
+        KEC_OperationResult operationResult = KEC_CaseBuilder.createCase(orderId, subject, problemDescription);
+        return operationResult;
+    }
 }

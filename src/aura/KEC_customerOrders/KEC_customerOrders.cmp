@@ -7,6 +7,7 @@
     <aura:attribute name="index" type="Integer" />
     <aura:attribute name="order" type="Order" />
     <aura:attribute name="orderItems" type="List" />
+    <aura:attribute name="openModal" type="Boolean" default="false"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:handler name="change" value="{!v.index}" action="{!c.onIndexChange}"/>

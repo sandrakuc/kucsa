@@ -5,7 +5,8 @@
 <aura:component description="KEC_orderDetails" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
     <aura:attribute name="order" type="Order" />
     <aura:attribute name="orderItems" type="List" />
-
+    <aura:attribute name="openModal" type="Boolean" default="false"/>
+    <aura:attribute name="saveCase" type="Aura.Action" />
 
     <div id="orderDetails" />
     <aura:if isTrue="{!v.order != null}" >
@@ -70,4 +71,5 @@
             </span>
         </div>
     </aura:if>
+    <c:KEC_complainModal openModal="{!v.openModal}" saveCase="{!v.saveCase}" orderId="{!v.order.Id}"/>
 </aura:component>
