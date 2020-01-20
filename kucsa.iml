@@ -294,6 +294,10 @@
                             <option name="name" value="KEC_CaseBuilder" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_CaseController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -613,6 +617,14 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="KEC_complainModal" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_caseList" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_orderCases" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

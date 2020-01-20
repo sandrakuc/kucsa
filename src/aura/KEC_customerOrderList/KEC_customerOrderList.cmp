@@ -59,7 +59,7 @@
                     </td>
                     <td>
                         <div class="slds-truncate">
-                            <button class="slds-button slds-button_neutral optionButton"
+                            <button class="slds-button slds-button_neutral optionButton" onclick="{!c.goToCases}"
                                     id="{!index}">
                                 {!$Label.c.KEC_OrderCases}
                             </button>

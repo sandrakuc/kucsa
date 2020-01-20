@@ -7,7 +7,6 @@ public with sharing class KEC_CaseBuilder {
     private static Account getUserAccount(){
         List<User> users = [SELECT Name FROM User WHERE Id = :UserInfo.getUserId()];
         List<Account> accounts = [SELECT Id FROM Account WHERE Name =: users[0].Name];
-        System.debug(UserInfo.getUserName());
         return accounts[0];
     }
 

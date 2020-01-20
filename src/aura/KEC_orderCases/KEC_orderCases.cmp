@@ -1,0 +1,28 @@
+<!--
+ - Created by BRITENET on 20.01.2020.
+ -->
+
+<aura:component description="KEC_orderCases" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable, force:hasRecordId" controller="KEC_CaseController">
+    <aura:attribute name="cases" type="List" />
+    <aura:attribute name="index" type="Integer" />
+    <aura:attribute name="case" type="Case" />
+    <aura:attribute name="recordId" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+<!--    <aura:handler name="change" value="{!v.index}" action="{!c.onIndexChange}"/>-->
+
+    <div class="slds-card">
+        <lightning:layout horizontalAlign="space" multipleRows="true">
+            <lightning:layoutItem size="12"
+                                  mediumDeviceSize="12"
+                                  padding="around-small">
+                <div>
+                    <c:KEC_caseList cases="{!v.cases}" index="{!v.index}"/>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+
+        <c:KEC_toastHandler aura:id="toastCmp"/>
+    </div>
+
+</aura:component>

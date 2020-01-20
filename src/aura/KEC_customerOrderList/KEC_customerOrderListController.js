@@ -4,5 +4,8 @@
 ({
     getOrder: function(component, event, helper){
         helper.getOrderIndex(component, event);
+    },
+    goToCases: function(component, event, helper){
+        helper.redirectToCaseListPage(component, event);
     }
 })

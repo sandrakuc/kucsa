@@ -1,0 +1,71 @@
+<!--
+ - Created by BRITENET on 20.01.2020.
+ -->
+
+<aura:component description="KEC_caseList" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
+    <aura:attribute name="cases" type="List" />
+    <aura:attribute name="index" type="Integer" />
+
+    <div id="casesList" />
+    <div id="siteheader" style="font-size: 28px; margin-top: 20px; margin-bottom: 20px; color: deepskyblue; background-color: rgba(0, 191, 255, 0.1); text-transform: uppercase; padding-left: 20px;">{!$Label.c.KEC_OrderCasesHeader}</div>
+    <aura:if isTrue="{!v.cases.length != 0}" >
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate">{!$Label.c.KEC_CaseNumber}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{!$Label.c.KEC_OrderNumber}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{!$Label.c.KEC_CaseDate}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{!$Label.c.KEC_CaseSubject}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{!$Label.c.KEC_CaseStatus}</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate">{!$Label.c.KEC_CaseDetails}</div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <aura:iteration items="{!v.cases}" var="orderCase" indexVar="index">
+                <tr class="slds-hint-parent">
+                    <td>
+                        <div class="slds-truncate">{!orderCase.CaseNumber}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!orderCase.Order__r.OrderNumber}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!orderCase.CreatedDate}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!orderCase.Subject}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!orderCase.Status}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">
+                            <a href="#orderDetails">
+                                <button class="slds-button slds-button_neutral optionButton"
+                                        id="{!index}">
+                                        {!$Label.c.KEC_CaseDetails}
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </aura:iteration>
+            </tbody>
+        </table>
+    </aura:if>
+    <aura:if isTrue="{!v.cases.length == 0}">
+        <span class="nocases">{!$Label.c.KEC_NoCasesForOrder}</span>
+    </aura:if>
+</aura:component>
