@@ -7,6 +7,8 @@
     <aura:attribute name="orderItems" type="List" />
     <aura:attribute name="openModal" type="Boolean" default="false"/>
     <aura:attribute name="saveCase" type="Aura.Action" />
+    <aura:attribute name="subject" type="String" />
+    <aura:attribute name="description" type="String" />
 
     <div id="orderDetails" />
     <aura:if isTrue="{!v.order != null}" >
@@ -67,9 +69,9 @@
         </div>
         <div>
             <span class="complaintsinfo">
-                {!$Label.c.KEC_ComplaintsInfoPart1 + ' '}<a>{!$Label.c.KEC_ComplaintsInfoPart2}</a>{!' ' + $Label.c.KEC_ComplaintsInfoPart3}
+                {!$Label.c.KEC_ComplaintsInfoPart1 + ' '}<a onclick="{!c.openModal}">{!$Label.c.KEC_ComplaintsInfoPart2}</a>{!' ' + $Label.c.KEC_ComplaintsInfoPart3}
             </span>
         </div>
     </aura:if>
-    <c:KEC_complainModal openModal="{!v.openModal}" saveCase="{!v.saveCase}" orderId="{!v.order.Id}"/>
+    <c:KEC_complainModal openModal="{!v.openModal}" saveCase="{!v.saveCase}" orderId="{!v.order.Id}" subject="{!v.subject}" description="{!v.description}" orderName="{!v.order.OrderNumber}"/>
 </aura:component>

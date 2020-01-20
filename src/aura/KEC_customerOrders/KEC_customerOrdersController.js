@@ -7,5 +7,8 @@
     },
     onIndexChange: function(component, event, helper){
         helper.setOrderDetails(component);
+    },
+    saveCase: function(component, event, helper){
+        helper.saveComplaint(component);
     }
 })
