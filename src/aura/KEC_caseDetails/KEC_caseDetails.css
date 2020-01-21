@@ -3,14 +3,13 @@
  */
 
  .THIS .ordercolumn{
-    width: 400px;
+    width: 450px;
  }
 
 .THIS .orderreminder{
     border: solid 1px deepskyblue;
     border-radius: 10px;
     margin-top: 10px;
-    margin-right: 10px;
     margin-left: 20px;
     padding: 20px;
 }
@@ -52,7 +51,7 @@
 }
 
 .THIS .casedetails{
-    width: 920px;
+    width: 900px;
     font-size: 16px;
     border: solid 1px deepskyblue;
     border-radius: 10px;
