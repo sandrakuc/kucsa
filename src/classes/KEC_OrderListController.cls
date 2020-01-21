@@ -6,7 +6,7 @@ public with sharing class KEC_OrderListController {
 
     @AuraEnabled
     public static List<Order> getOrders(){
-        List<Order> orders = [SELECT Id, OrderNumber, EffectiveDate, TotalAmount, Status FROM Order WHERE CreatedById = :UserInfo.getUserId()];
+        List<Order> orders = [SELECT Id, OrderNumber, EffectiveDate, TotalAmount, Status FROM Order WHERE CreatedById = :UserInfo.getUserId() ORDER BY OrderNumber DESC];
         return orders;
     }
 
