@@ -14,7 +14,7 @@ public with sharing class KEC_CartService {
     }
 
     public static List<KEC_PriceBookEntryWrapper> getCartItems(){
-    List<KEC_PriceBookEntryWrapper> cartItems = Cache.Org.contains('cartItems') ? (List<KEC_PriceBookEntryWrapper>) Cache.Org.get('cartItems') : new List<KEC_PriceBookEntryWrapper>();
+    List<KEC_PriceBookEntryWrapper> cartItems = Cache.Session.contains('cartItems') ? (List<KEC_PriceBookEntryWrapper>) Cache.Session.get('cartItems') : new List<KEC_PriceBookEntryWrapper>();
         return cartItems;
     }
 
@@ -29,14 +29,14 @@ public with sharing class KEC_CartService {
             priceBookEntryWrapper.quantity = 1;
             cartItems.add(priceBookEntryWrapper);
         }
-        Cache.Org.put('cartItems', cartItems);
+        Cache.Session.put('cartItems', cartItems);
     }
 
     public static void removeFromCart(KEC_PriceBookEntryWrapper priceBookEntryWrapper){
         List<KEC_PriceBookEntryWrapper> cartItems = getCartItems();
         priceBookEntryWrapper = isCartContains(priceBookEntryWrapper, cartItems);
         cartItems.remove(cartItems.indexOf(priceBookEntryWrapper));
-        Cache.Org.put('cartItems', cartItems);
+        Cache.Session.put('cartItems', cartItems);
     }
 
     public static void decrementProductQuantity(KEC_PriceBookEntryWrapper priceBookEntryWrapper){
@@ -44,17 +44,17 @@ public with sharing class KEC_CartService {
         priceBookEntryWrapper = isCartContains(priceBookEntryWrapper, cartItems);
         if(priceBookEntryWrapper.quantity == 1){
             cartItems.remove(cartItems.indexOf(priceBookEntryWrapper));
-            Cache.Org.put('cartItems', cartItems);
+            Cache.Session.put('cartItems', cartItems);
         }
         else {
             priceBookEntryWrapper.quantity -= 1;
-            Cache.Org.put('cartItems', cartItems);
+            Cache.Session.put('cartItems', cartItems);
         }
     }
 
     public static List<KEC_PriceBookEntryWrapper> clearCart(){
-        if(Cache.Org.contains('cartItems')) {
-            Cache.Org.remove('cartItems');
+        if(Cache.Session.contains('cartItems')) {
+            Cache.Session.remove('cartItems');
         }
         return getCartItems();
     }
