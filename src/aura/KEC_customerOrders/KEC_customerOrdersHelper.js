@@ -32,7 +32,6 @@
         let index = component.get("v.index");
         let orders = component.get("v.orders");
         let order = orders[index];
-        console.log(JSON.stringify(order));
         component.set("v.order", order);
         let action = component.get("c.getOrderItems");
         action.setParams({
