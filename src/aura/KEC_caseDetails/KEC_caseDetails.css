@@ -1,0 +1,122 @@
+/**
+ * Created by BRITENET on 21.01.2020.
+ */
+
+ .THIS .ordercolumn{
+    width: 400px;
+ }
+
+.THIS .orderreminder{
+    border: solid 1px deepskyblue;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 20px;
+    padding: 20px;
+}
+
+.THIS .ordernumber{
+    font-size: 16px;
+}
+
+.THIS img{
+    border: solid 2px deepskyblue;
+    padding: 1px;
+    margin-left: 10px;
+}
+
+.THIS .productname{
+    font-weight: bold;
+}
+
+.THIS .mylabel{
+    color: gray;
+}
+
+.THIS .totalprice{
+    padding-top: 56px;
+    font-size: 16px;
+}
+
+.THIS .summary{
+    font-size: 18px;
+    color: midnightblue;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.THIS tr{
+    border-bottom: solid 1px gray;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.THIS .casedetails{
+    width: 920px;
+    font-size: 16px;
+    border: solid 1px deepskyblue;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+
+.THIS .casenumber{
+    font-size: 24px;
+}
+
+.THIS .casedate{
+    float: right;
+    font-size: 14px;
+    color: grey;
+}
+
+.THIS .titlecolumn{
+    width: 600px;
+}
+
+.THIS .datecolumn{
+    width: 300px;
+}
+
+.THIS .status{
+    font-size:  20px;
+    margin-bottom: 30px;
+}
+
+.THIS .subject{
+    font-weight: bold;
+    color: midnightblue;
+    margin-bottom: 15px;
+}
+
+.THIS .description{
+    margin-bottom: 15px;
+}
+
+.THIS .answerslabel{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.THIS .answer{
+    border-top: solid 1px lightgray;
+    border-bottom: solid 1px lightgray;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.THIS .answerdate{
+    float: right;
+    font-size: 14px;
+    color: grey;
+}
+
+.THIS .answercontaintcolumn{
+    width: 700px;
+}
+
+.THIS .answerdatecolumn{
+    width: 200px;
+}

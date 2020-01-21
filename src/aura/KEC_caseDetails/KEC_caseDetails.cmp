@@ -1,0 +1,81 @@
+<!--
+ - Created by BRITENET on 21.01.2020.
+ -->
+
+<aura:component description="KEC_caseDetails">
+    <aura:attribute name="case" type="Case" />
+    <aura:attribute name="answers" type="List" />
+    <aura:attribute name="orderItems" type="List" />
+
+    <a id="caseDetails"/>
+    <aura:if isTrue="{!v.case != null}">
+        <a href="#casesList">{!$Label.c.KEC_ReturnToCasesList}</a>
+        <div id="siteheader" style="font-size: 28px; margin-top: 20px; margin-bottom: 20px; color: deepskyblue; background-color: rgba(0, 191, 255, 0.1); text-transform: uppercase; padding-left: 20px;">{!$Label.c.KEC_CaseDetails}</div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col ordercolumn">
+                <div class="orderreminder">
+                <h2 class="ordernumber">{!$Label.c.	KEC_OrderNumberLabel + ' ' + v.case.Order__r.OrderNumber}</h2>
+                <aura:if isTrue="{!v.orderItems.length != 0}">
+                    <table>
+                        <aura:iteration items="{!v.orderItems}" var="item">
+                            <tr>
+                                <td>
+                                    <img src="{!item.Product2.ImgPath__c}" width="50" height="100"/>
+                                </td>
+                                <td>
+                                    <span class="productname">{!item.Product2.Name}</span><br/>
+                                    <span class="mylabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="mydesc">{!item.Color__c}</span><br/>
+                                    <span class="mylabel">{!$Label.c.KEC_SizeLabel + ' '}</span><span class="mydesc">{!item.Size__c}</span><br/>
+                                    <span class="mylabel">{!$Label.c.KEC_QuantityLabel + ' '}</span><span class="mydesc">{!item.Quantity}</span>
+                                </td>
+                                <td class="totalprice">
+                                    <span>{!item.TotalPrice}{!$Label.c.KEC_PricePostfix}</span>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </table>
+                    <span class="summary">{!$Label.c.KEC_TotalAmountLabel + ' ' + v.case.Order__r.TotalAmount + $Label.c.KEC_PricePostfix}</span><br/>
+                </aura:if>
+                </div>
+            </div>
+            <div class="slds-col">
+                <div class="casedetails">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col titlecolumn">
+                            <h2 class="casenumber">{!$Label.c.	KEC_CaseNumberLabel + ' ' + v.case.CaseNumber}</h2>
+                        </div>
+                        <div class="slds-col datecolumn">
+                            <span class="casedate">
+                                   <lightning:formattedDateTime value="{!v.case.CreatedDate}" timeZone="UTC" year="numeric" month="2-digit" day="numeric"  hour="2-digit" minute="2-digit"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="status">{!v.case.Status}</div>
+                    <div class="subject">{!v.case.Subject}</div>
+                    <div class="description">{!v.case.Description}</div>
+                    <aura:if isTrue="{!v.answers.length != 0}">
+                        <div class="answerslabel">{!$Label.c.KEC_KucsaSpecialistAnswersLabel}</div>
+                        <aura:iteration items="{!v.answers}" var="answer" >
+                            <div class="answer">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col answercontaintcolumn">
+                                        <p class="content">
+                                            {!answer.CommentBody}
+                                        </p>
+                                    </div>
+                                    <div class="slds-col answerdatecolumn">
+                                        <span class="answerdate">
+                                            <lightning:formattedDateTime value="{!answer.CreatedDate}" timeZone="UTC"
+                                                                year="numeric" month="2-digit" day="numeric"
+                                                                hour="2-digit" minute="2-digit"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:iteration>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

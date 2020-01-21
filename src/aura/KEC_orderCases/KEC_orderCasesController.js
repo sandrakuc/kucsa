@@ -4,5 +4,8 @@
 ({
     onInit: function(component, event, helper){
         helper.getCases(component);
+    },
+    onIndexChange: function(component, event, helper){
+        helper.setCase(component);
     }
 })

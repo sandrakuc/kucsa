@@ -54,8 +54,8 @@
                     </td>
                     <td>
                         <div class="slds-truncate">
-                            <a href="#orderDetails">
-                                <button class="slds-button slds-button_neutral optionButton"
+                            <a href="#caseDetails">
+                                <button class="slds-button slds-button_neutral optionButton" onclick="{!c.getCase}"
                                         id="{!index}">
                                         {!$Label.c.KEC_CaseDetails}
                                 </button>

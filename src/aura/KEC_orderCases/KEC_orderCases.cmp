@@ -7,9 +7,11 @@
     <aura:attribute name="index" type="Integer" />
     <aura:attribute name="case" type="Case" />
     <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="answers" type="List" />
+    <aura:attribute name="orderItems" type="List" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
-<!--    <aura:handler name="change" value="{!v.index}" action="{!c.onIndexChange}"/>-->
+    <aura:handler name="change" value="{!v.index}" action="{!c.onIndexChange}"/>
 
     <div class="slds-card">
         <lightning:layout horizontalAlign="space" multipleRows="true">
@@ -18,6 +20,13 @@
                                   padding="around-small">
                 <div>
                     <c:KEC_caseList cases="{!v.cases}" index="{!v.index}"/>
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12"
+                                  mediumDeviceSize="12"
+                                  padding="around-small">
+                <div>
+                    <c:KEC_caseDetails case="{!v.case}" answers="{!v.answers}" orderItems="{!v.orderItems}"/>
                 </div>
             </lightning:layoutItem>
         </lightning:layout>
