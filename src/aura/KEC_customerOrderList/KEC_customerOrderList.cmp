@@ -39,7 +39,9 @@
                         <div class="slds-truncate">{!order.OrderNumber}</div>
                     </td>
                     <td>
-                        <div class="slds-truncate">{!order.EffectiveDate}</div>
+                        <div class="slds-truncate">
+                            <lightning:formattedDateTime value="{!order.EffectiveDate}" timeZone="UTC" year="numeric" month="2-digit" day="numeric"/>
+                        </div>
                     </td>
                     <td>
                         <div class="slds-truncate">{!order.TotalAmount + $Label.c.KEC_PricePostfix}</div>
