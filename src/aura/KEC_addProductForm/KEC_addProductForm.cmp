@@ -1,0 +1,62 @@
+<!--
+ - Created by BRITENET on 21.01.2020.
+ -->
+
+<aura:component description="KEC_addProductForm" implements="force:appHostable,flexipage:availableForAllPageTypes" controller="KEC_AddProductController">
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="standardPrice" type="Double" />
+    <aura:attribute name="sizeOptions" type="List" />
+    <aura:attribute name="colorOptions" type="List" />
+    <aura:attribute name="selectedSizes" type="List" />
+    <aura:attribute name="selectedColors" type="List" />
+    <aura:attribute name="fileIds" type="List" />
+    <aura:attribute name="description" type="String"/>
+    <aura:attribute name="userId" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2>{!$Label.c.KEC_NewProduct}</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning:input name="productName" label="{!$Label.c.KEC_ProductName}" value="{!v.productName}" />
+                <lightning:input name="price" label="{!$Label.c.KEC_StandardPrice}" value="{!v.standardPrice}" />
+                <div class="slds-grid slds-gutters productvariantform">
+                    <div class="slds-col">
+                        <span class="mylabel">{!$Label.c.KEC_AvailableSizes}</span>
+                        <div class="formfragment">
+                            <aura:iteration items="{!v.sizeOptions}" var="size">
+                                <lightning:input name="sizes" type="checkbox" aura:id="boxPackSize" value="{!size.label}"
+                                                 label="{!size.label}" class="checkboxline"
+                                                 onchange="{!c.handleSizeChange}"/>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <span class="mylabel">{!$Label.c.KEC_AvailableColors}</span>
+                        <div class="formfragment">
+                            <aura:iteration items="{!v.colorOptions}" var="color">
+                                <lightning:input name="colors" type="checkbox" aura:id="boxPackColor"
+                                                 value="{!color.label}"
+                                                 label="{!color.label}" class="checkboxline"
+                                                 onchange="{!c.handleColorChange}"/>
+                            </aura:iteration>
+                        </div>
+                    </div>
+                </div>
+                <lightning:textarea name="description" label="{!$Label.c.KEC_DescriptionLabel}" value="{!v.description}"/>
+                <lightning:fileUpload label="{!$Label.c.KEC_UploadProductPhotos}"
+                                 name="fileUploader"
+                                 multiple="true"
+                                 accept=".jpeg, .jpg, .png"
+                                 recordId="{!v.userId}"
+                                 onuploadfinished="{!c.handleUpload}"/>
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning:button label="{!$Label.c.KEC_Save}" onclick="{!c.onSaveProduct}"/>
+            </footer>
+        </div>
+
+    <c:KEC_toastHandler aura:id="toastCmp" />
+</aura:component>
