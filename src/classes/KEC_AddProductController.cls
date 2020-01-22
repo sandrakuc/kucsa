@@ -16,4 +16,17 @@ public with sharing class KEC_AddProductController {
         return operationResult;
     }
 
+    @AuraEnabled
+    public static List<KEC_Product_Photo__c> productPhotos(String id) {
+        List<KEC_Product_Photo__c> photos = [SELECT Id, Product__c, ImgUrl__c FROM KEC_Product_Photo__c WHERE Product__c = :id];
+        return photos;
+    }
+
+    @AuraEnabled
+    public static String getMainPhotoUrl(String id){
+        List<Product2> products = [SELECT ImgPath__c FROM Product2 WHERE Id = :id];
+        String url = products[0].ImgPath__c;
+        return url;
+    }
+
 }
