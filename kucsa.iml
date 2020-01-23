@@ -449,6 +449,10 @@
                           <MetadataEntry>
                             <option name="name" value="HDC_DoctorIntegrationTrigger" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_CountCasesForOrder" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexTrigger" />
