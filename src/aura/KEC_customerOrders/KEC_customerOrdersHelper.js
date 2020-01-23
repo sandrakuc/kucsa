@@ -80,6 +80,7 @@
                        message = operationResult.message;
                   component.find("toastCmp").toast(title, type, message);
                   component.set("v.openModal", false);
+                  this.getOrdersList(component);
              }
              else if (state === "ERROR"){
                   let errors = response.getError();
