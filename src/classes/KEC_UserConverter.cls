@@ -13,4 +13,9 @@ public with sharing class KEC_UserConverter {
         Contract contract = new Contract(AccountId = accountId, Name = user.Name, BillingStreet = user.Street, ShippingStreet = user.Street, BillingCity = user.City, ShippingCity = user.City, BillingPostalCode = user.PostalCode, ShippingPostalCode = user.PostalCode, BillingCountry = user.Country, ShippingCountry = user.Country);
         return contract;
     }
+
+    public static Contact convertToContact(User user){
+        Contact contact = new Contact(Email = user.Email, FirstName = user.FirstName, LastName = user.LastName);
+        return contact;
+    }
 }

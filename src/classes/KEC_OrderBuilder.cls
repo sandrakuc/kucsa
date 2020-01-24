@@ -5,18 +5,36 @@
 public with sharing class KEC_OrderBuilder {
 
     private static User getCurrentUser(){
-        List<User> users = [SELECT Name, Email, MobilePhone, Street, City, PostalCode, Country FROM User WHERE Id = :UserInfo.getUserId()];
+        List<User> users = [SELECT Name, LastName, FirstName, Email, MobilePhone, Street, City, PostalCode, Country FROM User WHERE Id = :UserInfo.getUserId()];
         return users[0];
     }
 
     private static Account getAccountForUser(User user){
-        List<Account> accounts = [SELECT Name, Email__c, Phone, BillingStreet, ShippingStreet, BillingCity, ShippingCity, BillingPostalCode, ShippingPostalCode, BillingCountry, ShippingCountry FROM Account WHERE Name = :user.Name];
+        List<Account> accounts = [SELECT Name, Email__c, LoyaltyPoints__c, LoyaltyCycle__c, Phone, BillingStreet, ShippingStreet, BillingCity, ShippingCity, BillingPostalCode, ShippingPostalCode, BillingCountry, ShippingCountry FROM Account WHERE Name = :user.Name];
         if(accounts.isEmpty()){
             Account account = KEC_UserConverter.convertToAccount(user);
             Database.insert(account);
+            checkContactForUser(user, account);
             return account;
         }
+        List<Contact> contacts = [SELECT Id, Email, LastName, FirstName FROM Contact WHERE AccountId = :accounts[0].Id];
+        if(contacts.isEmpty()){
+            checkContactForUser(user, accounts[0]);
+        }
         return accounts[0];
+    }
+
+    private static void checkContactForUser(User user, Account account){
+        Contact contact;
+        List<Contact> contacts = [SELECT Id, Email, LastName, FirstName FROM Contact WHERE LastName = :user.LastName AND FirstName = :user.FirstName AND Email = :user.Email];
+        if(contacts.isEmpty()){
+            contact = KEC_UserConverter.convertToContact(user);
+        }
+        else{
+            contact = contacts[0];
+        }
+        contact.AccountId = account.Id;
+        Database.upsert(contact);
     }
 
     private static Contract getContractForUser(User user, String accountId){
@@ -38,12 +56,29 @@ public with sharing class KEC_OrderBuilder {
         return System.Label.KEC_OperationSuccess;
     }
 
+    private static Integer getLoyaltyPointsValue(List<KEC_PriceBookEntryWrapper> cartItems){
+        Integer totalSum = 0;
+        for(KEC_PriceBookEntryWrapper cartItem : cartItems){
+            totalSum += (Integer) (cartItem.product.UnitPrice * cartItem.quantity);
+        }
+        return totalSum * 4;
+    }
+
     private static KEC_OperationResult saveOrderItems(List<KEC_PriceBookEntryWrapper> cartItems, String orderId){
         List<OrderItem> orderItems = KEC_ProductsListToOrderProductsConverter.convert(cartItems, orderId);
         List<Database.SaveResult> results = Database.insert(orderItems);
         String message = getErrorMessage(results);
         KEC_OperationResult operationResult = new KEC_OperationResult(message.equals(System.Label.KEC_OperationSuccess), message);
         return operationResult;
+    }
+
+    private static void manageLoyaltyProgram(List<KEC_PriceBookEntryWrapper> cartItems, Account account){
+        if(account.LoyaltyPoints__c > 5000){
+            account.LoyaltyPoints__c = 0;
+            account.LoyaltyCycle__c += 1;
+        }
+        account.LoyaltyPoints__c += getLoyaltyPointsValue(cartItems);
+        Database.upsert(account);
     }
 
     private static void sendEmail(Order order){
@@ -71,6 +106,7 @@ public with sharing class KEC_OrderBuilder {
         KEC_OperationResult operationResult = result.isSuccess() ? saveOrderItems(cartItems, order.Id) : new KEC_OperationResult(false, result.getErrors()[0].getMessage());
         if(operationResult.isSuccess){
             sendEmail(order);
+            manageLoyaltyProgram(cartItems, account);
         }
         return operationResult;
     }

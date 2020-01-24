@@ -306,6 +306,10 @@
                             <option name="name" value="KEC_ProductBuilder" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_AccountUpdateTriggerHelper" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -459,6 +463,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="KEC_CountCasesForOrder" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_updateAccount" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
