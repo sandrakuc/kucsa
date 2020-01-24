@@ -5,9 +5,9 @@
 public with sharing class KEC_AddProductController {
 
     @AuraEnabled
-    public static KEC_OperationResult addProduct(String productName, Double standardPrice, List<String> availableSizes, List<String> availableColors, String description, List<String> fileIds){
-        KEC_OperationResult operationResult = KEC_ProductBuilder.createProduct(productName, standardPrice, availableSizes, availableColors, description, fileIds);
-        return operationResult;
+    public static KEC_AddProductResult addProduct(String productName, Double standardPrice, List<String> availableSizes, List<String> availableColors, String description, List<String> fileIds){
+        KEC_AddProductResult addProductResult = KEC_ProductBuilder.createProduct(productName, standardPrice, availableSizes, availableColors, description, fileIds);
+        return addProductResult;
     }
 
     @AuraEnabled
