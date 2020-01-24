@@ -57,7 +57,7 @@ public with sharing class KEC_AccountUpdateTriggerHelper {
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         mail.setTemplateId(emailTemplate.Id);
         mail.setToAddresses(toAddress);
-        List<Contact> contacts = [SELECT Id, Email, LastName, FirstName FROM Contact WHERE AccountId = :coupon.Account__c];
+        List<Contact> contacts = KEC_Utils.getContactByAccount(coupon.Account__c);
         mail.setTargetObjectId(contacts[0].Id);
         mail.setWhatId(coupon.Id);
         mail.setSaveAsActivity(false);

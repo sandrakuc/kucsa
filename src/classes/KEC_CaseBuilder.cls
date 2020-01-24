@@ -4,12 +4,6 @@
 
 public with sharing class KEC_CaseBuilder {
 
-    private static Account getUserAccount(){
-        List<User> users = [SELECT Name FROM User WHERE Id = :UserInfo.getUserId()];
-        List<Account> accounts = [SELECT Id FROM Account WHERE Name =: users[0].Name];
-        return accounts[0];
-    }
-
     private static AssignmentRule getAssignmentRule(){
         List<AssignmentRule> assignmentRules = [SELECT Id FROM AssignmentRule WHERE SobjectType = 'Case' AND Active = true];
         return assignmentRules[0];
@@ -22,8 +16,8 @@ public with sharing class KEC_CaseBuilder {
     }
 
     public static KEC_OperationResult createCase(String orderId, String subject, String problemDescription){
-        Account account = getUserAccount();
-        Case userCase = new Case(Status = 'New', Origin = 'Web', AccountId = account.Id, Order__c = orderId, Subject = subject, Description = problemDescription);
+        List<Account> accounts = KEC_Utils.getAccounts(UserInfo.getUserId());
+        Case userCase = new Case(Status = 'New', Origin = 'Web', AccountId = accounts[0].Id, Order__c = orderId, Subject = subject, Description = problemDescription);
         userCase.setOptions(getAssignmentDmlOptions());
         Database.SaveResult result = Database.insert(userCase);
         String message = result.isSuccess() ? System.Label.KEC_OperationSuccess : result.getErrors()[0].getMessage();
