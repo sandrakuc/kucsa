@@ -59,4 +59,5 @@
         </div>
 
     <c:KEC_toastHandler aura:id="toastCmp" />
+    <c:KEC_redirectionHandler aura:id="redirectCmp" />
 </aura:component>

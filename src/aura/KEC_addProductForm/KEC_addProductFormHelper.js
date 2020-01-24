@@ -27,7 +27,7 @@
              selectedColors.push(colors);
          }
          else{
-                selectedColors.splice(colors, 1);
+             selectedColors.splice(colors, 1);
          }
          component.set("v.selectedColors", selectedColors);
      },
@@ -75,12 +75,14 @@
          action.setCallback(this, function(response){
             let state = response.getState();
             if (state === "SUCCESS"){
-                 let operationResult = response.getReturnValue(),
+                 let operationResult = response.getReturnValue().operationResult,
                     title = operationResult.isSuccess ? $A.get("$Label.c.KEC_Success") : $A.get("$Label.c.KEC_Error"),
                     type = operationResult.isSuccess ? "success" : "error",
-                     message = operationResult.message;
+                    message = operationResult.message;
+                 let productId = response.getReturnValue().productId;
+                 let url = $A.get("$Label.c.KEC_ProductUrl") + productId + '/view';
                  component.find("toastCmp").toast(title, type, message);
-                 component.set("v.openModal", false);
+                 component.find("redirectCmp").redirectToSite(url);
             }
             else if (state === "ERROR"){
                  let errors = response.getError();
