@@ -310,6 +310,10 @@
                             <option name="name" value="KEC_AccountUpdateTriggerHelper" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_LoyaltyProgramViewController" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
                         </list>
                       </option>
                       <option name="name" value="ApexClass" />
@@ -657,6 +661,10 @@
                           </MetadataEntry>
                           <MetadataEntry>
                             <option name="name" value="KEC_changeMainPhoto" />
+                            <option name="selected" value="true" />
+                          </MetadataEntry>
+                          <MetadataEntry>
+                            <option name="name" value="KEC_loyaltyProgramView" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>

@@ -1,0 +1,9 @@
+<!--
+ - Created by BRITENET on 24.01.2020.
+ -->
+
+<aura:component description="KEC_loyaltyProgramView" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable" controller="KEC_LoyaltyProgramViewController">
+    <aura:attribute name="account" type="Account" />
+    <aura:attribute name="coupon" type="KEC_Loyalty_Coupon__c" />
+    <aura:attribute name="nextValue" type="Integer" />
+</aura:component>
