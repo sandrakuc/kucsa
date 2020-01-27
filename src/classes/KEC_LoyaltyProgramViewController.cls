@@ -12,8 +12,7 @@ public with sharing class KEC_LoyaltyProgramViewController {
 
     @AuraEnabled
     public static Account getAccountLoyaltyProgramDetails(){
-        List<User> users = [SELECT Name, Email FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
-        List<Account> accounts = [SELECT Id, Name, LoyaltyPoints__c FROM Account WHERE Name = :users[0].Name AND Email__c = :users[0].Email LIMIT 1];
+        List<Account> accounts = [SELECT Id, Name, LoyaltyPoints__c FROM Account WHERE User__c = :UserInfo.getUserId()];
         return accounts[0];
     }
 }

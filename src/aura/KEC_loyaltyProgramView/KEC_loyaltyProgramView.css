@@ -1,0 +1,47 @@
+/**
+ * Created by BRITENET on 27.01.2020.
+ */
+.THIS .slds-progress-ring__path{
+    fill: deepskyblue;
+}
+
+.THIS .slds-progress-ring{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-left: 38%;
+    margin-right: 38%;
+}
+
+.THIS .slds-progress-ring__content{
+    width: 260;
+    height: 260;
+    border-radius: 50%;
+    margin: 18px;
+    width: 260px;
+    height: 260px;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.THIS .pointsvalue{
+    color: deepskyblue;
+}
+
+.THIS .couponinfo{
+    font-size: 20px;
+    border: solid 1px deepskyblue;
+    border-radius: 10px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.THIS .mylabel{
+    color: grey;
+}
+
+.THIS .description{
+    font-weight: bold;
+}

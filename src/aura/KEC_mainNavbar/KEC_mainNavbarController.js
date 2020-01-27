@@ -17,6 +17,9 @@
     toBasket: function(component, event, helper){
         helper.redirectToSite(component, "/basket");
     },
+    toLoyaltyProgram: function(component, event, helper){
+        helper.redirectToSite(component, "/loyaltyprogram");
+    },
     onInit: function(component, event, helper){
         helper.getCartItems(component);
     },
