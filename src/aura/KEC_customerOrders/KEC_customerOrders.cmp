@@ -34,5 +34,6 @@
         </lightning:layout>
 
         <c:KEC_toastHandler aura:id="toastCmp"/>
+        <c:KEC_redirectionHandler aura:id="redirectCmp" />
     </div>
 </aura:component>
