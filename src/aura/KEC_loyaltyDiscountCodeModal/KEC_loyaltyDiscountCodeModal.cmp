@@ -1,0 +1,28 @@
+<!--
+ - Created by BRITENET on 27.01.2020.
+ -->
+
+<aura:component description="KEC_loyaltyDiscountCodeModal">
+    <aura:attribute name="discountCode" type="String" />
+    <aura:attribute name="onOrder" type="Aura.Action" />
+    <aura:attribute name="openModal" type="Boolean" default="false" />
+
+    <aura:if isTrue="{!v.openModal}" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2>{!$Label.c.KEC_EnterDiscountCode}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="rules">{!$Label.c.KEC_DiscountCouponInstruction}</div>
+                    <lightning:input name="subject" class="codefield" label="{!$Label.c.KEC_DiscountCouponCodeLabel}" value="{!v.discountCode}" />
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="{!$Label.c.KEC_Save}" onclick="{!v.onOrder}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

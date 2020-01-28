@@ -1,6 +1,8 @@
 <aura:component description="KEC_cartView" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable" controller="KEC_CartController">
     <aura:attribute name="cartItems" type="List"/>
     <aura:attribute name="totalPrice" type="Double"/>
+    <aura:attribute name="discountCode" type="String" />
+    <aura:attribute name="openModal" type="Boolean" default="false" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 
@@ -88,7 +90,7 @@
                     </div>
                     <div class="slds-col" style="width: 300px;">
                         <span class="totalsummary">{!$Label.c.KEC_TotalPriceLabel + ' ' + v.totalPrice + $Label.c.KEC_PricePostfix}</span><br/><br/>
-                        <lightning:button label="{!$Label.c.KEC_Order}" class="cartbtn order" onclick="{!c.onOrder}"/>
+                        <lightning:button label="{!$Label.c.KEC_Order}" class="cartbtn order" onclick="{!c.openModal}"/>
                         <br/><br/>
                         <lightning:button label="{!$Label.c.KEC_Clear}" class="cartbtn clear" onclick="{!c.onClear}"/>
                     </div>
@@ -99,6 +101,7 @@
     <aura:if isTrue="{!v.cartItems.length == 0}">
         <span>{!$Label.c.KEC_EmptyCart}</span>
     </aura:if>
+    <c:KEC_loyaltyDiscountCodeModal discountCode="{!v.discountCode}" onOrder="{!c.onOrder}" openModal="{!v.openModal}"/>
     <c:KEC_toastHandler aura:id="toastCmp" />
     <c:KEC_redirectionHandler aura:id="redirectCmp" />
 </aura:component>

@@ -6,21 +6,15 @@
     <aura:attribute name="account" type="Account" />
     <aura:attribute name="coupon" type="KEC_Loyalty_Coupon__c" />
     <aura:attribute name="nextValue" type="Integer" />
+    <aura:attribute name="dValue" type="String" />
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 
     <div class="slds-grid slds-gutters">
         <div class="slds-col">
             <div class="slds-progress-ring slds-progress-ring_large">
-                <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0"
+                <div id="progressContainer" class="slds-progress-ring__progress" role="progressbar" aria-valuemin="0"
                      aria-valuemax="{!v.nextValue}" aria-valuenow="{!v.account.LoyaltyPoints__c}">
-                    <div aura:id="svg_content">
-                        <![CDATA[
-                        <svg viewBox="-1 -1 2 2">
-                            <path class="slds-progress-ring__path" id="slds-progress-ring-path-39" d="M 1 0 A 1 1 0 1 1 0.7289686274214112 -0.684547105928689 L 0 0"></path>
-                        </svg>
-                        ]]>
-                    </div>
                 </div>
                 <div class="slds-progress-ring__content">
                     <center>
@@ -34,6 +28,9 @@
                     </center>
                 </div>
             </div>
+            <center>
+            <div class="rules">{!$Label.c.KEC_LoyaltyProgramPointsRules}</div>
+            </center>
         </div>
     </div>
 

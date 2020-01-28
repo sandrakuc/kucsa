@@ -202,6 +202,9 @@
         },
         orderProducts: function(component){
             let action = component.get("c.order");
+            action.setParams({
+                code : component.get("v.discountCode")
+            })
             action.setCallback(this, function(response){
             let state = response.getState();
             if (state === "SUCCESS"){
@@ -214,6 +217,7 @@
                  this.sumTotalPrice(component, cartItems);
                  this.refreshCart(component);
                  component.find("toastCmp").toast(title, type, message);
+                 this.close(component);
             }
             else if (state === "ERROR"){
                  let errors = response.getError();
@@ -232,5 +236,11 @@
             }
             });
             $A.enqueueAction(action);
+        },
+        open: function(component){
+            component.set("v.openModal", true);
+        },
+        close: function(component){
+            component.set("v.openModal", false);
         }
 })

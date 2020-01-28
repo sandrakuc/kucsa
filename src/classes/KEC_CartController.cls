@@ -46,9 +46,9 @@ public with sharing class KEC_CartController {
     }
 
     @AuraEnabled
-    public static KEC_CartWrapper order(){
+    public static KEC_CartWrapper order(String code){
         List<KEC_PriceBookEntryWrapper> cartItems = KEC_CartService.getCartItems();
-        KEC_OperationResult operationResult = KEC_OrderBuilder.buildOrder(cartItems);
+        KEC_OperationResult operationResult = KEC_OrderBuilder.buildOrder(cartItems, code);
         cartItems = KEC_CartService.clearCart();
         KEC_CartWrapper cartWrapper = new KEC_CartWrapper(cartItems, operationResult);
         return cartWrapper;

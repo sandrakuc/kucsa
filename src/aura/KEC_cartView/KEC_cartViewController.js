@@ -22,5 +22,8 @@
     },
     onOrder: function(component, event, helper){
         helper.orderProducts(component);
+    },
+    openModal: function(component, event, helper){
+        helper.open(component);
     }
 })

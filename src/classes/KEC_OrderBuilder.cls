@@ -12,8 +12,8 @@ public with sharing class KEC_OrderBuilder {
         return totalSum * 4;
     }
 
-    private static KEC_OperationResult saveOrderItems(List<KEC_PriceBookEntryWrapper> cartItems, String orderId){
-        List<OrderItem> orderItems = KEC_ProductsListToOrderProductsConverter.convert(cartItems, orderId);
+    private static KEC_OperationResult saveOrderItems(List<KEC_PriceBookEntryWrapper> cartItems, String orderId, String code, String accountId){
+        List<OrderItem> orderItems = KEC_ProductsListToOrderProductsConverter.convert(cartItems, orderId, code, accountId);
         List<Database.SaveResult> results = Database.insert(orderItems);
         String message = KEC_Utils.getErrorMessage(results);
         KEC_OperationResult operationResult = new KEC_OperationResult(message.equals(System.Label.KEC_OperationSuccess), message);
@@ -45,13 +45,13 @@ public with sharing class KEC_OrderBuilder {
         Messaging.sendEmail(messages, false);
     }
 
-    public static KEC_OperationResult buildOrder(List<KEC_PriceBookEntryWrapper> cartItems){
+    public static KEC_OperationResult buildOrder(List<KEC_PriceBookEntryWrapper> cartItems, String code){
         User user = KEC_Utils.getCurrentUser();
         Account account = KEC_UserConverter.getAccountForUser(user);
         Contract contract = KEC_UserConverter.getContractForUser(user, account.Id);
         Order order = new Order(AccountId = account.Id, ContractId = contract.Id, Status = 'Draft', EffectiveDate = Date.today(), Pricebook2Id = cartItems[0].product.Pricebook2.Id);
         Database.SaveResult result = Database.insert(order);
-        KEC_OperationResult operationResult = result.isSuccess() ? saveOrderItems(cartItems, order.Id) : new KEC_OperationResult(false, result.getErrors()[0].getMessage());
+        KEC_OperationResult operationResult = result.isSuccess() ? saveOrderItems(cartItems, order.Id, code, account.Id) : new KEC_OperationResult(false, result.getErrors()[0].getMessage());
         if(operationResult.isSuccess){
             sendEmail(order);
             manageLoyaltyProgram(cartItems, account);

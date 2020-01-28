@@ -13,6 +13,10 @@
     margin-right: 38%;
 }
 
+.THIS .slds-progress-ring__progress{
+    transform: scaleX(1) rotate(-90deg);
+}
+
 .THIS .slds-progress-ring__content{
     width: 260;
     height: 260;
@@ -44,4 +48,11 @@
 
 .THIS .description{
     font-weight: bold;
+}
+
+.THIS .rules{
+    width: 50%;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
