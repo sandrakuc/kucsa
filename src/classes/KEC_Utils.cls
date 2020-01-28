@@ -37,4 +37,13 @@ public with sharing class KEC_Utils {
         }
         return System.Label.KEC_OperationSuccess;
     }
+
+    public static String getErrorMessage(List<Database.DeleteResult> results){
+        for(Database.DeleteResult result : results){
+            if(!result.isSuccess()){
+                return result.getErrors()[0].getMessage();
+            }
+        }
+        return System.Label.KEC_OperationSuccess;
+    }
 }

@@ -1,0 +1,80 @@
+<!--
+ - Created by BRITENET on 28.01.2020.
+ -->
+
+<aura:component description="KEC_discountPricebooksList">
+    <aura:attribute name="pricebooks" type="List" />
+    <aura:attribute name="index" type="Integer" />
+
+    <div>
+    <div class="header">
+        <h2>{!$Label.c.KEC_DiscountManager}</h2>
+        <button class="slds-button slds-button_neutral optionButton">{!$Label.c.KEC_NewDiscount}</button>
+    </div>
+    </div>
+    <br />
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+        <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountName}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountActive}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountType}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountValue}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountStartDate}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountEndDate}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountActions}</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.pricebooks}" var="pricebook" indexVar="index">
+        <tr class="slds-hint-parent" data-id="{!index}" onclick="{!c.getPricebookDetails}">
+            <td>
+                <div class="slds-truncate">{!pricebook.Name}</div>
+            </td>
+            <td>
+                <div class="slds-truncate">{!pricebook.IsActive}</div>
+            </td>
+            <td>
+                <div class="slds-truncate">{!pricebook.DiscountType__c}</div>
+            </td>
+            <td>
+                <div class="slds-truncate">{!pricebook.Value__c}</div>
+            </td>
+            <td>
+                <div class="slds-truncate">
+                    <lightning:formattedDateTime value="{!pricebook.StartDate__c}" timeZone="UTC" year="numeric" month="2-digit" day="numeric"/>
+                </div>
+            </td>
+            <td>
+                <div class="slds-truncate">
+                    <lightning:formattedDateTime value="{!pricebook.EndDate__c}" timeZone="UTC" year="numeric" month="2-digit" day="numeric"/>
+                </div>
+            </td>
+            <td>
+                <button class="slds-button slds-button_neutral optionButton" id="{!index}">
+                    <lightning:icon iconName="utility:close" class="slds-button__icon slds-button__icon_left"/>
+                </button>
+                <button class="slds-button slds-button_neutral optionButton" id="{!index}">
+                    <lightning:icon iconName="utility:edit" class="slds-button__icon slds-button__icon_left"/>
+                </button>
+            </td>
+        </tr>
+        </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

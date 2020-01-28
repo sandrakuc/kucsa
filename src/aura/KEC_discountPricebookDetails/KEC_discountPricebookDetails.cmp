@@ -1,0 +1,43 @@
+<!--
+ - Created by BRITENET on 28.01.2020.
+ -->
+
+<aura:component description="KEC_discountPricebookDetails">
+    <aura:attribute name="pricebook" type="Pricebook2" />
+    <aura:attribute name="productPriceWrappers" type="List" />
+
+    <aura:if isTrue="{!v.pricebook != null}">
+    <h2>{!v.pricebook.Name}</h2>
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+        <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountDetailsProductName}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountDetailsStandardPrice}</div>
+            </th>
+            <th class="" scope="col">
+                <div class="slds-truncate">{!$Label.c.KEC_DiscountDetailsDiscountPrice}</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.productPriceWrappers}" var="wrapper" indexVar="index">
+            <tr class="slds-hint-parent">
+                <td>
+                    <div class="slds-truncate">{!wrapper.productName}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{!wrapper.standardPrice}</div>
+                </td>
+                <td>
+                    <div class="slds-truncate">{!wrapper.discountPrice}</div>
+                </td>
+            </tr>
+        </aura:iteration>
+        </tbody>
+    </table>
+    </aura:if>
+</aura:component>
