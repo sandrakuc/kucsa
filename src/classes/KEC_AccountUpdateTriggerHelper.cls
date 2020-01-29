@@ -26,7 +26,7 @@ public with sharing class KEC_AccountUpdateTriggerHelper {
         ];
         if(loyaltyCoupons.size() > 1){
             CalloutException e = new CalloutException();
-            e.setMessage('Invalid number of valid coupons!');
+            e.setMessage('Invalid number of valid coupons.');
             throw e;
         }
         else if(loyaltyCoupons.isEmpty()){
@@ -51,7 +51,9 @@ public with sharing class KEC_AccountUpdateTriggerHelper {
     }
 
     private static void sendEmail(KEC_Loyalty_Coupon__c coupon){
-        EmailTemplate emailTemplate = [SELECT Id, Subject, HtmlValue FROM EmailTemplate WHERE DeveloperName ='Loyalty_Coupon_Create'];
+        KEC_Settings__c settings = KEC_Settings__c.getInstance('LoyaltyEmailTemplateDeveloperName');
+        String developerName = settings.Value__c;
+        EmailTemplate emailTemplate = [SELECT Id, Subject, HtmlValue FROM EmailTemplate WHERE DeveloperName = :developerName];
         List<string> toAddress = new List<string>();
         toAddress.add(UserInfo.getUserEmail());
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
