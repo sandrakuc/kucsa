@@ -478,7 +478,7 @@
                             <option name="selected" value="true" />
                           </MetadataEntry>
                           <MetadataEntry>
-                            <option name="name" value="KEC_updateAccount" />
+                            <option name="name" value="KEC_UpdateAccount" />
                             <option name="selected" value="true" />
                           </MetadataEntry>
                         </list>
