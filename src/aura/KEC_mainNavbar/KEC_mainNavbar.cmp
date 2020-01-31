@@ -64,7 +64,12 @@
                                                 <span class="mylabel">{!$Label.c.KEC_QuantityLabel + ' '}</span><span class="mydesc">{!item.quantity}</span>
                                             </td>
                                             <td class="totalprice">
-                                                <span>{!item.quantity * item.product.UnitPrice + $Label.c.KEC_PricePostfix}</span>
+                                                <aura:if isTrue="{!or(item.product.Product2.BestPrice__c == null, item.product.Product2.BestPrice__c == item.product.UnitPrice)}">
+                                                    <span>{!item.quantity * item.product.UnitPrice}{!$Label.c.KEC_PricePostfix}</span><br/>
+                                                </aura:if>
+                                                <aura:if isTrue="{!and(item.product.Product2.BestPrice__c != null, greaterthan(item.product.UnitPrice, item.product.Product2.BestPrice__c))}">
+                                                    <span>{!item.quantity * item.product.Product2.BestPrice__c}{!$Label.c.KEC_PricePostfix}</span><br/>
+                                                </aura:if>
                                             </td>
                                         </tr>
                                     </aura:iteration>

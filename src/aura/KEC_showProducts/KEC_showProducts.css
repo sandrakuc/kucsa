@@ -3,7 +3,7 @@
  */
 .THIS .description{
     width: 250px;
-    height: 50px;
+    height: 75px;
 }
 
 .THIS .product {
@@ -11,6 +11,12 @@
     width: 260px;
     padding: 5px;
     margin: 10px;
+}
+
+.THIS .oldPrice{
+    color: red;
+    font-weight: bold;
+    text-decoration: line-through;
 }
 
 .THIS .productName {

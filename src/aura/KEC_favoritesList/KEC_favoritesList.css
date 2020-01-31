@@ -24,6 +24,12 @@
     color: white;
 }
 
+.THIS .oldPrice{
+    color: red;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+
 .THIS .buttonsSection{
     margin-left: 180px;
 }

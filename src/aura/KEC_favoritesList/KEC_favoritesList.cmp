@@ -19,7 +19,13 @@
                     </div>
                     <div class="slds-col" style="width:380px">
                         <span class="productName">{!fav.Product__r.Name}</span><br />
-                        <span class="productPrice">{!fav.Price__c + $Label.c.KEC_PricePostfix}</span><br />
+                        <aura:if isTrue="{!or(fav.Product__r.BestPrice__c == null, fav.Product__r.BestPrice__c == fav.Price__c)}" >
+                            <span class="productPrice">{!fav.Price__c + $Label.c.KEC_PricePostfix}</span><br />
+                        </aura:if>
+                        <aura:if isTrue="{!and(fav.Product__r.BestPrice__c != null, greaterthan(fav.Price__c, fav.Product__r.BestPrice__c))}" >
+                            <span class="oldPrice">{!fav.Price__c + $Label.c.KEC_PricePostfix}</span><br />
+                            <span class="productPrice">{!fav.Product__r.BestPrice__c + $Label.c.KEC_PricePostfix}</span><br />
+                        </aura:if>
                         <span class="mylabel">{!$Label.c.KEC_SizeLabel + ' '}</span><span class="myDesc">{!fav.Size__c}</span><br />
                         <span class="mylabel">{!$Label.c.KEC_ColorLabel + ' '}</span><span class="myDesc">{!fav.Color__c}</span><br />
                         <div class="buttonsSection">

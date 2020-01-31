@@ -43,7 +43,12 @@
     setTotalPrice: function(component, cartItems){
         let sum = 0;
         for(let i = 0; i < cartItems.length; i++){
-            sum += cartItems[i].quantity * cartItems[i].product.UnitPrice;
+            if(cartItems[i].product.Product2.BestPrice__c == null || cartItems[i].product.Product2.BestPrice__c == cartItems[i].product.UnitPrice){
+                sum += cartItems[i].product.UnitPrice * cartItems[i].quantity;
+            }
+            else{
+                sum += cartItems[i].product.Product2.BestPrice__c * cartItems[i].quantity;
+            }
         }
         component.set("v.totalPrice", sum);
     },

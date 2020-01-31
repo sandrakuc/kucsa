@@ -59,7 +59,12 @@
                             </div>
                         </div>
                         <div class="slds-col">
+                            <aura:if isTrue="{!or(item.product.Product2.BestPrice__c == null, item.product.Product2.BestPrice__c == item.product.UnitPrice)}" >
                             <span class="productPrice">{!item.product.UnitPrice + $Label.c.KEC_PricePostfix}</span><br />
+                            </aura:if>
+                            <aura:if isTrue="{!and(item.product.Product2.BestPrice__c != null, greaterthan(item.product.UnitPrice, item.product.Product2.BestPrice__c))}" >
+                                <span class="productPrice">{!item.product.Product2.BestPrice__c + $Label.c.KEC_PricePostfix}</span><br />
+                            </aura:if>
                         </div>
                         <div class="slds-col">
                             <div class="slds-form-element">
@@ -76,7 +81,12 @@
                             </div>
                         </div>
                         <div class="slds-col">
-                            <span class="productPrice">{!item.quantity * item.product.UnitPrice}{!$Label.c.KEC_PricePostfix}</span><br />
+                            <aura:if isTrue="{!or(item.product.Product2.BestPrice__c == null, item.product.Product2.BestPrice__c == item.product.UnitPrice)}" >
+                                <span class="productPrice">{!item.quantity * item.product.UnitPrice}{!$Label.c.KEC_PricePostfix}</span><br />
+                            </aura:if>
+                            <aura:if isTrue="{!and(item.product.Product2.BestPrice__c != null, greaterthan(item.product.UnitPrice, item.product.Product2.BestPrice__c))}" >
+                                <span class="productPrice">{!item.quantity * item.product.Product2.BestPrice__c}{!$Label.c.KEC_PricePostfix}</span><br />
+                            </aura:if>
                         </div>
                     </div>
                 </div>

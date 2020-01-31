@@ -34,10 +34,19 @@
                 <span class="productName">
                         {!v.product.Name}
                 </span><br/>
-                <span class="productPrice">
-                        {!v.product.UnitPrice + $Label.c.KEC_PricePostfix}
-                </span><br/>
-
+                <aura:if isTrue="{!or(v.product.Product2.BestPrice__c == null, v.product.Product2.BestPrice__c == v.product.UnitPrice)}" >
+                                    <span class="productPrice">
+                                            {!v.product.UnitPrice + $Label.c.KEC_PricePostfix}
+                                    </span><br/>
+                </aura:if>
+                <aura:if isTrue="{!and(v.product.Product2.BestPrice__c != null, greaterthan(v.product.UnitPrice, v.product.Product2.BestPrice__c))}" >
+                                        <span class="oldPrice">
+                                                {!v.product.UnitPrice + $Label.c.KEC_PricePostfix}
+                                        </span><br />
+                    <span class="productPrice">
+                            {!v.product.Product2.BestPrice__c + $Label.c.KEC_PricePostfix}
+                    </span><br/>
+                </aura:if>
                 <div class="slds-grid slds-gutters productvariantform">
                     <div class="slds-col">
                         <span class="mylabel">{!$Label.c.KEC_SizeLabel}</span>

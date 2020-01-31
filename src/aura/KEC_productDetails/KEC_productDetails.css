@@ -19,6 +19,13 @@
     color: midnightblue;
 }
 
+.THIS .oldPrice{
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+
 .THIS .mylabel{
     font-size: 20px;
     font-weight: bold;

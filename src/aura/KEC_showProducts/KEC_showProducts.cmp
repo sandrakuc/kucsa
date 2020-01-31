@@ -20,9 +20,19 @@
                                     <span class="productName">
                                             {!result.Name}
                                     </span><br/>
+                                    <aura:if isTrue="{!or(result.Product2.BestPrice__c == null, result.Product2.BestPrice__c == result.UnitPrice)}" >
                                     <span class="productPrice">
                                             {!result.UnitPrice + $Label.c.KEC_PricePostfix}
                                     </span><br/>
+                                    </aura:if>
+                                    <aura:if isTrue="{!and(result.Product2.BestPrice__c != null, greaterthan(result.UnitPrice, result.Product2.BestPrice__c))}" >
+                                        <span class="oldPrice">
+                                                {!result.UnitPrice + $Label.c.KEC_PricePostfix}
+                                        </span><br />
+                                        <span class="productPrice">
+                                                {!result.Product2.BestPrice__c + $Label.c.KEC_PricePostfix}
+                                        </span><br/>
+                                    </aura:if>
                                 </center>
                             </div>
                         </div>
