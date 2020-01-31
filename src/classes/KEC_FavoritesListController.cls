@@ -20,7 +20,7 @@ public with sharing class KEC_FavoritesListController {
 
     @AuraEnabled
     public static KEC_OperationResult addProductToCart(String id, String color, String size){
-        List<PricebookEntry> products = [SELECT PriceBook2.Name, Product2.Id, Product2.ImgPath__c, Product2.Name, UnitPrice, Name, Product2.BestPrice__c FROM PricebookEntry WHERE Id = :id];
+        List<PricebookEntry> products = [SELECT Id, PriceBook2.Name, Product2.Id, Product2.ImgPath__c, Product2.Name, UnitPrice, Name, Product2.BestPrice__c FROM PricebookEntry WHERE Id = :id];
         KEC_CartService.addToCart(products[0], color, size);
         KEC_OperationResult operationResult = new KEC_OperationResult(true, System.Label.KEC_OperationSuccess);
         return operationResult;

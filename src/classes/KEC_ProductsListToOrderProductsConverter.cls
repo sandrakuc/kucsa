@@ -25,7 +25,17 @@ public with sharing class KEC_ProductsListToOrderProductsConverter {
         setLoyaltyCouponAsIsUsed(loyaltyCoupon);
         List<OrderItem> orderItems = new List<OrderItem>();
         for(KEC_PriceBookEntryWrapper item : cartItems){
-            OrderItem orderItem = new OrderItem(OrderId = orderId, Product2Id = item.product.Product2.Id, UnitPrice = loyaltyCoupon == null ? item.product.UnitPrice : countDiscount(loyaltyCoupon, (Double) item.product.UnitPrice), Quantity = item.quantity, Size__c = item.size, Color__c = item.color, PricebookEntryId = item.product.Id);
+            Double price;
+            if(loyaltyCoupon != null){
+                price = countDiscount(loyaltyCoupon, (Double) item.product.UnitPrice);
+            }
+            else if(item.product.Product2.BestPrice__c != null && item.product.Product2.BestPrice__c < item.product.UnitPrice){
+                price = item.product.Product2.BestPrice__c;
+            }
+            else{
+                price = item.product.UnitPrice;
+            }
+            OrderItem orderItem = new OrderItem(OrderId = orderId, Product2Id = item.product.Product2Id, UnitPrice = price, Quantity = item.quantity, Size__c = item.size, Color__c = item.color, PricebookEntryId = item.product.Id);
             orderItems.add(orderItem);
         }
         return orderItems;
