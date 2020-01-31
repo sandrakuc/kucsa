@@ -23,13 +23,15 @@ public with sharing class KEC_PricebookBuilder {
             newPricebookEntries.add(pricebookEntry);
         }
         List<Database.SaveResult> results = Database.insert(newPricebookEntries);
+        KEC_BestPriceSearcherHelper.updateProducts(newPricebookEntries);
         String message = KEC_Utils.getErrorMessage(results);
         return new KEC_OperationResult(message.equals(System.Label.KEC_OperationSuccess), message);
     }
 
     private static KEC_OperationResult clearOldPriceBookEntries(String pricebookId){
-        List<PricebookEntry> oldPricebookEntries = [SELECT Id FROM PricebookEntry WHERE Pricebook2.Id = :pricebookId];
+        List<PricebookEntry> oldPricebookEntries = [SELECT Id, Product2Id FROM PricebookEntry WHERE Pricebook2.Id = :pricebookId];
         List<Database.DeleteResult> results = Database.delete(oldPricebookEntries);
+        KEC_BestPriceSearcherHelper.updateProducts(oldPricebookEntries);
         String message = KEC_Utils.getErrorMessage(results);
         return new KEC_OperationResult(message.equals(System.Label.KEC_OperationSuccess), message);
     }
