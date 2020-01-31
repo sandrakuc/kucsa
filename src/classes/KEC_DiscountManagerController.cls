@@ -27,4 +27,10 @@ public with sharing class KEC_DiscountManagerController {
         KEC_OperationResult operationResult = KEC_PricebookBuilder.deletePriceBook(pricebookId);
         return operationResult;
     }
+
+    @AuraEnabled
+    public static List<KEC_ProductPricesWrapper> getProductsToDiscount(String productName, String discountType, Double discountValue){
+        List<KEC_ProductPricesWrapper> productPricesWrappers = KEC_PricebookBuilder.getSearchProductsResults(productName, discountType, discountValue);
+        return productPricesWrappers;
+    }
 }

@@ -1,5 +1,12 @@
 /**
  * Created by BRITENET on 28.01.2020.
  */
-.THIS {
+.THIS .header{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+}
+
+.THIS .buttonssection{
+    margin-left: 1250px;
 }

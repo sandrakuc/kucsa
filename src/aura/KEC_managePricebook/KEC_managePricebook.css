@@ -1,0 +1,41 @@
+/**
+ * Created by BRITENET on 29.01.2020.
+ */
+.THIS .slds-modal__container{
+    width: 1000px;
+    max-width: 1000px !important;
+}
+
+.THIS svg{
+    width: 15px;
+    height: 15px;
+}
+
+.THIS .slds-form-element__label{
+    font-size: 16px;
+}
+
+.THIS .slds-input{
+    width: 500px;
+}
+
+.THIS .slds-form--inline{
+    margin-bottom: 30px;
+}
+
+.THIS .special{
+    width: 300px !important;
+    margin-bottom: 0 !important
+}
+
+.THIS .forminput{
+    margin-bottom: 30px;
+}
+
+.THIS .formfragment{
+    margin-bottom: 30px;
+}
+
+.THIS .slds-input-has-icon_right{
+    width: 500px;
+}

@@ -5,11 +5,38 @@
 <aura:component description="KEC_discountPricebookDetails">
     <aura:attribute name="pricebook" type="Pricebook2" />
     <aura:attribute name="productPriceWrappers" type="List" />
+    <aura:attribute name="isNew" type="Boolean" default="true"/>
+    <aura:attribute name="openModal" type="Boolean" default="false"/>
+    <aura:attribute name="pricebookName" type="String"/>
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="selectedType" type="String"/>
+    <aura:attribute name="typeOptions" type="List"/>
+    <aura:attribute name="discountValue" type="Double"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+    <aura:attribute name="searchResults" type="List"/>
+    <aura:attribute name="selectedItems" type="List"/>
+    <aura:attribute name="specialDiscounts" type="List"/>
+    <aura:attribute name="onSearch" type="Aura.Action"/>
+    <aura:attribute name="onSave" type="Aura.Action"/>
+    <aura:attribute name="onDelete" type="Aura.Action"/>
 
     <aura:if isTrue="{!v.pricebook != null}">
-    <h2>{!v.pricebook.Name}</h2>
+        <div>
+        <div class="header">
+        <h2>{!v.pricebook.Name}</h2>
 
-    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <div class="buttonssection">
+        <button class="slds-button slds-button_neutral optionButton withicon" onclick="{!v.onDelete}">
+            <lightning:icon iconName="utility:close" class="slds-button__icon slds-button__icon_left"/>
+        </button>
+        <button class="slds-button slds-button_neutral optionButton withicon" onclick="{!c.onEdit}">
+            <lightning:icon iconName="utility:edit" class="slds-button__icon slds-button__icon_left"/>
+        </button>
+            </div>
+        </div>
+        </div>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
         <thead>
         <tr class="slds-line-height_reset">
             <th class="" scope="col">

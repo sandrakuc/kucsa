@@ -7,5 +7,14 @@
     },
     onIndexChange: function(component, event, helper){
         helper.getPricebookDetails(component);
+    },
+    searchProductsToDiscount: function(component, event, helper){
+        helper.searchProducts(component);
+    },
+    onSave: function(component, event, helper){
+        helper.saveDiscountPricebook(component);
+    },
+    onDelete: function(component, event, helper){
+        helper.deletePriceBook(component);
     }
 })

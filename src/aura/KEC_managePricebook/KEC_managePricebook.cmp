@@ -1,0 +1,113 @@
+<!--
+ - Created by BRITENET on 28.01.2020.
+ -->
+
+<aura:component description="KEC_managePricebook">
+    <aura:attribute name="isNew" type="Boolean" default="true"/>
+    <aura:attribute name="openModal" type="Boolean" default="false"/>
+    <aura:attribute name="pricebookName" type="String"/>
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="selectedType" type="String"/>
+    <aura:attribute name="typeOptions" type="List"/>
+    <aura:attribute name="discountValue" type="Double"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+    <aura:attribute name="searchResults" type="List"/>
+    <aura:attribute name="selectedItems" type="List"/>
+    <aura:attribute name="specialDiscounts" type="List"/>
+    <aura:attribute name="pricebook" type="Pricebook2" />
+    <aura:attribute name="onSearch" type="Aura.Action"/>
+    <aura:attribute name="onSave" type="Aura.Action"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:handler name="change" value="{!v.discountValue}" action="{!c.onDiscountValueChange}"/>
+
+    <aura:if isTrue="{!v.openModal}">
+        <div>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2>{!v.isNew ? $Label.c.KEC_NewDiscountPricebook : $Label.c.KEC_EditDiscountPricebook}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:input name="pricebookName" label="{!$Label.c.KEC_DiscountPricebookName}"
+                                     value="{!v.pricebookName}" class="forminput"/>
+                    <span class="mylabel">{!$Label.c.KEC_DiscountType}</span>
+                    <div class="formfragment">
+                        <aura:iteration items="{!v.typeOptions}" var="type">
+                            <lightning:input name="type" type="radio" aura:id="boxPackType" value="{!type.label}"
+                                             label="{!type.label}" class="checkboxline" onchange="{!c.getType}"
+                                             checked="{!type.label == v.selectedType}"
+                            />
+                        </aura:iteration>
+                    </div>
+                    <lightning:input name="value" label="{!$Label.c.KEC_DiscountValue}" value="{!v.discountValue}" class="forminput"/>
+                    <lightning:input type="date" name="startDate" label="{!$Label.c.KEC_DiscountStartDate}"
+                                     value="{!v.startDate}" class="forminput"/>
+                    <lightning:input type="date" name="endDate" label="{!$Label.c.KEC_DiscountEndDate}"
+                                     value="{!v.endDate}" class="forminput"/>
+                    <div class="slds-form--compound"><h2>{!$Label.c.KEC_SearchProductHeader}</h2></div><br /> <br /><br />
+                    <div class="slds-form--inline">
+                    <lightning:input name="value" value="{!v.productName}" class="search"/>
+                    <lightning:button label="{!$Label.c.KEC_Search}" onclick="{!v.onSearch}"/>
+                    </div>
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate">{!$Label.c.KEC_Select}</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">{!$Label.c.KEC_DiscountDetailsProductName}</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">{!$Label.c.KEC_DiscountDetailsStandardPrice}</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">{!$Label.c.KEC_DiscountDetailsDiscountPrice}</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">{!$Label.c.KEC_SpecialDiscount}</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <aura:iteration items="{!v.searchResults}" var="product" indexVar="index">
+                            <tr class="slds-hint-parent">
+                                <td>
+                                    <lightning:input name="product" type="checkbox"
+                                                     value="{!index}"
+                                                     class="checkboxline"
+                                                     checked="{!product.isInItems}"
+                                                     onchange="{!c.onHandleProducts}"
+                                    />
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">{!product.productName}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">{!product.standardPrice}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">{!product.discountPrice}</div>
+                                </td>
+                                <td>
+                                    <input id="{!product.productId}" name="special" value="{!product.specialDiscount}" onchange="{!c.onSpecialDiscount}" class="slds-input special"/>
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="{!$Label.c.KEC_Cancel}" onclick="{!c.onClose}"/>
+                    <lightning:button label="{!$Label.c.KEC_Save}" onclick="{!v.onSave}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+
+</aura:component>

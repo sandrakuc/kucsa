@@ -4,16 +4,33 @@
 
 <aura:component description="KEC_discountPricebooksList">
     <aura:attribute name="pricebooks" type="List" />
+    <aura:attribute name="pricebook" type="Pricebook2" />
     <aura:attribute name="index" type="Integer" />
+    <aura:attribute name="isNew" type="Boolean" default="true"/>
+    <aura:attribute name="openModal" type="Boolean" default="false"/>
+    <aura:attribute name="pricebookName" type="String"/>
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="selectedType" type="String"/>
+    <aura:attribute name="typeOptions" type="List"/>
+    <aura:attribute name="discountValue" type="Double"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+    <aura:attribute name="searchResults" type="List"/>
+    <aura:attribute name="selectedItems" type="List"/>
+    <aura:attribute name="specialDiscounts" type="List"/>
+    <aura:attribute name="onSearch" type="Aura.Action"/>
+    <aura:attribute name="onSave" type="Aura.Action"/>
+    <aura:attribute name="productPriceWrappers" type="List" />
 
     <div>
     <div class="header">
         <h2>{!$Label.c.KEC_DiscountManager}</h2>
-        <button class="slds-button slds-button_neutral optionButton">{!$Label.c.KEC_NewDiscount}</button>
+        <button class="slds-button slds-button_neutral optionButton withouticon" onclick="{!c.onNew}">{!$Label.c.KEC_NewDiscount}</button>
     </div>
     </div>
     <br />
 
+    <div>
     <table class="slds-table slds-table_cell-buffer slds-table_bordered">
         <thead>
         <tr class="slds-line-height_reset">
@@ -42,7 +59,7 @@
         </thead>
         <tbody>
         <aura:iteration items="{!v.pricebooks}" var="pricebook" indexVar="index">
-        <tr class="slds-hint-parent" data-id="{!index}" onclick="{!c.getPricebookDetails}">
+        <tr class="slds-hint-parent" data-id="{!index}" >
             <td>
                 <div class="slds-truncate">{!pricebook.Name}</div>
             </td>
@@ -66,15 +83,14 @@
                 </div>
             </td>
             <td>
-                <button class="slds-button slds-button_neutral optionButton" id="{!index}">
-                    <lightning:icon iconName="utility:close" class="slds-button__icon slds-button__icon_left"/>
-                </button>
-                <button class="slds-button slds-button_neutral optionButton" id="{!index}">
-                    <lightning:icon iconName="utility:edit" class="slds-button__icon slds-button__icon_left"/>
+                <button class="slds-button slds-button_neutral optionButton withicon" id="{!index}" onclick="{!c.getPricebookDetails}">
+                    <lightning:icon iconName="utility:preview" class="slds-button__icon slds-button__icon_left"/>
                 </button>
             </td>
         </tr>
         </aura:iteration>
         </tbody>
     </table>
+    </div>
+    <c:KEC_managePricebook isNew="{!v.isNew}" openModal="{!v.openModal}" pricebook="{!v.pricebook}" onSearch="{!v.onSearch}" searchResults="{!v.searchResults}" productName="{!v.productName}" selectedType="{!v.selectedType}" discountValue="{!v.discountValue}" pricebookName="{!v.pricebookName}" startDate="{!v.startDate}" endDate="{!v.endDate}" selectedItems="{!v.selectedItems}" onSave="{!v.onSave}"/>
 </aura:component>

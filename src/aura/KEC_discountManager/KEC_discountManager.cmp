@@ -7,24 +7,34 @@
     <aura:attribute name="index" type="Integer" />
     <aura:attribute name="pricebook" type="Pricebook2" />
     <aura:attribute name="productPriceWrappers" type="List" />
+    <aura:attribute name="productName" type="String"/>
+    <aura:attribute name="searchResults" type="List"/>
+    <aura:attribute name="selectedType" type="String"/>
+    <aura:attribute name="discountValue" type="Double"/>
+    <aura:attribute name="pricebookName" type="String"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="endDate" type="Date"/>
+    <aura:attribute name="selectedItems" type="List"/>
+    <aura:attribute name="openModal" type="Boolean" default="false"/>
+    <aura:attribute name="isNew" type="Boolean" default="true"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:handler name="change" value="{!v.index}" action="{!c.onIndexChange}"/>
 
     <div class="slds-card">
-        <lightning:layout horizontalAlign="space" multipleRows="true">
+        <lightning:layout  multipleRows="true">
             <lightning:layoutItem size="12"
-                                  mediumDeviceSize="8"
+                                  mediumDeviceSize="12"
                                   padding="around-small">
                 <div class="slds-box slds-theme_default">
-                    <c:KEC_discountPricebooksList pricebooks="{!v.pricebooks}" index="{!v.index}" />
+                    <c:KEC_discountPricebooksList isNew="{!v.isNew}" openModal="{!v.openModal}" pricebooks="{!v.pricebooks}" index="{!v.index}" pricebook="{!v.pricebook}" productName="{!v.productName}" searchResults="{!v.searchResults}" onSearch="{!c.searchProductsToDiscount}" selectedType="{!v.selectedType}" discountValue="{!v.discountValue}" pricebookName="{!v.pricebookName}" startDate="{!v.startDate}" endDate="{!v.endDate}" selectedItems="{!v.selectedItems}" onSave="{!c.onSave}" productPriceWrappers="{!v.productPriceWrappers}"/>
                 </div>
             </lightning:layoutItem>
             <lightning:layoutItem size="12"
-                                  mediumDeviceSize="4"
+                                  mediumDeviceSize="12"
                                   padding="around-small">
                 <div class="slds-box slds-theme_default">
-                    <c:KEC_discountPricebookDetails pricebook="{!v.pricebook}" productPriceWrappers="{!v.productPriceWrappers}"/>
+                    <c:KEC_discountPricebookDetails pricebook="{!v.pricebook}" productPriceWrappers="{!v.productPriceWrappers}" isNew="{!v.isNew}" openModal="{!v.openModal}" productName="{!v.productName}" searchResults="{!v.searchResults}" onSearch="{!c.searchProductsToDiscount}" selectedType="{!v.selectedType}" discountValue="{!v.discountValue}" pricebookName="{!v.pricebookName}" startDate="{!v.startDate}" endDate="{!v.endDate}" selectedItems="{!v.selectedItems}" onSave="{!c.onSave}" onDelete="{!c.onDelete}"/>
                 </div>
             </lightning:layoutItem>
         </lightning:layout>
