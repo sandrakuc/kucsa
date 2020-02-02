@@ -14,7 +14,7 @@ public with sharing class KEC_BestPriceSearcherHelper {
 
     private static List<AggregateResult> getMinPrices(List<PricebookEntry> entries){
         List<String> productIds = getProductIds(entries);
-        List<AggregateResult> minimumPrices = [SELECT Product2Id, MIN(UnitPrice) minPrice FROM PricebookEntry WHERE Product2Id IN :productIds AND Pricebook2.StartDate__c < :Date.today() AND Pricebook2.EndDate__c > :Date.today() GROUP BY Product2Id];
+        List<AggregateResult> minimumPrices = [SELECT Product2Id, MIN(UnitPrice) minPrice FROM PricebookEntry WHERE Product2Id IN :productIds AND ((Pricebook2.StartDate__c < :Date.today() AND Pricebook2.EndDate__c > :Date.today()) OR (Pricebook2.StartDate__c = null AND Pricebook2.EndDate__c = null)) GROUP BY Product2Id];
         return minimumPrices;
     }
 

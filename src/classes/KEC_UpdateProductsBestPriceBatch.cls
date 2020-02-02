@@ -5,7 +5,7 @@
 global class KEC_UpdateProductsBestPriceBatch implements Database.Batchable<sObject>, Database.AllowsCallouts{
 
     global Database.QueryLocator start(Database.BatchableContext batchableContext){
-        String query = 'SELECT Id, Product2Id FROM PricebookEntry WHERE PriceBook2.IsStandard = FALSE AND PriceBook2.StartDate__c != null AND PriceBook2.EndDate__c != null';
+        String query = 'SELECT Id, Product2Id FROM PricebookEntry';
         return Database.getQueryLocator(query);
     }
 
