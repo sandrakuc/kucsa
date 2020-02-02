@@ -17,7 +17,10 @@
     handleType: function(component, event){
         let selectedType = event.getSource().get("v.value");
         component.set("v.selectedType", selectedType);
-        this.updateSpecialDiscountsAfterChangingTypeOrValue(component, selectedType);
+        let searchResults = component.get("v.searchResults");
+        if(searchResults != null && searchResults.length != 0){
+            this.updateSpecialDiscountsAfterChangingTypeOrValue(component, selectedType);
+        }
     },
     setPercentDiscountForAllProducts: function(component){
         let discountValue = component.get("v.discountValue");
@@ -47,13 +50,16 @@
     },
     discountValueChangeHandler: function(component){
         let discountType = component.get("v.selectedType") == null ? component.get("v.typeOptions")[0].label : component.get("v.selectedType");
-        if(discountType === component.get("v.typeOptions")[0].label){
-            this.setPercentDiscountForAllProducts(component);
+        let searchResults = component.get("v.searchResults");
+        if(searchResults != null && searchResults.length != 0){
+            if(discountType === component.get("v.typeOptions")[0].label){
+                this.setPercentDiscountForAllProducts(component);
+            }
+            else{
+                this.setAmountDiscountForAllProducts(component);
+            }
+            this.updateSpecialDiscountsAfterChangingTypeOrValue(component, discountType);
         }
-        else{
-            this.setAmountDiscountForAllProducts(component);
-        }
-        this.updateSpecialDiscountsAfterChangingTypeOrValue(component, discountType);
     },
     setSpecialPercentDiscountForProduct: function(component, event){
         let index = event.currentTarget.id;
@@ -142,12 +148,19 @@
         let searchResults = component.get("v.searchResults"),
             selectedItems = component.get("v.selectedItems"),
             index = event.getSource().get("v.value");
+        console.log(index);
+        console.log(JSON.stringify(searchResults[index]));
         if(event.getSource().get("v.checked")){
             selectedItems.push(searchResults[index]);
         }
         else{
-            selectedItems.splice(searchResults[index], 1);
+            for(let i = 0; i<selectedItems.length; i++){
+                if(selectedItems[i].productId === searchResults[index].productId){
+                    selectedItems.splice(i, 1);
+                }
+            }
         }
+        console.log(JSON.stringify(selectedItems));
         component.set("v.selectedItems", selectedItems);
     }
 })
