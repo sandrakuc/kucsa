@@ -23,7 +23,8 @@ public with sharing class KEC_PricebookBuilder {
             newPricebookEntries.add(pricebookEntry);
         }
         List<Database.SaveResult> results = Database.insert(newPricebookEntries);
-        KEC_BestPriceSearcherHelper.updateProducts(newPricebookEntries);
+        KEC_UpdateProductsBestPriceBatch batch = new KEC_UpdateProductsBestPriceBatch();
+        Database.executeBatch(batch, 200);
         String message = KEC_Utils.getErrorMessage(results);
         return new KEC_OperationResult(message.equals(System.Label.KEC_OperationSuccess), message);
     }
@@ -31,7 +32,8 @@ public with sharing class KEC_PricebookBuilder {
     private static KEC_OperationResult clearOldPriceBookEntries(String pricebookId){
         List<PricebookEntry> oldPricebookEntries = [SELECT Id, Product2Id FROM PricebookEntry WHERE Pricebook2.Id = :pricebookId];
         List<Database.DeleteResult> results = Database.delete(oldPricebookEntries);
-        KEC_BestPriceSearcherHelper.updateProducts(oldPricebookEntries);
+        KEC_UpdateProductsBestPriceBatch batch = new KEC_UpdateProductsBestPriceBatch();
+        Database.executeBatch(batch, 200);
         String message = KEC_Utils.getErrorMessage(results);
         return new KEC_OperationResult(message.equals(System.Label.KEC_OperationSuccess), message);
     }

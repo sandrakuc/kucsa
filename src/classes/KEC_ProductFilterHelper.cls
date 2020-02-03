@@ -37,7 +37,6 @@ public with sharing class KEC_ProductFilterHelper {
                 }
             }
         }
-        System.debug(query);
         return query;
     }
 

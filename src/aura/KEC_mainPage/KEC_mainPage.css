@@ -1,0 +1,19 @@
+/**
+ * Created by BRITENET on 02.02.2020.
+ */
+.THIS .theme {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: white;
+}
+
+.THIS .we{
+    font-size: 30px;
+}
+
+.THIS .slogan{
+    font-size: 24px;
+}

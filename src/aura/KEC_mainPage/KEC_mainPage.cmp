@@ -1,0 +1,20 @@
+<!--
+ - Created by BRITENET on 02.02.2020.
+ -->
+
+<aura:component description="KEC_mainPage" implements="flexipage:availableForAllPageTypes, forceCommunity:availableForAllPageTypes, force:appHostable">
+
+    <aura:attribute name="backgroundImageURL" type="String" default=""/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <div class="main">
+
+        <img src="{!$Label.c.KEC_BackgroundPhoto}"/>
+        <div class="theme">
+            <div class="we">{!$Label.c.KEC_AppName}</div>
+            <div class="slogan">{!$Label.c.KEC_Slogan}</div>
+        </div>
+
+    </div>
+</aura:component>

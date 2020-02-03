@@ -148,8 +148,6 @@
         let searchResults = component.get("v.searchResults"),
             selectedItems = component.get("v.selectedItems"),
             index = event.getSource().get("v.value");
-        console.log(index);
-        console.log(JSON.stringify(searchResults[index]));
         if(event.getSource().get("v.checked")){
             selectedItems.push(searchResults[index]);
         }
@@ -160,7 +158,6 @@
                 }
             }
         }
-        console.log(JSON.stringify(selectedItems));
         component.set("v.selectedItems", selectedItems);
     }
 })
